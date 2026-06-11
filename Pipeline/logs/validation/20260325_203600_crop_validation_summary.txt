@@ -1,0 +1,64 @@
+CROP VALIDATION SUMMARY
+============================================================
+Date: 2026-03-25 20:47:25
+Video: C:\Users\alibs\Desktop\Projects\Corsi\Bitirme\Recordings\2026-03-18 21-28-28.mp4
+Total frames: 10151
+Both detected: 7866
+MP-only: 2256 | Haar-only: 9 | Neither: 20
+Runtime: 683.9s
+
+------------------------------------------------------------
+Padding: 10% (n=7866)
+  Arousal  — r=0.9410, MAD=0.0959
+  Valence  — r=0.9654, MAD=0.0438
+  Dominant — agree=90.1%
+  Crop ratio — mean=1.20
+    [PASS] Arousal r > 0.85
+    [PASS] Arousal MAD < 0.1
+    [PASS] Valence r > 0.8
+    [PASS] Valence MAD < 0.15
+    [PASS] Dominant agree > 60%
+  >>> VERDICT: PASS
+
+------------------------------------------------------------
+Padding: 15% (n=7866)
+  Arousal  — r=0.9565, MAD=0.0903
+  Valence  — r=0.9575, MAD=0.0448
+  Dominant — agree=92.6%
+  Crop ratio — mean=1.38
+    [PASS] Arousal r > 0.85
+    [PASS] Arousal MAD < 0.1
+    [PASS] Valence r > 0.8
+    [PASS] Valence MAD < 0.15
+    [PASS] Dominant agree > 60%
+  >>> VERDICT: PASS
+
+------------------------------------------------------------
+Padding: 20% (n=7866)
+  Arousal  — r=0.9362, MAD=0.1186
+  Valence  — r=0.9409, MAD=0.0559
+  Dominant — agree=92.5%
+  Crop ratio — mean=1.58
+    [PASS] Arousal r > 0.85
+    [FAIL] Arousal MAD < 0.1
+    [PASS] Valence r > 0.8
+    [PASS] Valence MAD < 0.15
+    [PASS] Dominant agree > 60%
+  >>> VERDICT: FAIL
+
+------------------------------------------------------------
+Padding: 25% (n=7866)
+  Arousal  — r=0.9125, MAD=0.1379
+  Valence  — r=0.9299, MAD=0.0691
+  Dominant — agree=90.9%
+  Crop ratio — mean=1.78
+    [PASS] Arousal r > 0.85
+    [FAIL] Arousal MAD < 0.1
+    [PASS] Valence r > 0.8
+    [PASS] Valence MAD < 0.15
+    [PASS] Dominant agree > 60%
+  >>> VERDICT: FAIL
+
+============================================================
+BEST PADDING: 15% (arousal r=0.9565)
+OVERALL: PASS

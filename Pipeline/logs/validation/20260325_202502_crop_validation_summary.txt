@@ -1,0 +1,25 @@
+CROP VALIDATION SUMMARY
+============================================================
+Date: 2026-03-25 20:31:58
+Video: C:\Users\alibs\Desktop\Projects\Corsi\Bitirme\Recordings\2026-03-18 21-28-28.mp4
+Total frames: 10151
+Both detected: 7866
+MP-only: 2256 | Haar-only: 9 | Neither: 20
+Runtime: 414.3s
+
+------------------------------------------------------------
+Padding: 20% (n=7866)
+  Arousal  — r=0.9362, MAD=0.1186
+  Valence  — r=0.9409, MAD=0.0559
+  Dominant — agree=92.5%
+  Crop ratio — mean=1.58
+    [PASS] Arousal r > 0.85
+    [FAIL] Arousal MAD < 0.1
+    [PASS] Valence r > 0.8
+    [PASS] Valence MAD < 0.15
+    [PASS] Dominant agree > 60%
+  >>> VERDICT: FAIL
+
+============================================================
+BEST PADDING: 20% (arousal r=0.9362)
+OVERALL: FAIL

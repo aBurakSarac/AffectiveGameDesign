@@ -1,0 +1,90 @@
+CROP VALIDATION SUMMARY
+============================================================
+Date: 2026-03-25 20:54:33
+Video: C:\Users\alibs\Desktop\Projects\Corsi\Bitirme\Recordings\PintiPanda-ile-234-saniyede-Until-Dawn_Panda.mp4
+Total frames: 5845
+Both detected: 1774
+MP-only: 3903 | Haar-only: 5 | Neither: 163
+Runtime: 164.0s
+
+------------------------------------------------------------
+Padding: 0% (n=1774)
+  Arousal  — r=0.9334, MAD=0.0730
+  Valence  — r=0.9315, MAD=0.0948
+  Dominant — agree=75.6%
+  Crop ratio — mean=0.72
+    [PASS] Arousal r > 0.85
+    [PASS] Arousal MAD < 0.1
+    [PASS] Valence r > 0.8
+    [PASS] Valence MAD < 0.15
+    [PASS] Dominant agree > 60%
+  >>> VERDICT: PASS
+
+------------------------------------------------------------
+Padding: 5% (n=1774)
+  Arousal  — r=0.9395, MAD=0.0615
+  Valence  — r=0.9362, MAD=0.1027
+  Dominant — agree=79.6%
+  Crop ratio — mean=0.87
+    [PASS] Arousal r > 0.85
+    [PASS] Arousal MAD < 0.1
+    [PASS] Valence r > 0.8
+    [PASS] Valence MAD < 0.15
+    [PASS] Dominant agree > 60%
+  >>> VERDICT: PASS
+
+------------------------------------------------------------
+Padding: 10% (n=1774)
+  Arousal  — r=0.9353, MAD=0.0611
+  Valence  — r=0.9468, MAD=0.0820
+  Dominant — agree=82.0%
+  Crop ratio — mean=1.04
+    [PASS] Arousal r > 0.85
+    [PASS] Arousal MAD < 0.1
+    [PASS] Valence r > 0.8
+    [PASS] Valence MAD < 0.15
+    [PASS] Dominant agree > 60%
+  >>> VERDICT: PASS
+
+------------------------------------------------------------
+Padding: 12% (n=1774)
+  Arousal  — r=0.9365, MAD=0.0584
+  Valence  — r=0.9451, MAD=0.0790
+  Dominant — agree=80.4%
+  Crop ratio — mean=1.11
+    [PASS] Arousal r > 0.85
+    [PASS] Arousal MAD < 0.1
+    [PASS] Valence r > 0.8
+    [PASS] Valence MAD < 0.15
+    [PASS] Dominant agree > 60%
+  >>> VERDICT: PASS
+
+------------------------------------------------------------
+Padding: 15% (n=1774)
+  Arousal  — r=0.9203, MAD=0.0649
+  Valence  — r=0.9380, MAD=0.0776
+  Dominant — agree=77.6%
+  Crop ratio — mean=1.22
+    [PASS] Arousal r > 0.85
+    [PASS] Arousal MAD < 0.1
+    [PASS] Valence r > 0.8
+    [PASS] Valence MAD < 0.15
+    [PASS] Dominant agree > 60%
+  >>> VERDICT: PASS
+
+------------------------------------------------------------
+Padding: 18% (n=1774)
+  Arousal  — r=0.9059, MAD=0.0714
+  Valence  — r=0.9292, MAD=0.0757
+  Dominant — agree=75.2%
+  Crop ratio — mean=1.33
+    [PASS] Arousal r > 0.85
+    [PASS] Arousal MAD < 0.1
+    [PASS] Valence r > 0.8
+    [PASS] Valence MAD < 0.15
+    [PASS] Dominant agree > 60%
+  >>> VERDICT: PASS
+
+============================================================
+BEST PADDING: 5% (arousal r=0.9395)
+OVERALL: PASS

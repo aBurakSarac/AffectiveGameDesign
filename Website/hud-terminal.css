@@ -1,0 +1,126 @@
+/* hud-terminal.css — recreation of the original neon-on-black analysis HUD.
+ * Matches the look of the user's fer/rppg OpenCV overlays: pure black,
+ * chunky monospace, saturated neon bars, square corners.
+ */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap');
+
+:root {
+  --t-bg:      #000000;
+  --t-panel:   #050505;
+  --t-rule:    #2a2a2a;
+  --t-ink:     #e8e8e8;
+  --t-dim:     #6e6e6e;
+  --t-dimmer:  #4a4a4a;
+
+  /* neon palette sampled from the original overlays */
+  --t-yellow:  #ffce1f;   /* section headers, POS */
+  --t-cyan:    #36c6e6;   /* HS/FUSION headers, CHROM */
+  --t-red:     #ff3b30;   /* tension, fear, danger */
+  --t-green:   #46d957;   /* valence+, GREEN, dom bar */
+  --t-blue:    #4ea1ff;
+  --t-pink:    #ff79c6;   /* ICA */
+  --t-aqua2:   #66e0d6;   /* WAVELE */
+  --t-white:   #f5f5f5;   /* CONSEN */
+  --t-orange:  #ff8a3d;
+
+  --t-mono: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: #000; overflow: hidden; font-family: var(--t-mono); color: var(--t-ink); }
+
+#stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: #000; }
+#canvas {
+  width: 1920px; height: 1080px; background: var(--t-bg);
+  transform-origin: center center; position: relative; display: flex; overflow: hidden;
+}
+
+/* ── left: video ──────────────────────────────────────────────────── */
+.t-left { flex: 1; min-width: 0; position: relative; }
+.t-video { position: absolute; inset: 22px; }
+image-slot { position: absolute; inset: 0; width: 100%; height: 100%; --slot-bg: #0a0a0a; border: 3px solid #f2f2f2; }
+.t-vid-overlay { position: absolute; inset: 0; pointer-events: none; }
+.t-roi { position: absolute; border: 2px solid var(--t-green); }
+.t-roi .lab { position: absolute; top: -26px; left: 0; color: var(--t-green); font-size: 19px; font-weight: 500; white-space: nowrap; text-shadow: 0 0 2px #000; }
+/* top telemetry, drawn over the video like the original */
+.t-tele { position: absolute; top: 30px; left: 34px; right: 34px; display: flex; align-items: flex-start; justify-content: space-between; font-weight: 700; }
+.t-tele .time { color: var(--t-white); font-size: 30px; letter-spacing: 0.04em; text-shadow: 0 0 3px #000; }
+.t-tele .lat { color: var(--t-yellow); font-size: 26px; text-shadow: 0 0 3px #000; }
+.t-frame { position: absolute; left: 36px; bottom: 34px; color: var(--t-dim); font-size: 19px; text-shadow: 0 0 3px #000; }
+
+/* ── right: panel ─────────────────────────────────────────────────── */
+.t-right {
+  width: 760px; flex: none; background: var(--t-bg);
+  padding: 20px 30px 16px; display: flex; flex-direction: column; gap: 10px;
+  overflow: hidden;
+}
+.t-sec { display: flex; flex-direction: column; }
+.t-head {
+  font-size: 24px; font-weight: 800; letter-spacing: 0.04em; margin-bottom: 8px;
+  display: flex; align-items: baseline; gap: 10px; white-space: nowrap;
+}
+.t-head .tag { font-size: 16px; font-weight: 700; }
+.t-rule { height: 1px; background: var(--t-rule); margin: 2px 0 8px; }
+
+/* generic data row: label value bar */
+.t-row { display: grid; grid-template-columns: 168px 86px 1fr; align-items: center; gap: 12px; height: 28px; }
+.t-row .rl { font-size: 21px; font-weight: 500; }
+.t-row .rv { font-size: 21px; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; }
+.t-bar { height: 19px; background: transparent; border: 1px solid var(--t-rule); position: relative; }
+.t-bar .fill { position: absolute; inset: 0; width: 0; }
+/* compact emotion rows */
+.t-emo { display: grid; grid-template-columns: 120px 60px 1fr; align-items: center; gap: 10px; height: 21px; }
+.t-emo .el { font-size: 16px; color: var(--t-dim); }
+.t-emo .ev { font-size: 16px; color: var(--t-dim); text-align: right; font-variant-numeric: tabular-nums; }
+.t-emo .eb { height: 11px; border: 1px solid var(--t-rule); position: relative; }
+.t-emo .ef { position: absolute; inset: 0; width: 0; background: var(--t-dimmer); }
+.t-emo.dom .el, .t-emo.dom .ev { color: var(--t-ink); }
+.t-emo.dom .ef { background: var(--t-green); }
+
+/* hero (highlighted) row — Fear & Tension */
+.t-hero { border-left: 4px solid var(--t-red); padding-left: 12px; margin: 2px 0 8px; }
+.t-hero .rl { font-size: 24px; font-weight: 800; }
+.t-hero .rv { font-size: 26px; font-weight: 800; }
+.t-hero .t-bar { height: 24px; }
+
+/* threshold tick inside bars */
+.t-tick { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--t-white); }
+.t-tick .tl { display: none; }
+
+/* verdict block */
+.t-verdict { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+.t-verdict .vstate { font-size: 31px; font-weight: 800; letter-spacing: 0.02em; white-space: nowrap; }
+.t-verdict.fear .vstate { color: var(--t-red); text-shadow: 0 0 14px rgba(255,59,48,.5); }
+.t-verdict.clear .vstate { color: var(--t-green); }
+.t-verdict .vbox { width: 44px; height: 44px; border: 3px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; flex: none; }
+.t-verdict.fear .vbox { color: var(--t-red); }
+.t-verdict.clear .vbox { color: var(--t-green); }
+.t-verdict .vmeta { margin-left: auto; text-align: right; }
+.t-verdict .vmeta .vn { font-size: 34px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.t-verdict .vmeta .vc { font-size: 14px; color: var(--t-dim); letter-spacing: 0.08em; }
+
+/* dual gauge rows for F12/F15 */
+.t-gauge { display: grid; grid-template-columns: 60px 1fr 150px; align-items: center; gap: 12px; height: 32px; }
+.t-gauge .gtag { font-size: 22px; font-weight: 800; }
+.t-gauge .gbar { height: 22px; border: 1px solid var(--t-rule); position: relative; }
+.t-gauge .gfill { position: absolute; inset: 0; width: 0; }
+.t-gauge .gright { text-align: right; font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.t-gauge .gstate { font-size: 14px; letter-spacing: 0.1em; }
+
+/* rPPG algorithm rows */
+.t-algo { display: grid; grid-template-columns: 130px 78px 1fr 60px; align-items: center; gap: 12px; height: 27px; }
+.t-algo .al { font-size: 20px; font-weight: 500; }
+.t-algo .av { font-size: 20px; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+.t-algo .ab { height: 18px; position: relative; }
+.t-algo .af { position: absolute; inset: 0 auto 0 0; height: 100%; }
+.t-algo .snr { font-size: 17px; color: var(--t-dim); text-align: right; }
+.t-algo.headline .al, .t-algo.headline .av { font-weight: 800; }
+
+/* fusion chain */
+.t-chain { display: flex; flex-direction: column; gap: 5px; font-size: 18px; }
+.t-chain .line { display: flex; align-items: baseline; gap: 9px; white-space: nowrap; }
+.t-chain .node { font-weight: 700; }
+.t-chain .op { color: var(--t-dim); }
+.t-chain .res { font-weight: 800; }
+
+.t-note { font-size: 15px; color: var(--t-dim); margin-top: 8px; }

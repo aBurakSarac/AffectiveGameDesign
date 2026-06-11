@@ -1,0 +1,32 @@
+# ── Python ──
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+
+# ── Pipeline: heavy runtime data (not source) ──
+Pipeline/logs/sessions/
+Pipeline/logs/archive_pre_velocity/
+Pipeline/logs/rppg_cache/
+Pipeline/logs/comparisons/
+Pipeline/presentation/
+Pipeline/sessions/
+Pipeline/models/
+Pipeline/fer/models/
+Pipeline/archive_legacy/models/
+Pipeline/rppg/huami-token/
+
+# ── Pipeline: generated annotated videos ──
+Pipeline/**/*.mp4
+
+# ── OS / editor ──
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+
+# ── Misc ──
+*.zip
