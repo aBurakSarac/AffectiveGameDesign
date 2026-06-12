@@ -21,10 +21,18 @@ body {
 }
 
 :root {
-  --maxw: 1280px;
+  --maxw: 1500px;          /* wider content — margins roughly halved */
   --gutter: clamp(18px, 4vw, 56px);
   --nav-h: 60px;
+  --rail-w: 188px;         /* left section rail */
   scroll-padding-top: calc(var(--nav-h) + 8px);
+}
+
+/* On desktop, reserve the left strip for the section rail. Everything in the
+   normal flow (top bar, main, footer) shifts right; the fixed rail + the
+   full-bleed player live in / span that strip via the viewport, not the flow. */
+@media (min-width: 1180px) {
+  body { padding-left: var(--rail-w); }
 }
 
 img {
@@ -168,10 +176,14 @@ h3 {
   }
 }
 
-/* ── top nav ─────────────────────────────────────────────────────────── */
+/* ── top bar ─────────────────────────────────────────────────────────── */
+/* Fixed (not sticky): immune to the overflow/scroll-container quirks that make
+   sticky headers "scroll away" on mobile. Content is offset via body padding. */
 .nav {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 80;
   height: var(--nav-h);
   display: flex;
@@ -179,7 +191,15 @@ h3 {
   background: oklch(0.18 0.013 265 / 0.82);
   backdrop-filter: blur(14px) saturate(1.2);
   border-bottom: 1px solid var(--line-soft);
+  transition: transform .3s cubic-bezier(.2, .7, .2, 1);
+  will-change: transform;
 }
+/* auto-hide: slides up on scroll-down, reveals on scroll-up (see site-app.jsx) */
+.nav.nav-hidden { transform: translateY(-100%); }
+/* offset content for the fixed bar */
+body { padding-top: var(--nav-h); }
+/* on desktop the bar starts to the right of the section rail */
+@media (min-width: 1180px) { .nav { left: var(--rail-w); } }
 
 .nav .wrap {
   display: flex;
@@ -187,13 +207,76 @@ h3 {
   gap: 14px;
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
 .nav-brand {
   display: flex;
   align-items: center;
   gap: 11px;
-  margin-right: auto;
   min-width: 0;
 }
+
+/* language switch */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 3px 6px;
+}
+.lang-switch > svg { color: var(--ink-4); margin-right: 3px; flex: none; }
+.lang-switch button {
+  background: none; border: none; cursor: pointer;
+  font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+  color: var(--ink-4); padding: 3px 6px; border-radius: 6px;
+  transition: color .15s, background .15s;
+}
+.lang-switch button:hover { color: var(--ink-2); }
+.lang-switch button.on { color: var(--ink); background: var(--surface); }
+
+/* ── side rail (the "diagram" of sections) ───────────────────────────── */
+.sidenav {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: var(--rail-w);
+  z-index: 70;
+  padding: calc(var(--nav-h) + 20px) 14px 24px;
+  overflow-y: auto;
+  border-right: 1px solid var(--line-soft);
+  background: oklch(0.17 0.012 265 / 0.6);
+}
+@media (min-width: 1180px) { .sidenav { display: block; } }
+.sidenav-list { list-style: none; display: flex; flex-direction: column; gap: 1px; position: relative; }
+.sidenav-list::before {
+  content: ""; position: absolute; left: 13px; top: 12px; bottom: 12px;
+  width: 2px; background: var(--line-soft);
+}
+.sidenav-list a {
+  display: flex; align-items: center; gap: 12px;
+  padding: 7px 8px; border-radius: 8px; position: relative;
+  color: var(--ink-4); font-size: 13px; font-weight: 500;
+  transition: color .15s, background .15s;
+}
+.sidenav-list a:hover { color: var(--ink-2); background: var(--surface); }
+.sidenav-list a.active { color: var(--ink); }
+.sn-dot {
+  width: 12px; height: 12px; flex: none; border-radius: 50%;
+  border: 2px solid var(--line); background: var(--bg); z-index: 1;
+  transition: border-color .15s, background .15s, box-shadow .15s;
+}
+.sidenav-list a:hover .sn-dot { border-color: var(--ink-3); }
+.sidenav-list a.active .sn-dot {
+  border-color: var(--accent); background: var(--accent);
+  box-shadow: 0 0 0 3px oklch(0.645 0.205 25 / 0.18);
+}
+.sn-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .nav-brand .rec-dot {
   width: 9px;
@@ -222,8 +305,9 @@ h3 {
   white-space: nowrap;
 }
 
+/* section links live in the side rail on desktop; this is the mobile dropdown */
 .nav-links {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 2px;
 }
@@ -249,12 +333,12 @@ h3 {
 }
 
 .nav-cta {
-  margin-left: 6px;
   padding: 8px 15px !important;
   border-radius: 9px;
   background: var(--ink) !important;
   color: var(--bg) !important;
   font-weight: 600 !important;
+  white-space: nowrap;
 }
 
 .nav-cta:hover {
@@ -800,9 +884,10 @@ h3 {
   margin-top: 32px;
 }
 
+/* spans the full content column (viewport minus the left rail) — body
+   padding already creates the rail offset, so plain 100% fills the rest */
 .player-wide {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   padding-inline: clamp(24px, 3vw, 64px);
   box-sizing: border-box;
 }
@@ -2020,8 +2105,10 @@ h3 {
   }
 }
 
-@media (max-width: 1000px) {
+/* below the rail breakpoint: section links collapse into the hamburger menu */
+@media (max-width: 1179px) {
   .nav-links {
+    display: flex;
     position: fixed;
     top: var(--nav-h);
     left: 0;
@@ -2046,15 +2133,12 @@ h3 {
     font-size: 15px;
   }
 
-  .nav-cta {
-    margin-left: 0;
-    text-align: center;
-  }
-
   .nav-toggle {
     display: flex;
   }
+}
 
+@media (max-width: 1000px) {
   .result-strip {
     grid-template-columns: repeat(2, 1fr);
   }

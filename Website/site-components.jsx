@@ -8,6 +8,9 @@ const { useMemo: useMemoC, useRef: useRefC, useCallback: useCbC, useState: useSt
 const f2 = (v, d = 2) => Number(v).toFixed(d);
 const pctC = (v) => `${Math.max(0, Math.min(1, v)) * 100}%`;
 const mmss = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+// i18n shorthands (window.I18N is defined in i18n.js, loaded first)
+const t = (k, fb) => window.I18N.t(k, fb);
+const tSlot = (str, slot, node) => window.I18N.tSlot(str, slot, node);
 
 /* small inline icon set (stroke, currentColor) */
 function Icon({ name, s = 18 }) {
@@ -30,37 +33,77 @@ function Icon({ name, s = 18 }) {
     contrast: <g><circle cx="12" cy="12" r="9" /><path d="M12 3 a9 9 0 0 0 0 18 Z" fill="currentColor" stroke="none" /></g>,
     fuse: <g><circle cx="7" cy="7" r="3.4" /><circle cx="17" cy="7" r="3.4" /><path d="M7 10.4 V13 a5 5 0 0 0 10 0 V10.4 M12 18 v3" /></g>,
     pulse: <path d="M2 12 H7 L9 6 L13 18 L15 12 H22" />,
+    globe: <g><circle cx="12" cy="12" r="9" /><path d="M3 12 h18 M12 3 c3 3 3 15 0 18 M12 3 c-3 3 -3 15 0 18" /></g>,
   }[name];
   return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{p}</svg>;
 }
 
-/* ── Top nav ──────────────────────────────────────────────────────────── */
-function Nav({ active, open, setOpen, onNav, links, onCustomize }) {
+/* ── Language switcher (EN / FR / TR) ─────────────────────────────────── */
+function LangSwitcher({ lang, setLang }) {
+  return (
+    <div className="lang-switch" role="group" aria-label={t("nav.language", "Language")}>
+      <Icon name="globe" s={15} />
+      {window.I18N.SUPPORTED.map((code) => (
+        <button key={code} className={code === lang ? "on" : ""}
+          onClick={() => setLang(code)} aria-pressed={code === lang}
+          title={window.I18N.NAMES[code]}>
+          {code.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/* ── Top bar — title + language + Open HUD + settings (section links live
+ *    in the side rail on desktop; the hamburger holds them on mobile) ──── */
+function Nav({ active, open, setOpen, onNav, links, onCustomize, hidden, lang, setLang }) {
   const go = (e, id) => { e.preventDefault(); setOpen(false); onNav(id); };
   return (
-    <nav className="nav">
+    <nav className={`nav ${hidden ? "nav-hidden" : ""}`}>
       <div className="wrap">
         <a href="#overview" className="nav-brand" onClick={(e) => go(e, "overview")}>
           <span className="rec-dot" />
           <span>
             <span className="bt">La Façade <em>Fissurée</em></span>
           </span>
-          <span className="bs">FER + rPPG</span>
+          <span className="bs">{t("nav.brandTag", "FER + rPPG")}</span>
         </a>
+        <div className="nav-right">
+          <LangSwitcher lang={lang} setLang={setLang} />
+          <a href="#player" className="nav-cta" onClick={(e) => go(e, "player")}>{t("nav.openHud", "Open the HUD ▸")}</a>
+          <button className="nav-custom" onClick={onCustomize} aria-label={t("nav.customize", "Reorder & hide sections")} title={t("nav.customize", "Reorder & hide sections")}>
+            <Icon name="sliders" s={17} />
+          </button>
+          <button className="nav-toggle" onClick={() => setOpen((o) => !o)} aria-label={t("nav.menu", "Menu")}>
+            <Icon name={open ? "close" : "menu"} />
+          </button>
+        </div>
         <div className={`nav-links ${open ? "open" : ""}`}>
           {links.map(([id, lab]) => (
             <a key={id} href={`#${id}`} className={active === id ? "active" : ""} onClick={(e) => go(e, id)}>{lab}</a>
           ))}
-          <a href="#player" className="nav-cta" onClick={(e) => go(e, "player")}>Open the HUD ▸</a>
         </div>
-        <button className="nav-custom" onClick={onCustomize} aria-label="Customize sections" title="Reorder & hide sections">
-          <Icon name="sliders" s={17} />
-        </button>
-        <button className="nav-toggle" onClick={() => setOpen((o) => !o)} aria-label="Menu">
-          <Icon name={open ? "close" : "menu"} />
-        </button>
       </div>
     </nav>
+  );
+}
+
+/* ── Side rail — the always-present section "diagram" on the left ─────── */
+function SideNav({ active, links, onNav }) {
+  return (
+    <aside className="sidenav" aria-label="Sections">
+      <ul className="sidenav-list">
+        {links.map(([id, lab]) => (
+          <li key={id}>
+            <a href={`#${id}`} className={active === id ? "active" : ""}
+              onClick={(e) => { e.preventDefault(); onNav(id); }}>
+              <span className="sn-dot" />
+              <span className="sn-label">{lab}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </aside>
   );
 }
 
@@ -72,23 +115,25 @@ function Hero({ onNav }) {
       <div className="hero-aura" />
       <div className="wrap">
         <span className="hero-tag reveal">
-          <span className="pill">Final project</span>
-          Galatasaray University · Computer Engineering
+          <span className="pill">{t("hero.badge", "Final project")}</span>
+          {t("hero.affil", "Galatasaray University · Computer Engineering")}
         </span>
         <h1 className="reveal">
-          Can a plain webcam<br />feel a player's <em>fear</em>?
+          {(() => {
+            const p = tSlot(t("hero.title", "Can a plain webcam feel a player's {fear}?"), "fear",
+              <em>{t("hero.fearWord", "fear")}</em>);
+            return <>{p[0]}{p[1]}{p[2]}</>;
+          })()}
         </h1>
         <p className="hero-sub reveal">
-          A real-time, privacy-preserving pipeline that fuses facial emotion recognition with
-          a contactless heart rate read from skin colour — scoring fear under the dim,
-          flickering light of horror games. Everything runs locally; no video ever leaves the device.
+          {t("hero.sub")}
         </p>
         <div className="hero-actions reveal">
           <button className="btn btn-primary" onClick={() => onNav("player")}>
-            <Icon name="play" s={17} /> Watch real sessions
+            <Icon name="play" s={17} /> {t("hero.ctaSessions", "Watch real sessions")}
           </button>
           <button className="btn btn-ghost" onClick={() => onNav("fusion")}>
-            Does the heartbeat help? <Icon name="arrow" s={16} />
+            {t("hero.ctaFusion", "Does the heartbeat help?")} <Icon name="arrow" s={16} />
           </button>
         </div>
 
@@ -126,21 +171,21 @@ function PlayerVideo({ f, session, videoRef, sessionReady, onToggle }) {
         onClick={onToggle} style={{ cursor: "pointer" }} />
       <div className="video-overlay">
         {faceStyle && <div className="roi roi-face" style={faceStyle}>
-          <span className="roi-label">FER · face ROI</span>
+          <span className="roi-label">{t("player.faceRoi", "FER · face ROI")}</span>
         </div>}
         {foreheadStyle && <div className="roi roi-forehead" style={foreheadStyle}>
-          <span className="roi-label">rPPG · forehead</span>
+          <span className="roi-label">{t("player.foreheadRoi", "rPPG · forehead")}</span>
         </div>}
-        <div className="vid-badge">{session.id} · analysis replay</div>
+        <div className="vid-badge">{session.id} · {t("player.replay", "analysis replay")}</div>
         <div className="vid-caption">
           {f.roi
             ? <>
                 <span className="dot" style={{ background: f.isFear ? "var(--danger)" : "var(--clear)" }} />
-                {f.isFear ? "Fear moment — score over threshold" : "Monitoring — no fear detected"}
+                {f.isFear ? t("player.capFear", "Fear moment — score over threshold") : t("player.capMonitor", "Monitoring — no fear detected")}
               </>
             : <>
                 <span className="dot" style={{ background: "var(--arousal)" }} />
-                Face lost — subject out of frame
+                {t("player.capFaceLost", "Face lost — subject out of frame")}
               </>}
         </div>
       </div>
@@ -179,11 +224,11 @@ function PlayerTrace({ f, traces, D, playing, onSeek, onToggle, speed, setSpeed 
   return (
     <div className="ptrace">
       <div className="ptrace-head">
-        <span className="ttl">Fear score · drag anywhere to scrub</span>
+        <span className="ttl">{t("player.traceTitle", "Fear score · drag anywhere to scrub")}</span>
         <div className="legend">
-          <span><i style={{ background: "var(--ink-2)" }} />F15 +heart</span>
-          <span><i style={{ background: "var(--ink-4)" }} />F12 face</span>
-          <span><i style={{ background: "var(--danger)", opacity: 0.5 }} />fear window</span>
+          <span><i style={{ background: "var(--ink-2)" }} />{t("player.legF15", "F15 +heart")}</span>
+          <span><i style={{ background: "var(--ink-4)" }} />{t("player.legF12", "F12 face")}</span>
+          <span><i style={{ background: "var(--danger)", opacity: 0.5 }} />{t("player.legWindow", "fear window")}</span>
         </div>
       </div>
       <div className="ptrace-plot" ref={plotRef}
@@ -252,8 +297,8 @@ function SessionRail({ sessions, sel, onSelect }) {
   return (
     <div className="session-rail">
       <div className="rail-head">
-        <span className="rh-t">Recorded sessions</span>
-        <span className="rh-n">{sessions.length} clips · 6 subjects · 3 lighting conditions</span>
+        <span className="rh-t">{t("rail.title", "Recorded sessions")}</span>
+        <span className="rh-n">{sessions.length} {t("rail.meta", "clips · 6 subjects · 3 lighting conditions")}</span>
       </div>
       <div className="session-list">
         {sessions.map((s) => (
@@ -266,7 +311,7 @@ function SessionRail({ sessions, sel, onSelect }) {
             <span className="s-meta">
               <span className="sm-top">
                 <span className="sm-id">{s.subject}</span>
-                <span className={`lightchip ${s.lighting}`}>{s.lighting}</span>
+                <span className={`lightchip ${s.lighting}`}>{t("light." + s.lighting, s.lighting)}</span>
                 <span className="sm-vid">{s.vid}</span>
               </span>
               <span className="sm-sub">{s.note}</span>
@@ -276,8 +321,10 @@ function SessionRail({ sessions, sel, onSelect }) {
       </div>
       <div className="note-strip">
         <Icon name="info" s={17} />
-        <span>Each card streams its own real per-frame data + <span className="mono">raw_video.mp4</span>. The numbers
-          match the offline HUD renderer exactly.</span>
+        <span>{(() => {
+          const p = tSlot(t("rail.note", "Each card streams its own real per-frame data + {file}. The numbers match the offline HUD renderer exactly."), "file", <span className="mono">raw_video.mp4</span>);
+          return <>{p[0]}{p[1]}{p[2]}</>;
+        })()}</span>
       </div>
     </div>
   );
@@ -329,11 +376,10 @@ function PlayerSection({ f, traces, D, playing, onSeek, onToggle, sessions, sel,
   return (
     <section className="section-block tight" id="player">
       <div className="wrap">
-        <span className="kicker reveal">The centerpiece</span>
-        <h2 className="sec-title reveal">The fear-analysis HUD, on real sessions</h2>
+        <span className="kicker reveal">{t("player.kicker", "The centerpiece")}</span>
+        <h2 className="sec-title reveal">{t("player.title", "The fear-analysis HUD, on real sessions")}</h2>
         <p className="sec-lead reveal">
-          The same instrument the pipeline renders to video — now live. Pick a recorded session below;
-          the fear-score trace doubles as the scrubber, and every readout updates from the current frame.
+          {t("player.lead", "The same instrument the pipeline renders to video — now live. Pick a recorded session below; the fear-score trace doubles as the scrubber, and every readout updates from the current frame.")}
         </p>
       </div>
 
@@ -372,22 +418,22 @@ function TeachReadout({ c }) {
   return (
     <>
       <div className="teach-side">
-        <div className="ts-cap">Signals this moment</div>
+        <div className="ts-cap">{t("teach.signalsCap", "Signals this moment")}</div>
         <div className="teach-readout">
-          <Row nm="Fear (face)" val={c.fear} color="var(--danger)" />
-          <Row nm="Arousal" val={c.arousal} color="var(--arousal)" />
-          <Row nm="Facial tension" val={c.tension} color="var(--tension)" />
-          <Row nm="Heart-rate rise" val={c.bpmRise} color="var(--heart)" />
+          <Row nm={t("teach.rowFear", "Fear (face)")} val={c.fear} color="var(--danger)" />
+          <Row nm={t("teach.rowArousal", "Arousal")} val={c.arousal} color="var(--arousal)" />
+          <Row nm={t("teach.rowTension", "Facial tension")} val={c.tension} color="var(--tension)" />
+          <Row nm={t("teach.rowBpm", "Heart-rate rise")} val={c.bpmRise} color="var(--heart)" />
         </div>
       </div>
       <div className="teach-side">
-        <div className="ts-cap">Two verdicts, two thresholds</div>
+        <div className="ts-cap">{t("teach.verdictsCap", "Two verdicts, two thresholds")}</div>
         <div className="teach-readout">
-          <Row nm="F12 · face only" val={r.F12} color={r.fear12 ? "var(--ink)" : "var(--ink-2)"} thr={0.70} />
-          <Row nm="F15 · + heart rate" val={r.F15} color={r.fear15 ? "var(--danger)" : "var(--ink-2)"} thr={0.80} />
+          <Row nm={t("teach.rowF12", "F12 · face only")} val={r.F12} color={r.fear12 ? "var(--ink)" : "var(--ink-2)"} thr={0.70} />
+          <Row nm={t("teach.rowF15", "F15 · + heart rate")} val={r.F15} color={r.fear15 ? "var(--danger)" : "var(--ink-2)"} thr={0.80} />
         </div>
         <div className={`teach-verdict ${r.fear15 ? "fear" : "clear"}`}>
-          <div className="tv-state">{r.fear15 ? "FEAR DETECTED" : "NO FEAR"}</div>
+          <div className="tv-state">{r.fear15 ? t("hud.verdict.fear", "FEAR DETECTED") : t("hud.verdict.noFear", "NO FEAR")}</div>
           <div className="tv-why">{c.f15Why}</div>
         </div>
       </div>
@@ -406,23 +452,23 @@ function FusionSection() {
       <div className="wrap">
         <div className="fuse-head-grid">
           <div>
-            <span className="kicker reveal">Fusion</span>
-            <h2 className="sec-title reveal">Does the heartbeat help?</h2>
+            <span className="kicker reveal">{t("fusion.kicker", "Fusion")}</span>
+            <h2 className="sec-title reveal">{t("fusion.title", "Does the heartbeat help?")}</h2>
             <p className="sec-lead reveal">
-              A fearful face can lie. Adding a contactless heart-rate read turns a face-only guess
-              into a body-confirmed decision — a calm pulse holds back the
-              <b className="mono" style={{ color: "var(--ink)" }}> F12 ≥ 0.70</b> face score, while a
-              genuine cardiac response pushes the fused
-              <b className="mono" style={{ color: "var(--accent)" }}> F15 over 0.80</b>.
+              {t("fusion.lead", "A fearful face can lie. Adding a contactless heart-rate read turns a face-only guess into a body-confirmed decision — a calm pulse holds back the {f12} face score, while a genuine cardiac response pushes the fused {f15}.")
+                .split(/(\{f12\}|\{f15\})/).map((p, i) =>
+                  p === "{f12}" ? <b key={i} className="mono" style={{ color: "var(--ink)" }}>{t("fusion.leadF12", "F12 ≥ 0.70")}</b>
+                  : p === "{f15}" ? <b key={i} className="mono" style={{ color: "var(--accent)" }}>{t("fusion.leadF15", "F15 over 0.80")}</b>
+                  : p)}
             </p>
           </div>
           <div className="fuse-formulas reveal">
             <div className="fcard f12">
-              <div className="fc-top"><span className="fc-tag">F12</span><span className="fc-name">face only</span><span className="fc-thr">≥ 0.70</span></div>
+              <div className="fc-top"><span className="fc-tag">F12</span><span className="fc-name">{t("hud.verdict.f12Sub", "face only")}</span><span className="fc-thr">≥ 0.70</span></div>
               <div className="fc-eq mono"><Eq parts={FUSE.f12.eq} /></div>
             </div>
             <div className="fcard f15">
-              <div className="fc-top"><span className="fc-tag">F15</span><span className="fc-name">+ heart rate</span><span className="fc-thr">≥ 0.80</span></div>
+              <div className="fc-top"><span className="fc-tag">F15</span><span className="fc-name">{t("hud.verdict.f15Sub", "+ heart rate")}</span><span className="fc-thr">≥ 0.80</span></div>
               <div className="fc-eq mono"><Eq parts={FUSE.f15.eq} hr /></div>
             </div>
           </div>
@@ -432,7 +478,7 @@ function FusionSection() {
           <div className="teach-tabs">
             {TEACH.map((c, i) => (
               <button key={c.key} className={`teach-tab ${i === ci ? "on" : ""}`} onClick={() => setCi(i)}>
-                <div className="tt-k">Case {i + 1}</div>
+                <div className="tt-k">{t("fusion.case", "Case")} {i + 1}</div>
                 <div className="tt-t">{c.tab}</div>
               </button>
             ))}
@@ -485,24 +531,22 @@ function Footer() {
       <div className="wrap footer-grid">
         <div className="f-brand">
           <div className="bt">La Façade <em>Fissurée</em></div>
-          <p>Real-time emotion analysis for adaptive enemy AI in affective game design.
-            A webcam-only, privacy-preserving approach to sensing fear — fusing facial emotion
-            recognition with contactless heart rate.</p>
+          <p>{t("footer.blurb", "Real-time emotion analysis for adaptive enemy AI in affective game design. A webcam-only, privacy-preserving approach to sensing fear — fusing facial emotion recognition with contactless heart rate.")}</p>
         </div>
         <div className="f-col">
-          <h4>Project</h4>
+          <h4>{t("footer.project", "Project")}</h4>
           <ul>
-            <li><span className="lab">Author</span>Ali Burak Saraç</li>
-            <li><span className="lab">Advisor</span>Asst. Prof. Reis Burak Arslan</li>
-            <li><span className="lab">Date</span>May 2026</li>
+            <li><span className="lab">{t("footer.author", "Author")}</span>Ali Burak Saraç</li>
+            <li><span className="lab">{t("footer.advisor", "Advisor")}</span>Asst. Prof. Reis Burak Arslan</li>
+            <li><span className="lab">{t("footer.date", "Date")}</span>{t("footer.dateVal", "May 2026")}</li>
           </ul>
         </div>
         <div className="f-col">
-          <h4>Institution</h4>
+          <h4>{t("footer.institution", "Institution")}</h4>
           <ul>
-            <li><span className="lab">University</span>Galatasaray University</li>
-            <li><span className="lab">Faculty</span>Engineering &amp; Technology</li>
-            <li><span className="lab">Department</span>Computer Engineering</li>
+            <li><span className="lab">{t("footer.university", "University")}</span>{t("footer.uniVal", "Galatasaray University")}</li>
+            <li><span className="lab">{t("footer.faculty", "Faculty")}</span>{t("footer.facultyVal", "Engineering & Technology")}</li>
+            <li><span className="lab">{t("footer.department", "Department")}</span>{t("footer.deptVal", "Computer Engineering")}</li>
           </ul>
         </div>
       </div>
@@ -526,13 +570,13 @@ function SectionCustomizer({ open, onClose, sections, order, hidden, move, toggl
   return (
     <>
       <div className="cust-scrim" onClick={onClose} />
-      <aside className="cust" role="dialog" aria-label="Customize sections">
+      <aside className="cust" role="dialog" aria-label={t("cust.aria", "Customize sections")}>
         <div className="cust-head">
           <div>
-            <div className="cust-t">Customize this page</div>
-            <div className="cust-s">{visibleCount} of {sections.length} sections shown · saved on this device</div>
+            <div className="cust-t">{t("cust.title", "Customize this page")}</div>
+            <div className="cust-s">{t("cust.subtitle", "{shown} of {total} sections shown · saved on this device").replace("{shown}", visibleCount).replace("{total}", sections.length)}</div>
           </div>
-          <button className="cust-x" onClick={onClose} aria-label="Close"><Icon name="close" s={16} /></button>
+          <button className="cust-x" onClick={onClose} aria-label={t("cust.close", "Close")}><Icon name="close" s={16} /></button>
         </div>
         <div className="cust-list">
           {ordered.map((s, i) => {
@@ -541,14 +585,14 @@ function SectionCustomizer({ open, onClose, sections, order, hidden, move, toggl
             return (
               <div className={`cust-row ${off ? "off" : ""}`} key={s.id}>
                 <span className="cust-grip"><Icon name="dot6" s={16} /></span>
-                <button className="cust-name" onClick={() => !off && onJump(s.id)} disabled={off} title={off ? "Hidden" : "Jump to section"}>
-                  <span className="cn-i">{String(i + 1).padStart(2, "0")}</span>{s.label}
-                  {locked ? <span className="cn-lock">always on</span> : null}
+                <button className="cust-name" onClick={() => !off && onJump(s.id)} disabled={off} title={off ? t("cust.hidden", "Hidden") : t("cust.jump", "Jump to section")}>
+                  <span className="cn-i">{String(i + 1).padStart(2, "0")}</span>{t("section." + s.id, s.label)}
+                  {locked ? <span className="cn-lock">{t("cust.alwaysOn", "always on")}</span> : null}
                 </button>
                 <span className="cust-acts">
-                  <button onClick={() => move(s.id, -1)} disabled={i === 0} aria-label="Move up"><Icon name="up" s={14} /></button>
-                  <button onClick={() => move(s.id, 1)} disabled={i === ordered.length - 1} aria-label="Move down"><Icon name="down" s={14} /></button>
-                  <label className={`cust-eye ${locked ? "locked" : ""}`} title={locked ? "This section can't be hidden" : (off ? "Show" : "Hide")}>
+                  <button onClick={() => move(s.id, -1)} disabled={i === 0} aria-label={t("cust.moveUp", "Move up")}><Icon name="up" s={14} /></button>
+                  <button onClick={() => move(s.id, 1)} disabled={i === ordered.length - 1} aria-label={t("cust.moveDown", "Move down")}><Icon name="down" s={14} /></button>
+                  <label className={`cust-eye ${locked ? "locked" : ""}`} title={locked ? t("cust.cantHide", "This section can't be hidden") : (off ? t("cust.show", "Show") : t("cust.hide", "Hide"))}>
                     <input type="checkbox" checked={!off} disabled={locked} onChange={() => toggle(s.id)} />
                     <span className="track"><span className="knob" /></span>
                   </label>
@@ -558,8 +602,8 @@ function SectionCustomizer({ open, onClose, sections, order, hidden, move, toggl
           })}
         </div>
         <div className="cust-foot">
-          <button className="cust-reset" onClick={reset}><Icon name="reset" s={14} /> Reset to default</button>
-          <span className="cust-hint">Reorder with ↑↓ · toggle to hide</span>
+          <button className="cust-reset" onClick={reset}><Icon name="reset" s={14} /> {t("cust.reset", "Reset to default")}</button>
+          <span className="cust-hint">{t("cust.hint", "Reorder with ↑↓ · toggle to hide")}</span>
         </div>
       </aside>
     </>
@@ -567,5 +611,5 @@ function SectionCustomizer({ open, onClose, sections, order, hidden, move, toggl
 }
 
 Object.assign(window, {
-  SiteIcon: Icon, Nav, Hero, PlayerSection, FusionSection, MethodsSection, Footer, SectionCustomizer,
+  SiteIcon: Icon, Nav, SideNav, LangSwitcher, Hero, PlayerSection, FusionSection, MethodsSection, Footer, SectionCustomizer,
 });

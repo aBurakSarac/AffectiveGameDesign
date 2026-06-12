@@ -8,6 +8,8 @@
  * every render context, unlike IntersectionObserver).
  */
 const { useState: useStateM, useRef: useRefM, useEffect: useEffectM, useCallback: useCbM } = React;
+// i18n shorthand (unique name; global scope shared across script files)
+const tMe = (k, fb) => window.I18N.t(k, fb);
 
 function useInView(margin = 0.84) {
   const ref = useRefM(null);
@@ -39,23 +41,21 @@ function DetectionFallback() {
   // share of frames per detector, by lighting (illustrative — binds to detector logs).
   // `miss` = frames neither Haar nor MediaPipe could lock (kept intentionally).
   const rows = [
-    { nm: "Bright", mp: 0.06, miss: 0.02, pc: "Haar handles most" },
-    { nm: "Dim", mp: 0.46, miss: 0.05, pc: "fallback on ~46%" },
-    { nm: "Mixed", mp: 0.55, miss: 0.06, pc: "fallback on ~55%" },
+    { nm: tMe("m1.rowBright", "Bright"), mp: 0.06, miss: 0.02, pc: tMe("m1.pcBright", "Haar handles most") },
+    { nm: tMe("m1.rowDim", "Dim"), mp: 0.46, miss: 0.05, pc: tMe("m1.pcDim", "fallback on ~46%") },
+    { nm: tMe("m1.rowMixed", "Mixed"), mp: 0.55, miss: 0.06, pc: tMe("m1.pcMixed", "fallback on ~55%") },
   ];
   return (
     <div className="mblock" ref={ref}>
       <div className="mcap">
-        <div className="m-no">METHOD 01</div>
-        <h3>Hybrid detection that survives the dark</h3>
-        <p>A fast Haar cascade crops the face every frame. When it loses the face in low light, a
-          MediaPipe FaceLandmarker fallback takes over — so detection holds even as the room dims.
-          The darker and more uneven the scene, the more the fallback earns its keep.</p>
-        <div className="m-stat"><span className="v">99.9%</span><span className="k">face coverage across analyzed frames</span></div>
-        <div className="m-foot">Per-condition shares bind to each session's detector log.</div>
+        <div className="m-no">{tMe("methods.label", "METHOD")} 01</div>
+        <h3>{tMe("m1.title", "Hybrid detection that survives the dark")}</h3>
+        <p>{tMe("m1.p", "A fast Haar cascade crops the face every frame. When it loses the face in low light, a MediaPipe FaceLandmarker fallback takes over — so detection holds even as the room dims. The darker and more uneven the scene, the more the fallback earns its keep.")}</p>
+        <div className="m-stat"><span className="v">99.9%</span><span className="k">{tMe("m1.stat", "face coverage across analyzed frames")}</span></div>
+        <div className="m-foot">{tMe("m1.foot", "Per-condition shares bind to each session's detector log.")}</div>
       </div>
       <div className="mvis">
-        <div className="mvis-head"><span className="dot" /><span className="mh-t">Detector by lighting</span> <span className="mh-r">per frame</span></div>
+        <div className="mvis-head"><span className="dot" /><span className="mh-t">{tMe("m1.visTitle", "Detector by lighting")}</span> <span className="mh-r">{tMe("m1.visR", "per frame")}</span></div>
         <div className="detect-stage">
           {rows.map((r) => (
             <div className="detect-row" key={r.nm}>
@@ -72,14 +72,12 @@ function DetectionFallback() {
             </div>
           ))}
           <div className="detect-legend">
-            <span><i style={{ background: "var(--clear)" }} /> Haar cascade</span>
-            <span><i style={{ background: "var(--instrument)" }} /> MediaPipe fallback</span>
-            <span><i className="hatch" /> missed by both</span>
+            <span><i style={{ background: "var(--clear)" }} /> {tMe("m1.legHaar", "Haar cascade")}</span>
+            <span><i style={{ background: "var(--instrument)" }} /> {tMe("m1.legMp", "MediaPipe fallback")}</span>
+            <span><i className="hatch" /> {tMe("m1.legMiss", "missed by both")}</span>
           </div>
           <div className="detect-note">
-            A few frames are caught by neither detector — and that's expected. Recorded video has no
-            guarantee a face is present 100% of the time: occlusion (hands, hair), extreme head turns,
-            or edits that cut away from the camera all leave short gaps.
+            {tMe("m1.note", "A few frames are caught by neither detector — and that's expected. Recorded video has no guarantee a face is present 100% of the time: occlusion (hands, hair), extreme head turns, or edits that cut away from the camera all leave short gaps.")}
           </div>
         </div>
       </div>
@@ -126,31 +124,29 @@ function ClaheDemo() {
   return (
     <div className="mblock flip" ref={ref}>
       <div className="mcap">
-        <div className="m-no">METHOD 02</div>
-        <h3>CLAHE restores the face before reading it</h3>
-        <p>Contrast-Limited Adaptive Histogram Equalization stretches the cramped, dark tones of the
-          face ROI across the full range — pulling expression detail out of the shadows so the emotion
-          model and the skin-colour pulse signal both get a clean read. Drag to compare.</p>
-        <div className="m-stat"><span className="v">+</span><span className="k">recovered detail in dim &amp; mixed light</span></div>
-        <div className="m-foot">Real face crop from session S02_Vid04 (dim lighting). CLAHE: clipLimit 2.0, 4×4 tiles, LAB L-channel.</div>
+        <div className="m-no">{tMe("methods.label", "METHOD")} 02</div>
+        <h3>{tMe("m2.title", "CLAHE restores the face before reading it")}</h3>
+        <p>{tMe("m2.p", "Contrast-Limited Adaptive Histogram Equalization stretches the cramped, dark tones of the face ROI across the full range — pulling expression detail out of the shadows so the emotion model and the skin-colour pulse signal both get a clean read. Drag to compare.")}</p>
+        <div className="m-stat"><span className="v">+</span><span className="k">{tMe("m2.stat", "recovered detail in dim & mixed light")}</span></div>
+        <div className="m-foot">{tMe("m2.foot", "Real face crop from session S02_Vid04 (dim lighting). CLAHE: clipLimit 2.0, 4×4 tiles, LAB L-channel.")}</div>
       </div>
       <div className="mvis">
-        <div className="mvis-head"><span className="dot" /><span className="mh-t">Face ROI · raw → CLAHE</span> <span className="mh-r">drag ⇆</span></div>
+        <div className="mvis-head"><span className="dot" /><span className="mh-t">{tMe("m2.visTitle", "Face ROI · raw → CLAHE")}</span> <span className="mh-r">{tMe("m2.visR", "drag ⇆")}</span></div>
         <div className="clahe-wrap">
           <div className="clahe-view" ref={viewRef} style={{ "--wipe": `${wipe}%` }}
             onPointerDown={(e) => { drag.current = true; e.currentTarget.setPointerCapture(e.pointerId); set(e.clientX); }}
             onPointerMove={(e) => { if (drag.current) set(e.clientX); }}
             onPointerUp={() => { drag.current = false; }}>
-            <div className="clahe-face"><img src="media/clahe/clahe_off.png" alt="Raw face ROI" /></div>
-            <div className="clahe-face after"><img src="media/clahe/clahe_on.png" alt="CLAHE enhanced" /></div>
-            <div className="clahe-roi"><span className="rl">analysis ROI</span></div>
+            <div className="clahe-face"><img src="media/clahe/clahe_off.png" alt={tMe("m2.altRaw", "Raw face ROI")} /></div>
+            <div className="clahe-face after"><img src="media/clahe/clahe_on.png" alt={tMe("m2.altOn", "CLAHE enhanced")} /></div>
+            <div className="clahe-roi"><span className="rl">{tMe("m2.roiLabel", "analysis ROI")}</span></div>
             <span className="clahe-tag l">RAW</span>
             <span className="clahe-tag r">CLAHE</span>
             <div className="clahe-divider"><span className="gp">⇆</span></div>
           </div>
           <div className="clahe-hist">
-            <Histo data={HIST_BEFORE} label="Raw histogram" />
-            <Histo data={seen ? HIST_AFTER : HIST_BEFORE} label="Equalized" after />
+            <Histo data={HIST_BEFORE} label={tMe("m2.histRaw", "Raw histogram")} />
+            <Histo data={seen ? HIST_AFTER : HIST_BEFORE} label={tMe("m2.histEq", "Equalized")} after />
           </div>
         </div>
       </div>
@@ -181,12 +177,9 @@ function FusionLadder() {
   return (
     <div className="mblock" ref={ref}>
       <div className="mcap">
-        <div className="m-no">METHOD 03</div>
-        <h3>Fusion that multiplies, not averages</h3>
-        <p>Facial tension and a rising heart rate don't get averaged into the score — they act as
-          <em> amplifiers</em> on the base fear reading. Because they multiply, agreement compounds:
-          a calm body barely moves the needle, while genuine arousal pushes a true fear event clear
-          over the line. Move the sliders to feel it.</p>
+        <div className="m-no">{tMe("methods.label", "METHOD")} 03</div>
+        <h3>{tMe("m3.title", "Fusion that multiplies, not averages")}</h3>
+        <p dangerouslySetInnerHTML={{ __html: tMe("m3.p", "Facial tension and a rising heart rate don't get averaged into the score — they act as <em> amplifiers</em> on the base fear reading. Because they multiply, agreement compounds: a calm body barely moves the needle, while genuine arousal pushes a true fear event clear over the line. Move the sliders to feel it.") }} />
         <div className="m-formula">
           <div className="mf-row"><span className="mf-lhs">base</span><span className="mf-eq">=</span><span className="mf-rhs">0.7·fear + 0.3·arousal</span></div>
           <div className="mf-row"><span className="mf-lhs">F12</span><span className="mf-eq">=</span><span className="mf-rhs">base · (1 + tension)</span></div>
@@ -194,26 +187,26 @@ function FusionLadder() {
         </div>
       </div>
       <div className="mvis">
-        <div className="mvis-head"><span className="dot" /><span className="mh-t">Live fusion · F12 ≥ 0.70 · F15 ≥ 0.80</span></div>
+        <div className="mvis-head"><span className="dot" /><span className="mh-t">{tMe("m3.visTitle", "Live fusion · F12 ≥ 0.70 · F15 ≥ 0.80")}</span></div>
         <div className="fusion-lab">
           <div className="fl-controls">
             <div className="fl-ctl">
-              <div className="fl-top"><span className="nm" style={{ color: "var(--tension)" }}>Facial tension</span><span className="vl">+{(tension * 100).toFixed(0)}%</span></div>
+              <div className="fl-top"><span className="nm" style={{ color: "var(--tension)" }}>{tMe("hud.amp.tensionTitle", "Facial tension")}</span><span className="vl">+{(tension * 100).toFixed(0)}%</span></div>
               <input className="range r-tension" type="range" min="0" max="0.6" step="0.01" value={tension} onChange={(e) => setTension(+e.target.value)} />
             </div>
             <div className="fl-ctl">
-              <div className="fl-top"><span className="nm" style={{ color: "var(--heart)" }}>Heart-rate rise</span><span className="vl">+{(hr * 100).toFixed(0)}%</span></div>
+              <div className="fl-top"><span className="nm" style={{ color: "var(--heart)" }}>{tMe("teach.rowBpm", "Heart-rate rise")}</span><span className="vl">+{(hr * 100).toFixed(0)}%</span></div>
               <input className="range r-hr" type="range" min="0" max="0.6" step="0.01" value={hr} onChange={(e) => setHr(+e.target.value)} />
             </div>
           </div>
           <div className="fl-ladder">
-            <Step lab="Base <b>(face + arousal)</b>" val={base} color="var(--ink-3)" />
-            <Step lab="× tension → <b>F12</b>" val={f12} color={f12 >= 0.7 ? "var(--ink)" : "var(--ink-2)"} thr={0.70} />
-            <Step lab="× heart rate → <b>F15</b>" val={f15} color={isFear ? "var(--danger)" : "var(--ink-2)"} thr={0.80} />
+            <Step lab={tMe("m3.stepBase", "Base <b>(face + arousal)</b>")} val={base} color="var(--ink-3)" />
+            <Step lab={tMe("m3.stepF12", "× tension → <b>F12</b>")} val={f12} color={f12 >= 0.7 ? "var(--ink)" : "var(--ink-2)"} thr={0.70} />
+            <Step lab={tMe("m3.stepF15", "× heart rate → <b>F15</b>")} val={f15} color={isFear ? "var(--danger)" : "var(--ink-2)"} thr={0.80} />
           </div>
           <div className={`fl-verdict ${isFear ? "fear" : "clear"}`}>
-            <span className="st">{isFear ? "FEAR DETECTED" : "NO FEAR"}</span>
-            <span className="ex">{isFear ? "body confirms the face" : "face alone isn't enough"}</span>
+            <span className="st">{isFear ? tMe("hud.verdict.fear", "FEAR DETECTED") : tMe("hud.verdict.noFear", "NO FEAR")}</span>
+            <span className="ex">{isFear ? tMe("m3.exFear", "body confirms the face") : tMe("m3.exClear", "face alone isn't enough")}</span>
           </div>
         </div>
       </div>
@@ -254,17 +247,14 @@ function RppgSweep() {
   return (
     <div className="mblock flip" ref={ref}>
       <div className="mcap">
-        <div className="m-no">METHOD 04</div>
-        <h3>Six estimators, one 30-second window</h3>
-        <p>Reading a heartbeat from skin colour needs the right algorithm and the right time window.
-          All six rPPG estimators are computed over a <b style={{ color: "var(--clear)" }}>30-second window
-          at a 3-second step</b>; <b style={{ color: "var(--clear)" }}>POS</b> is used as the headline pulse
-          for its robustness under motion — the cell that lit up brightest.</p>
-        <div className="m-stat"><span className="v">POS · 30 s</span><span className="k">headline estimator · 3 s step</span></div>
-        <div className="m-foot">The grid scores how cleanly each estimator × window separates fear from calm — red is poor, green is strong.</div>
+        <div className="m-no">{tMe("methods.label", "METHOD")} 04</div>
+        <h3>{tMe("m4.title", "Six estimators, one 30-second window")}</h3>
+        <p dangerouslySetInnerHTML={{ __html: tMe("m4.p", "Reading a heartbeat from skin colour needs the right algorithm and the right time window. All six rPPG estimators are computed over a <b style=\"color: var(--clear)\">30-second window at a 3-second step</b>; <b style=\"color: var(--clear)\">POS</b> is used as the headline pulse for its robustness under motion — the cell that lit up brightest.") }} />
+        <div className="m-stat"><span className="v">POS · 30 s</span><span className="k">{tMe("m4.stat", "headline estimator · 3 s step")}</span></div>
+        <div className="m-foot">{tMe("m4.foot", "The grid scores how cleanly each estimator × window separates fear from calm — red is poor, green is strong.")}</div>
       </div>
       <div className="mvis">
-        <div className="mvis-head"><span className="dot" /><span className="mh-t">rPPG sweep · estimators</span> <span className="mh-r">relative</span></div>
+        <div className="mvis-head"><span className="dot" /><span className="mh-t">{tMe("m4.visTitle", "rPPG sweep · estimators")}</span> <span className="mh-r">{tMe("m4.visR", "relative")}</span></div>
         <div className={`sweep ${seen ? "in" : ""}`}>
           <div className="sweep-grid">
             <div className="corner" />
@@ -286,15 +276,10 @@ function RppgSweep() {
             ))}
           </div>
           <div className="sweep-foot">
-            <span className="sweep-scale">low <span className="bar" /> high</span>
-            <span className="sweep-pick">best: <b>POS @ 30 s → 0.95</b></span>
+            <span className="sweep-scale">{tMe("m4.scaleLow", "low")} <span className="bar" /> {tMe("m4.scaleHigh", "high")}</span>
+            <span className="sweep-pick">{tMe("m4.bestLabel", "best:")} <b>POS @ 30 s → 0.95</b></span>
           </div>
-          <div className="sweep-key">
-            Each cell is a <b>detectability score from 0 to 1</b> — how cleanly that estimator and window
-            separate genuine fear events from calm baseline. <b>1.00</b> would be perfect separation;
-            POS at a 30 s window tops out at <b>0.95</b>, while short windows and weaker estimators (red)
-            blur the cardiac signal. <i>Illustrative — exact values bind to the benchmark output.</i>
-          </div>
+          <div className="sweep-key" dangerouslySetInnerHTML={{ __html: tMe("m4.key", "Each cell is a <b>detectability score from 0 to 1</b> — how cleanly that estimator and window separate genuine fear events from calm baseline. <b>1.00</b> would be perfect separation; POS at a 30 s window tops out at <b>0.95</b>, while short windows and weaker estimators (red) blur the cardiac signal. <i>Illustrative — exact values bind to the benchmark output.</i>") }} />
         </div>
       </div>
     </div>
@@ -307,11 +292,10 @@ function MethodsSectionFull({ onNav }) {
   return (
     <section className="section-block divline" id="methods">
       <div className="wrap">
-        <span className="kicker reveal">Methods</span>
-        <h2 className="sec-title reveal">What made it work in the dark</h2>
+        <span className="kicker reveal">{tMe("methods.kicker", "Methods")}</span>
+        <h2 className="sec-title reveal">{tMe("methods.title", "What made it work in the dark")}</h2>
         <p className="sec-lead reveal">
-          Four engineering choices carry the pipeline through horror-game lighting. Each one is broken
-          down below — detection fallback, contrast recovery, multiplicative fusion, and the rPPG sweep.
+          {tMe("methods.leadFull", "Four engineering choices carry the pipeline through horror-game lighting. Each one is broken down below — detection fallback, contrast recovery, multiplicative fusion, and the rPPG sweep.")}
         </p>
         <div className="feature-grid">
           {M.map((m) => (

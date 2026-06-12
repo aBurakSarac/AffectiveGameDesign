@@ -54,9 +54,15 @@ function SiteApp() {
   const [sel, setSel] = useState(window.SITE.SESSIONS[0].id);
   const [sessionReady, setSessionReady] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
   const [active, setActive] = useState("overview");
   const [custOpen, setCustOpen] = useState(false);
+  const [lang, setLangState] = useState(window.I18N.lang);
   const videoRef = useRef(null);
+  const setLang = useCallback((code) => {
+    window.I18N.set(code);
+    setLangState(window.I18N.lang);
+  }, []);
   const sessionVer = useRef(0);
   const [view, setView] = useState(loadView);
   useEffect(() => {
@@ -76,7 +82,7 @@ function SiteApp() {
   }), []);
   const resetView = useCallback(() => setView({ order: [...DEFAULT_ORDER], hidden: {} }), []);
   const visibleOrder = useMemo(() => view.order.filter((id) => !view.hidden[id]), [view]);
-  const navLinks = useMemo(() => visibleOrder.filter((id) => id !== "overview").map((id) => [id, NAV_LABELS[id] || id]), [visibleOrder]);
+  const navLinks = useMemo(() => visibleOrder.filter((id) => id !== "overview").map((id) => [id, window.I18N.t("nav." + id, NAV_LABELS[id] || id)]), [visibleOrder, lang]);
   const [compact, setCompact] = useState(() => window.innerWidth < 920);
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 919px)");
@@ -178,6 +184,7 @@ function SiteApp() {
     const top = el.getBoundingClientRect().top + window.scrollY - 56;
     window.scrollTo({ top, behavior: "smooth" });
   }, []);
+  const lastY = useRef(0);
   useEffect(() => {
     let ticking = false;
     const update = () => {
@@ -192,6 +199,17 @@ function SiteApp() {
         if (el && el.getBoundingClientRect().top - 72 <= 0) cur = id;
       }
       setActive(cur);
+      const y = Math.max(0, window.scrollY || document.documentElement.scrollTop || 0);
+      if (y < 80) {
+        setNavHidden(false);
+        lastY.current = y;
+      } else if (y > lastY.current + 4) {
+        setNavHidden(true);
+        lastY.current = y;
+      } else if (y < lastY.current - 4) {
+        setNavHidden(false);
+        lastY.current = y;
+      }
     };
     const onScroll = () => {
       if (!ticking) {
@@ -243,7 +261,7 @@ function SiteApp() {
     path: /* @__PURE__ */ React.createElement(DesignPathSection, null),
     outlook: /* @__PURE__ */ React.createElement(OutlookSection, null),
     glossary: /* @__PURE__ */ React.createElement(GlossarySection, null)
-  }), [f, traces, playing, seek, toggle, sel, selectSession, mode, showAlgos, speed, compact, navTo]);
+  }), [f, traces, playing, seek, toggle, sel, selectSession, mode, showAlgos, speed, compact, navTo, lang]);
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(
     Nav,
     {
@@ -252,9 +270,12 @@ function SiteApp() {
       setOpen: setNavOpen,
       onNav: navTo,
       links: navLinks,
-      onCustomize: () => setCustOpen(true)
+      onCustomize: () => setCustOpen(true),
+      hidden: navHidden,
+      lang,
+      setLang
     }
-  ), /* @__PURE__ */ React.createElement("main", null, visibleOrder.map((id) => /* @__PURE__ */ React.createElement(React.Fragment, { key: id }, nodes[id]))), /* @__PURE__ */ React.createElement(Footer, null), /* @__PURE__ */ React.createElement(
+  ), /* @__PURE__ */ React.createElement(SideNav, { active, links: navLinks, onNav: navTo }), /* @__PURE__ */ React.createElement("main", null, visibleOrder.map((id) => /* @__PURE__ */ React.createElement(React.Fragment, { key: id }, nodes[id]))), /* @__PURE__ */ React.createElement(Footer, null), /* @__PURE__ */ React.createElement(
     SectionCustomizer,
     {
       open: custOpen,

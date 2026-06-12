@@ -3,8 +3,13 @@
  *   §8.2 contributions · §8.3 limitations · §8.4 future · §8.5 conclusion ·
  *   §A/§B glossary (plain ↔ technical toggle, mirroring the HUD label mode).
  * Uses SiteIcon (from site-components.jsx) and the polling in-view hook.
+ *
+ * i18n: the data sets are builder functions (not module constants) so they
+ * re-resolve from the current language each render. Author citations, years,
+ * acronyms and numbers stay literal; prose is keyed in lang/*.js.
  */
 const { useState: useStateA, useRef: useRefA, useEffect: useEffectA } = React;
+const tA = (k, fb) => window.I18N.t(k, fb);
 
 function useSeenA(margin = 0.85) {
   const ref = useRefA(null);
@@ -22,49 +27,55 @@ function useSeenA(margin = 0.85) {
 }
 
 /* ── BACKGROUND: literature + gaps + SWOT ────────────────────────────── */
-const LIT = [
-  { ic: "eye", t: "Facial emotion recognition", refs: [
-    { c: "Li et al.", y: "2025", d: "Fair comparison of 12 FER algorithms — best (Poster) 75.98%, HOG-SVM 50.12%. <b>Chose an EfficientNet-B0 backbone.</b>" },
-    { c: "Savchenko", y: "2025", d: "HSEmotion at ABAW-8; temporal smoothing adds +3.93% F1. <b>Adopted a 50-frame rolling average.</b>" },
-    { c: "Abdeldayem et al.", y: "2026", d: "Fear is the hardest class — it overlaps surprise (AU 4 vs AU 5). <b>Motivated the arousal channel.</b>" },
-  ]},
-  { ic: "pulse", t: "rPPG & low-light sensing", refs: [
-    { c: "Acharya et al.", y: "2025", d: "POS reaches 1.1 BPM MAE, beating deep nets — but degrades at high heart rate. <b>POS as primary; z-score normalization.</b>" },
-    { c: "Wang et al.", y: "2017", d: "Algorithm hierarchy ends at POS (highest SNR, no skin-tone prior). <b>POS suits coloured monitor light.</b>" },
-    { c: "Moghimi & Grailu", y: "2024", d: "Mid-forehead is the optimal ROI; exclude the lower face under expression. <b>Upper-face ROI only.</b>" },
-  ]},
-  { ic: "fuse", t: "Multimodal fusion", refs: [
-    { c: "Karani & Desai", y: "2022", d: "Decision-level fusion is most robust when modalities run at different rates (FER 30 fps, rPPG ~0.33 Hz). <b>F15 fuses at the decision level.</b>" },
-    { c: "Yan et al.", y: "2024", d: "Each added modality gives consistent accuracy gains. <b>Supports a multimodal approach.</b>" },
-  ]},
-  { ic: "shield", t: "Biofeedback & privacy", refs: [
-    { c: "Moschovitis & Denisova", y: "2022", d: "Caroline: a Relax-to-Win horror game on a single contact heart-rate sensor. <b>The gap we fill: multimodal, webcam-only.</b>" },
-    { c: "Yang et al.", y: "2026", d: "Blendshape Distribution Alignment — <1 ms per-subject calibration. <b>Lead candidate for future work.</b>" },
-    { c: "Gutiérrez et al.", y: "2025", d: "Federated learning + AES-256 hits 87% — privacy and accuracy aren't exclusive. <b>Validates fully local processing.</b>" },
-  ]},
-];
-const GAPS = [
-  { n: "G1", t: "FER robustness in low light", d: "Benchmarks run under controlled light; reliability under a horror game's monitor-only lighting is undocumented." },
-  { n: "G2", t: "The rPPG stress paradox", d: "rPPG accuracy drops exactly when heart rate spikes — the most informative moments for an adaptive game." },
-  { n: "G3", t: "Mismatched temporal resolutions", d: "Fusing an instant facial signal with a slow physiological one has not been validated in a game context." },
-  { n: "G4", t: "Single-signal biofeedback", d: "Existing game biofeedback relies on one contact sensor; none combine FER + rPPG from a single webcam." },
-];
-const SWOT = {
-  s: ["Pipeline is independent — testable in isolation", "Modular architecture with graceful degradation", "Fully local processing (privacy)", "Mature open-source tools (MediaPipe, OpenCV)", "Very low MediaPipe latency (~6 ms)"],
-  w: ["Single-camera dependence — no backup sensor", "Small expected sample limits statistical power", "Limited control over the player's face lighting"],
-  o: ["Growing webcam-biometrics adoption (Affectiva, iMotions)", "Architecture reusable for therapeutic apps", "Continuous valence–arousal complements discrete classes", "MediaPipe blendshapes enable personalized metrics"],
-  t: ["rPPG may lack sensitivity for fear-induced cardiac change", "FER low-light degradation may exceed thresholds", "Participant recruitment difficulty", "Risk of exceeding the 100 ms latency budget"],
-};
+function getLIT() {
+  return [
+    { ic: "eye", t: tA("bg.lit.0.t"), refs: [
+      { c: "Li et al.", y: "2025", d: tA("bg.lit.0.r0.d") },
+      { c: "Savchenko", y: "2025", d: tA("bg.lit.0.r1.d") },
+      { c: "Abdeldayem et al.", y: "2026", d: tA("bg.lit.0.r2.d") },
+    ]},
+    { ic: "pulse", t: tA("bg.lit.1.t"), refs: [
+      { c: "Acharya et al.", y: "2025", d: tA("bg.lit.1.r0.d") },
+      { c: "Wang et al.", y: "2017", d: tA("bg.lit.1.r1.d") },
+      { c: "Moghimi & Grailu", y: "2024", d: tA("bg.lit.1.r2.d") },
+    ]},
+    { ic: "fuse", t: tA("bg.lit.2.t"), refs: [
+      { c: "Karani & Desai", y: "2022", d: tA("bg.lit.2.r0.d") },
+      { c: "Yan et al.", y: "2024", d: tA("bg.lit.2.r1.d") },
+    ]},
+    { ic: "shield", t: tA("bg.lit.3.t"), refs: [
+      { c: "Moschovitis & Denisova", y: "2022", d: tA("bg.lit.3.r0.d") },
+      { c: "Yang et al.", y: "2026", d: tA("bg.lit.3.r1.d") },
+      { c: "Gutiérrez et al.", y: "2025", d: tA("bg.lit.3.r2.d") },
+    ]},
+  ];
+}
+function getGAPS() {
+  return [
+    { n: "G1", t: tA("bg.gap.0.t"), d: tA("bg.gap.0.d") },
+    { n: "G2", t: tA("bg.gap.1.t"), d: tA("bg.gap.1.d") },
+    { n: "G3", t: tA("bg.gap.2.t"), d: tA("bg.gap.2.d") },
+    { n: "G4", t: tA("bg.gap.3.t"), d: tA("bg.gap.3.d") },
+  ];
+}
+function getSWOT() {
+  return {
+    s: [tA("bg.swot.s.0"), tA("bg.swot.s.1"), tA("bg.swot.s.2"), tA("bg.swot.s.3"), tA("bg.swot.s.4")],
+    w: [tA("bg.swot.w.0"), tA("bg.swot.w.1"), tA("bg.swot.w.2")],
+    o: [tA("bg.swot.o.0"), tA("bg.swot.o.1"), tA("bg.swot.o.2"), tA("bg.swot.o.3")],
+    t: [tA("bg.swot.t.0"), tA("bg.swot.t.1"), tA("bg.swot.t.2"), tA("bg.swot.t.3")],
+  };
+}
 
 function BackgroundSection() {
+  const LIT = getLIT(), GAPS = getGAPS(), SWOT = getSWOT();
   return (
     <section className="section-block divline" id="background">
       <div className="wrap">
-        <span className="kicker reveal">Background</span>
-        <h2 className="sec-title reveal">What the literature already knew — and didn't</h2>
+        <span className="kicker reveal">{tA("bg.kicker", "Background")}</span>
+        <h2 className="sec-title reveal">{tA("bg.title", "What the literature already knew — and didn't")}</h2>
         <p className="sec-lead reveal">
-          The review follows the pipeline's own logic: facial emotion recognition, remote photoplethysmography,
-          multimodal fusion, biofeedback, and privacy. Each result below shaped a concrete design decision.
+          {tA("bg.lead", "The review follows the pipeline's own logic: facial emotion recognition, remote photoplethysmography, multimodal fusion, biofeedback, and privacy. Each result below shaped a concrete design decision.")}
         </p>
         <div className="lit-grid">
           {LIT.map((g) => (
@@ -82,7 +93,7 @@ function BackgroundSection() {
           ))}
         </div>
 
-        <span className="kicker k-plain reveal" style={{ color: "var(--ink-4)", marginTop: "clamp(40px,6vw,64px)", display: "inline-flex" }}>Four cumulative gaps</span>
+        <span className="kicker k-plain reveal" style={{ color: "var(--ink-4)", marginTop: "clamp(40px,6vw,64px)", display: "inline-flex" }}>{tA("bg.gapsKicker", "Four cumulative gaps")}</span>
         <div className="gaps">
           {GAPS.map((g) => (
             <div className="gap reveal" key={g.n}>
@@ -92,43 +103,41 @@ function BackgroundSection() {
         </div>
 
         <div className="swot">
-          {[["s", "Strengths", SWOT.s], ["w", "Weaknesses", SWOT.w], ["o", "Opportunities", SWOT.o], ["t", "Threats", SWOT.t]].map(([k, lab, items]) => (
+          {[["s", tA("bg.swot.strengths", "Strengths"), SWOT.s], ["w", tA("bg.swot.weaknesses", "Weaknesses"), SWOT.w], ["o", tA("bg.swot.opportunities", "Opportunities"), SWOT.o], ["t", tA("bg.swot.threats", "Threats"), SWOT.t]].map(([k, lab, items]) => (
             <div className={`swot-q ${k} reveal`} key={k}>
               <div className="sq-h">{lab}</div>
               <ul>{items.map((it, i) => <li key={i}>{it}</li>)}</ul>
             </div>
           ))}
         </div>
-        <div className="swot-note reveal">
-          <b>Retrospective:</b> the hardware failure turned the “small sample” weakness and the “recruitment”
-          threat into a video-based evaluation that ultimately produced a more diverse subject pool.
-        </div>
+        <div className="swot-note reveal" dangerouslySetInnerHTML={{ __html: tA("bg.swotNote", "<b>Retrospective:</b> the hardware failure turned the “small sample” weakness and the “recruitment” threat into a video-based evaluation that ultimately produced a more diverse subject pool.") }} />
       </div>
     </section>
   );
 }
 
 /* ── PERFORMANCE: latency budget ─────────────────────────────────────── */
-const LAT = [
-  { nm: "Camera capture", ms: 33, note: "frame period @ 30 FPS" },
-  { nm: "Haar + MP detect", ms: 9, note: "hybrid face detection" },
-  { nm: "HSEmotion", ms: 10, note: "EfficientNet-B0, CPU" },
-  { nm: "Formula", ms: 0.5, note: "arithmetic only" },
-  { nm: "Socket emit", ms: 1, note: "TCP localhost" },
-];
+function getLAT() {
+  return [
+    { nm: tA("perf.lat.0.nm"), ms: 33, note: tA("perf.lat.0.note") },
+    { nm: tA("perf.lat.1.nm"), ms: 9, note: tA("perf.lat.1.note") },
+    { nm: tA("perf.lat.2.nm"), ms: 10, note: tA("perf.lat.2.note") },
+    { nm: tA("perf.lat.3.nm"), ms: 0.5, note: tA("perf.lat.3.note") },
+    { nm: tA("perf.lat.4.nm"), ms: 1, note: tA("perf.lat.4.note") },
+  ];
+}
 function PerformanceSection() {
   const [ref, seen] = useSeenA();
+  const LAT = getLAT();
   const max = 33;
   const col = (ms) => ms >= 20 ? "var(--instrument)" : ms >= 8 ? "var(--arousal)" : "var(--clear)";
   return (
     <section className="section-block divline" id="performance">
       <div className="wrap">
-        <span className="kicker reveal">Performance &amp; cost</span>
-        <h2 className="sec-title reveal">~53 ms, end to end, on a consumer laptop</h2>
+        <span className="kicker reveal">{tA("perf.kicker", "Performance & cost")}</span>
+        <h2 className="sec-title reveal">{tA("perf.title", "~53 ms, end to end, on a consumer laptop")}</h2>
         <p className="sec-lead reveal">
-          The latency budget (measured on a 197 s session at 30 FPS) sits well inside the 100 ms real-time
-          target. The camera's own frame period is the largest single cost; with pipelined capture the
-          effective throughput reaches 27–30 FPS.
+          {tA("perf.lead", "The latency budget (measured on a 197 s session at 30 FPS) sits well inside the 100 ms real-time target. The camera's own frame period is the largest single cost; with pipelined capture the effective throughput reaches 27–30 FPS.")}
         </p>
         <div className="lat-wrap" ref={ref}>
           <div>
@@ -143,16 +152,15 @@ function PerformanceSection() {
             </div>
             <div className="lat-total">
               <span className="lt-v">53<span style={{ fontSize: "0.5em", color: "var(--ink-3)" }}>ms</span></span>
-              <span className="lt-k">total per-frame latency · ~19 FPS (27–30 pipelined)</span>
-              <span className="lt-budget">budget: &lt;100 ms ✓</span>
+              <span className="lt-k">{tA("perf.latTotal", "total per-frame latency · ~19 FPS (27–30 pipelined)")}</span>
+              <span className="lt-budget">{tA("perf.latBudget", "budget: <100 ms ✓")}</span>
             </div>
           </div>
           <div className="lat-side">
-            <h4>CPU utilization</h4>
-            <div className="ls-row"><span className="ls-k">MediaPipe (C++ runtime)</span><span className="ls-v">4%</span></div>
-            <div className="ls-row"><span className="ls-k">HSEmotion (PyTorch, CPU)</span><span className="ls-v">67.5%</span></div>
-            <div className="ls-note">No CUDA under Windows during offline processing. The rPPG pipeline runs
-              on a non-blocking background thread — ROI extraction ~1 ms/frame, FFT every 3 s.</div>
+            <h4>{tA("perf.cpuTitle", "CPU utilization")}</h4>
+            <div className="ls-row"><span className="ls-k">{tA("perf.cpu1", "MediaPipe (C++ runtime)")}</span><span className="ls-v">4%</span></div>
+            <div className="ls-row"><span className="ls-k">{tA("perf.cpu2", "HSEmotion (PyTorch, CPU)")}</span><span className="ls-v">67.5%</span></div>
+            <div className="ls-note">{tA("perf.cpuNote", "No CUDA under Windows during offline processing. The rPPG pipeline runs on a non-blocking background thread — ROI extraction ~1 ms/frame, FFT every 3 s.")}</div>
           </div>
         </div>
       </div>
@@ -161,35 +169,42 @@ function PerformanceSection() {
 }
 
 /* ── OUTLOOK: contributions / limitations / future / conclusion ──────── */
-const CONTRIB = [
-  { t: "Composite fear formula F12", d: "A multiplicative multimodal score where MediaPipe tension amplifies but never triggers fear. F1 = 0.70 over 6 subjects / 88 events." },
-  { t: "rPPG cardiac fear response", d: "First empirical evidence that horror-game fear produces a detectable webcam-rPPG cardiac response (d = 0.70, FWER p = 0.029)." },
-  { t: "Hybrid low-light detection", d: "A Haar + MediaPipe fallback that raises face coverage from 30.4% to 99.9% with no classification artefacts." },
-  { t: "Open-source real-time pipeline", d: "A complete Python FER + rPPG + TCP pipeline at ~53 ms, ready to drop into any game engine." },
-  { t: "Event-level evaluation method", d: "A sliding-window detection framework with temporal padding and false-positive proximity analysis, tuned to affective-game granularity." },
-];
-const LIMITS = [
-  { t: "Sample size", d: "Six subjects, single annotator; no inter-annotator agreement. Insufficient for population-level claims." },
-  { t: "Ecological validity", d: "Videos processed offline, not live — validates detection accuracy, not closed-loop dynamics." },
-  { t: "No gameplay experiment", d: "The hardware failure blocked the planned two-condition study; RQ3 is unanswered." },
-  { t: "MediaPipe variance", d: "Blendshape activations stay sparse across subjects; no per-subject calibration was implemented." },
-  { t: "Single-camera dependence", d: "Momentary facial occlusion causes signal loss with no sensor-level fallback." },
-  { t: "Post-hoc rPPG config", d: "The winning window was found by sweep, not pre-registered. Survives FWER but needs replication." },
-];
-const FUTURE = [
-  { t: "Live gameplay study", d: "Finish v2.0 and run the closed-loop experiment to answer RQ3, validating the rPPG finding on a larger sample." },
-  { t: "Cross-subject calibration", d: "Implement Blendshape Distribution Alignment (BDA) to normalize MediaPipe activation ranges per player." },
-  { t: "Cardiac ground truth", d: "Pair webcam rPPG with a contact PPG sensor to capture high-resolution heart-rate-variability metrics." },
-];
+function getCONTRIB() {
+  return [
+    { t: tA("outlook.contrib.0.t"), d: tA("outlook.contrib.0.d") },
+    { t: tA("outlook.contrib.1.t"), d: tA("outlook.contrib.1.d") },
+    { t: tA("outlook.contrib.2.t"), d: tA("outlook.contrib.2.d") },
+    { t: tA("outlook.contrib.3.t"), d: tA("outlook.contrib.3.d") },
+    { t: tA("outlook.contrib.4.t"), d: tA("outlook.contrib.4.d") },
+  ];
+}
+function getLIMITS() {
+  return [
+    { t: tA("outlook.limit.0.t"), d: tA("outlook.limit.0.d") },
+    { t: tA("outlook.limit.1.t"), d: tA("outlook.limit.1.d") },
+    { t: tA("outlook.limit.2.t"), d: tA("outlook.limit.2.d") },
+    { t: tA("outlook.limit.3.t"), d: tA("outlook.limit.3.d") },
+    { t: tA("outlook.limit.4.t"), d: tA("outlook.limit.4.d") },
+    { t: tA("outlook.limit.5.t"), d: tA("outlook.limit.5.d") },
+  ];
+}
+function getFUTURE() {
+  return [
+    { t: tA("outlook.future.0.t"), d: tA("outlook.future.0.d") },
+    { t: tA("outlook.future.1.t"), d: tA("outlook.future.1.d") },
+    { t: tA("outlook.future.2.t"), d: tA("outlook.future.2.d") },
+  ];
+}
 function OutlookSection() {
+  const CONTRIB = getCONTRIB(), LIMITS = getLIMITS(), FUTURE = getFUTURE();
   return (
     <section className="section-block divline" id="outlook">
       <div className="wrap">
-        <span className="kicker reveal">Contributions &amp; outlook</span>
-        <h2 className="sec-title reveal">What it proved, and what's next</h2>
+        <span className="kicker reveal">{tA("outlook.kicker", "Contributions & outlook")}</span>
+        <h2 className="sec-title reveal">{tA("outlook.title", "What it proved, and what's next")}</h2>
         <div className="outlook-grid">
           <div className="ol-col contrib reveal">
-            <h3><span className="ol-ic"><SiteIcon name="shield" s={17} /></span>Contributions</h3>
+            <h3><span className="ol-ic"><SiteIcon name="shield" s={17} /></span>{tA("outlook.contribTitle", "Contributions")}</h3>
             <div className="ol-list">
               {CONTRIB.map((c, i) => (
                 <div className="ol-item" key={i}>
@@ -200,7 +215,7 @@ function OutlookSection() {
             </div>
           </div>
           <div className="ol-col limit reveal">
-            <h3><span className="ol-ic"><SiteIcon name="info" s={17} /></span>Limitations</h3>
+            <h3><span className="ol-ic"><SiteIcon name="info" s={17} /></span>{tA("outlook.limitTitle", "Limitations")}</h3>
             <div className="ol-list">
               {LIMITS.map((c, i) => (
                 <div className="ol-item" key={i}>
@@ -213,7 +228,7 @@ function OutlookSection() {
         </div>
 
         <div className="future reveal">
-          <span className="kicker k-plain" style={{ color: "var(--ink-4)" }}>Future work — three axes</span>
+          <span className="kicker k-plain" style={{ color: "var(--ink-4)" }}>{tA("outlook.futureKicker", "Future work — three axes")}</span>
           <div className="future-grid">
             {FUTURE.map((f) => (
               <div className="fut" key={f.t}><div className="ft-t">{f.t}</div><div className="ft-d">{f.d}</div></div>
@@ -222,12 +237,10 @@ function OutlookSection() {
         </div>
 
         <div className="conclusion reveal">
-          <div className="cc-k">Conclusion</div>
-          <div className="cc-t">The technical barrier to affective gaming is <em>no longer the hardware.</em></div>
+          <div className="cc-k">{tA("outlook.conclTag", "Conclusion")}</div>
+          <div className="cc-t" dangerouslySetInnerHTML={{ __html: tA("outlook.conclTitle", "The technical barrier to affective gaming is <em>no longer the hardware.</em>") }} />
           <div className="cc-d">
-            A standard webcam, two open-source models and a composite formula running in 53 ms on a consumer
-            laptop are enough to sense fear. What remains is evaluation methodology, cross-subject calibration,
-            and the closed-loop validation that a live gameplay experiment will provide.
+            {tA("outlook.conclDesc", "A standard webcam, two open-source models and a composite formula running in 53 ms on a consumer laptop are enough to sense fear. What remains is evaluation methodology, cross-subject calibration, and the closed-loop validation that a live gameplay experiment will provide.")}
           </div>
         </div>
       </div>
@@ -236,52 +249,36 @@ function OutlookSection() {
 }
 
 /* ── GLOSSARY: plain ↔ technical ─────────────────────────────────────── */
-const GLOSS = [
-  { t: "rPPG", ab: "remote photoplethysmography",
-    plain: "Reading your pulse from video. A webcam sees tiny colour changes in your skin as blood moves with each heartbeat — no sensor touches you.",
-    tech: "Contactless PPG from an RGB camera: sub-pixel chromatic variation in facial skin is extracted from temporal fluctuations of mean ROI pixel values; the cardiac-band periodic component yields BPM." },
-  { t: "POS", ab: "plane-orthogonal-to-skin",
-    plain: "The most accurate pulse method here — ~3 BPM error vs a smartwatch. It mathematically separates blood-flow colour change from movement and lighting.",
-    tech: "Projects the RGB signal onto a plane orthogonal to the mean skin-tone direction, removing intensity variation with no skin-tone prior. Highest SNR in Wang et al. (5.16 dB); MAE = 2.96 BPM here." },
-  { t: "CONSENSUS", ab: "multi-algorithm blend",
-    plain: "An attempt to combine all five pulse methods. It backfired: the weak methods dragged down the accurate one (POS), making the blend worse than POS alone.",
-    tech: "SNR-weighted average of five extractors. Weak algorithms (GREEN, WAVELET >13 BPM MAE) diluted POS, collapsing the cardiac fear effect (d = 0.042) until POS was isolated (d = 0.696)." },
-  { t: "CLAHE", ab: "adaptive histogram equalization",
-    plain: "A contrast booster for dark video. It brightens the face region so detail hidden in shadow becomes readable before emotion is measured.",
-    tech: "Contrast-Limited Adaptive Histogram Equalization on the L channel (clipLimit 2.0, 4×4 tiles) — local equalization with contrast clipping to avoid noise amplification." },
-  { t: "FER", ab: "facial emotion recognition",
-    plain: "Software that reads emotion from a face. This project uses two: a neural model (HSEmotion) and a geometric face tracker (MediaPipe).",
-    tech: "HSEmotion (EfficientNet-B0 / AffectNet) gives 8-class softmax probabilities; MediaPipe yields 52 facial blendshape activations for geometric tension." },
-  { t: "Blendshapes", ab: "MediaPipe AU proxies",
-    plain: "52 sliders describing facial muscle movements — brow raise, jaw clench, eye widen. Together they sketch an expression.",
-    tech: "Per-frame activation coefficients for facial action proxies; fear-critical channels show median activations of 0.001–0.004, structurally too sparse to threshold alone." },
-  { t: "F1 score", ab: "precision × recall",
-    plain: "One number for detector quality, balancing false alarms against missed events. 1.0 is perfect; this system reaches 0.77.",
-    tech: "Harmonic mean of precision and recall, evaluated at the event level via sliding-window matching with temporal padding." },
-  { t: "Cohen's d", ab: "effect size",
-    plain: "How big a difference is, not just whether it exists. ~0.7 means the fear heart-rate response is a solid, medium-to-large effect.",
-    tech: "Standardized mean difference. The isolated-POS cardiac fear response reached d = 0.696 (FWER-corrected p = 0.029)." },
-  { t: "FFT", ab: "fast Fourier transform",
-    plain: "A tool that finds repeating rhythms in a signal — like picking out which notes make up a chord. It locates the heartbeat frequency in the skin-colour signal.",
-    tech: "O(n log n) discrete Fourier transform on windowed rPPG segments; the dominant peak in the 1.0–3.0 Hz cardiac band gives the BPM estimate." },
-  { t: "Relax-to-Win", ab: "the core mechanic",
-    plain: "The game gets scarier when you're scared. Your only defence is to calm down — self-regulation is the controller.",
-    tech: "A positive-feedback biofeedback loop: detected fear (F12/F15 > θ) escalates enemy state; the player must suppress visible fear to de-escalate." },
-];
+function getGLOSS() {
+  // term acronyms stay literal; ab/plain/tech are translated
+  return [
+    { t: "rPPG", ab: tA("gloss.term.0.ab"), plain: tA("gloss.term.0.plain"), tech: tA("gloss.term.0.tech") },
+    { t: "POS", ab: tA("gloss.term.1.ab"), plain: tA("gloss.term.1.plain"), tech: tA("gloss.term.1.tech") },
+    { t: "CONSENSUS", ab: tA("gloss.term.2.ab"), plain: tA("gloss.term.2.plain"), tech: tA("gloss.term.2.tech") },
+    { t: "CLAHE", ab: tA("gloss.term.3.ab"), plain: tA("gloss.term.3.plain"), tech: tA("gloss.term.3.tech") },
+    { t: "FER", ab: tA("gloss.term.4.ab"), plain: tA("gloss.term.4.plain"), tech: tA("gloss.term.4.tech") },
+    { t: "Blendshapes", ab: tA("gloss.term.5.ab"), plain: tA("gloss.term.5.plain"), tech: tA("gloss.term.5.tech") },
+    { t: "F1 score", ab: tA("gloss.term.6.ab"), plain: tA("gloss.term.6.plain"), tech: tA("gloss.term.6.tech") },
+    { t: "Cohen's d", ab: tA("gloss.term.7.ab"), plain: tA("gloss.term.7.plain"), tech: tA("gloss.term.7.tech") },
+    { t: "FFT", ab: tA("gloss.term.8.ab"), plain: tA("gloss.term.8.plain"), tech: tA("gloss.term.8.tech") },
+    { t: "Relax-to-Win", ab: tA("gloss.term.9.ab"), plain: tA("gloss.term.9.plain"), tech: tA("gloss.term.9.tech") },
+  ];
+}
 function GlossarySection() {
   const [mode, setMode] = useStateA("plain");
+  const GLOSS = getGLOSS();
   return (
     <section className="section-block divline" id="glossary">
       <div className="wrap">
-        <span className="kicker reveal">Glossary</span>
-        <h2 className="sec-title reveal">Every term, two ways</h2>
+        <span className="kicker reveal">{tA("gloss.kicker", "Glossary")}</span>
+        <h2 className="sec-title reveal">{tA("gloss.title", "Every term, two ways")}</h2>
         <div className="gloss-head reveal">
           <p className="sec-lead" style={{ marginTop: 0, flex: "1 1 320px" }}>
-            The same plain ↔ technical switch the HUD uses, applied to the vocabulary of the report.
+            {tA("gloss.lead", "The same plain ↔ technical switch the HUD uses, applied to the vocabulary of the report.")}
           </p>
           <div className="gloss-toggle">
-            <button className={mode === "plain" ? "on" : ""} onClick={() => setMode("plain")}>Plain language</button>
-            <button className={mode === "tech" ? "on" : ""} onClick={() => setMode("tech")}>Technical</button>
+            <button className={mode === "plain" ? "on" : ""} onClick={() => setMode("plain")}>{tA("gloss.plainBtn", "Plain language")}</button>
+            <button className={mode === "tech" ? "on" : ""} onClick={() => setMode("tech")}>{tA("gloss.techBtn", "Technical")}</button>
           </div>
         </div>
         <div className="gloss-grid">

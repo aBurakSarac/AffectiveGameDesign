@@ -6,6 +6,8 @@ const { useMemo: useMemoH, useRef: useRefH, useCallback: useCbH } = React;
 
 const fmt = (v, d = 2) => v.toFixed(d);
 const pct = (v) => `${Math.max(0, Math.min(1, v)) * 100}%`;
+// i18n shorthand (unique name; global scope is shared across script files)
+const tH = (k, fb) => window.I18N.t(k, fb);
 
 // label helper: mode = 'plain' | 'plainOnly' | 'tech'
 function Lab({ plain, tech, mode }) {
@@ -28,18 +30,18 @@ function TelemetryBar({ f, accent }) {
       <div className="brand">
         <span className="rec-dot" />
         <div>
-          <div className="title">Fear Analysis HUD</div>
-          <div className="sub">FER + rPPG · replay</div>
+          <div className="title">{tH("hud.telemetry.title", "Fear Analysis HUD")}</div>
+          <div className="sub">{tH("hud.telemetry.sub", "FER + rPPG · replay")}</div>
         </div>
       </div>
       <div className="tele-group">
-        <div className="tele"><span className="k">Time</span><span className="v">{mm}:{ss}<span style={{ color: "var(--ink-4)", fontSize: 14 }}>.{cs}</span></span></div>
+        <div className="tele"><span className="k">{tH("hud.telemetry.time", "Time")}</span><span className="v">{mm}:{ss}<span style={{ color: "var(--ink-4)", fontSize: 14 }}>.{cs}</span></span></div>
         <div className="tele-sep" />
-        <div className="tele"><span className="k">Frame</span><span className="v">{String(f.frame).padStart(5, "0")}</span></div>
+        <div className="tele"><span className="k">{tH("hud.telemetry.frame", "Frame")}</span><span className="v">{String(f.frame).padStart(5, "0")}</span></div>
         <div className="tele-sep" />
-        <div className="tele"><span className="k">Latency</span><span className="v" style={{ color: f.latency > 40 ? "var(--arousal)" : "var(--ink)" }}>{Math.round(f.latency)}<span style={{ fontSize: 13, color: "var(--ink-4)" }}>ms</span></span></div>
+        <div className="tele"><span className="k">{tH("hud.telemetry.latency", "Latency")}</span><span className="v" style={{ color: f.latency > 40 ? "var(--arousal)" : "var(--ink)" }}>{Math.round(f.latency)}<span style={{ fontSize: 13, color: "var(--ink-4)" }}>ms</span></span></div>
         <div className="tele-sep" />
-        <div className="tele"><span className="k">Throughput</span><span className="v dim">{f.fps.toFixed(1)}<span style={{ fontSize: 13, color: "var(--ink-4)" }}>fps</span></span></div>
+        <div className="tele"><span className="k">{tH("hud.telemetry.throughput", "Throughput")}</span><span className="v dim">{f.fps.toFixed(1)}<span style={{ fontSize: 13, color: "var(--ink-4)" }}>fps</span></span></div>
       </div>
     </div>
   );
@@ -186,9 +188,9 @@ function VerdictCard({ f, headline }) {
         <div className="grow-head">
           <span className="grow-tag" style={{ color }}>{tag}</span>
           <span className="grow-sub">{sub}</span>
-          <span className="grow-thr">needs {fmt(thr)}</span>
+          <span className="grow-thr">{tH("hud.verdict.needs", "needs")} {fmt(thr)}</span>
           <span className="grow-state" style={{ color: over ? "var(--danger)" : "var(--ink-3)" }}>
-            {over ? "OVER" : "UNDER"}
+            {over ? tH("hud.verdict.over", "OVER") : tH("hud.verdict.under", "UNDER")}
           </span>
           <span className="grow-num" style={{ color: over ? "var(--danger)" : "var(--ink)" }}>{fmt(score)}</span>
         </div>
@@ -211,17 +213,17 @@ function VerdictCard({ f, headline }) {
             : <svg width="30" height="30" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2.2" /><path d="M7 12.5 L10.5 16 L17 8.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg>}
         </div>
         <div className="verdict-words">
-          <div className="verdict-state">{noFace ? "FACE LOST" : fear ? "FEAR DETECTED" : "NO FEAR"}</div>
-          <div className="verdict-byline">{noFace ? "subject out of frame · detection paused" : "final decision · F15 (production)"}</div>
+          <div className="verdict-state">{noFace ? tH("hud.verdict.faceLost", "FACE LOST") : fear ? tH("hud.verdict.fear", "FEAR DETECTED") : tH("hud.verdict.noFear", "NO FEAR")}</div>
+          <div className="verdict-byline">{noFace ? tH("hud.verdict.bylineFaceLost", "subject out of frame · detection paused") : tH("hud.verdict.byline", "final decision · F15 (production)")}</div>
         </div>
         <div className="verdict-score">
           <div className="num" style={{ color: fear ? "var(--danger)" : "var(--ink)" }}>{fmt(f.F15)}</div>
-          <div className="cap">F15 score</div>
+          <div className="cap">{tH("hud.verdict.scoreCap", "F15 score")}</div>
         </div>
       </div>
       <div className="gauge gauge-dual">
-        <GaugeRow tag="F12" sub="face only" score={f.F12} thr={window.HUD.THRESH.F12} color="var(--ink-2)" />
-        <GaugeRow tag="F15" sub="+ heart rate" score={f.F15} thr={window.HUD.THRESH.F15} color="var(--ink-2)" />
+        <GaugeRow tag="F12" sub={tH("hud.verdict.f12Sub", "face only")} score={f.F12} thr={window.HUD.THRESH.F12} color="var(--ink-2)" />
+        <GaugeRow tag="F15" sub={tH("hud.verdict.f15Sub", "+ heart rate")} score={f.F15} thr={window.HUD.THRESH.F15} color="var(--ink-2)" />
         <div className="gauge-scale"><span>0.00</span><span>0.50</span><span>1.00</span></div>
       </div>
     </div>
@@ -236,35 +238,35 @@ function PrimarySignals({ f, mode }) {
     <div className="section">
       <div className="sec-head">
         <span className="idx">1</span>
-        <span className="label">Primary signal · facial emotion</span>
+        <span className="label">{tH("hud.primary.label", "Primary signal · facial emotion")}</span>
         <span className="note">HSEmotion</span>
       </div>
       <div className="sec-body">
         <div className="sig primary hero">
           <div className="sig-top">
-            <Lab plain="Fear" tech="hs_fear" mode={mode} />
+            <Lab plain={tH("emo.Fear", "Fear")} tech="hs_fear" mode={mode} />
             <span className="sig-val" style={{ color: "var(--danger)" }}>{fmt(f.hs_fear)}</span>
           </div>
           <div className="bar"><div className="bar-fill" style={{ width: pct(f.hs_fear), background: "var(--danger)" }} /></div>
         </div>
         <div className="sig primary">
           <div className="sig-top">
-            <Lab plain="Arousal" tech="hs_arousal" mode={mode} />
+            <Lab plain={tH("hud.primary.arousal", "Arousal")} tech="hs_arousal" mode={mode} />
             <span className="sig-val" style={{ color: "var(--arousal)" }}>{fmt(f.hs_arousal)}</span>
           </div>
           <div className="bar"><div className="bar-fill" style={{ width: pct(f.hs_arousal), background: "var(--arousal)" }} /></div>
         </div>
         <div className="base-note">
-          <span>Base score</span>
-          <span style={{ fontFamily: "var(--mono)", color: "var(--ink-3)" }}>= 0.7×Fear + 0.3×Arousal =</span>
+          <span>{tH("hud.primary.baseScore", "Base score")}</span>
+          <span style={{ fontFamily: "var(--mono)", color: "var(--ink-3)" }}>{tH("hud.primary.baseFormula", "= 0.7×Fear + 0.3×Arousal =")}</span>
           <b>{fmt(f.base)}</b>
         </div>
         <div className="emo-strip">
-          <div className="cap">Full emotion distribution · dominant: {f.dom} ({fmt(f.domScore)})</div>
+          <div className="cap">{tH("hud.primary.distPrefix", "Full emotion distribution · dominant:")} {tH("emo." + f.dom, f.dom)} ({fmt(f.domScore)})</div>
           <div className="emo-grid">
             {others.map((l) => (
               <div key={l} className={`emo ${l === f.dom ? "dom" : ""}`}>
-                <span className="en">{l}</span>
+                <span className="en">{tH("emo." + l, l)}</span>
                 <span className="eb"><span className="ef" style={{ width: pct(f.emotions[l]) }} /></span>
                 <span className="ev">{fmt(f.emotions[l])}</span>
               </div>
@@ -286,8 +288,8 @@ function Amplifiers({ f, mode, showAlgos, setShowAlgos }) {
     <div className="section">
       <div className="sec-head">
         <span className="idx">2</span>
-        <span className="label">Amplifiers & score build-up</span>
-        <span className="note">F12 = base × tension · F15 = F12 × heart</span>
+        <span className="label">{tH("hud.amp.label", "Amplifiers & score build-up")}</span>
+        <span className="note">{tH("hud.amp.note", "F12 = base × tension · F15 = F12 × heart")}</span>
       </div>
       <div className="sec-body">
         <div className="amp-chain-grid">
@@ -295,10 +297,10 @@ function Amplifiers({ f, mode, showAlgos, setShowAlgos }) {
           <div className="amp" style={{ borderColor: "oklch(0.70 0.15 305 / 0.4)" }}>
             <div className="amp-head">
               <span className="amp-dot" style={{ background: "var(--tension)" }} />
-              <span className="amp-title">Facial tension</span>
+              <span className="amp-title">{tH("hud.amp.tensionTitle", "Facial tension")}</span>
               <span className="amp-mult" style={{ background: "oklch(0.70 0.15 305 / 0.16)", color: "var(--tension)" }}>×{fmt(f.mp_mult)}</span>
             </div>
-            <div className="amp-sub">{mode === "tech" ? "mp_tension · ×(1+mp_tension)" : "MediaPipe · brow / jaw / eye muscle strain"}</div>
+            <div className="amp-sub">{mode === "tech" ? "mp_tension · ×(1+mp_tension)" : tH("hud.amp.tensionSub", "MediaPipe · brow / jaw / eye muscle strain")}</div>
             <div className="amp-main">
               <span className="amp-num" style={{ color: "var(--tension)" }}>{fmt(f.mp_tension)}</span>
               <span className="amp-unit">/ 1.00</span>
@@ -307,9 +309,9 @@ function Amplifiers({ f, mode, showAlgos, setShowAlgos }) {
               <span className="mini-bar"><span className="mini-fill" style={{ width: pct(f.mp_tension), background: "var(--tension)" }} /></span>
             </div>
             <div className="mp-stats">
-              <div className="mp-stat"><span className="k">Valence</span><span className="v" style={{ color: f.valence < 0 ? "var(--danger)" : "var(--clear)" }}>{f.valence >= 0 ? "+" : ""}{fmt(f.valence)}</span></div>
-              <div className="mp-stat"><span className="k">Smile</span><span className="v">{fmt(f.smile)}</span></div>
-              <div className="mp-stat"><span className="k">Startle</span><span className="v">{fmt(f.startle, 1)}/s</span></div>
+              <div className="mp-stat"><span className="k">{tH("hud.amp.valence", "Valence")}</span><span className="v" style={{ color: f.valence < 0 ? "var(--danger)" : "var(--clear)" }}>{f.valence >= 0 ? "+" : ""}{fmt(f.valence)}</span></div>
+              <div className="mp-stat"><span className="k">{tH("hud.amp.smile", "Smile")}</span><span className="v">{fmt(f.smile)}</span></div>
+              <div className="mp-stat"><span className="k">{tH("hud.amp.startle", "Startle")}</span><span className="v">{fmt(f.startle, 1)}/s</span></div>
             </div>
           </div>
 
@@ -320,41 +322,41 @@ function Amplifiers({ f, mode, showAlgos, setShowAlgos }) {
               <div className="amp" style={{ borderColor: calibrating ? "oklch(0.46 0.012 250 / 0.4)" : "oklch(0.70 0.175 12 / 0.4)" }}>
                 <div className="amp-head">
                   <span className="amp-dot" style={{ background: calibrating ? "var(--ink-4)" : "var(--heart)" }} />
-                  <span className="amp-title">Heart rate</span>
+                  <span className="amp-title">{tH("hud.amp.heartTitle", "Heart rate")}</span>
                   {calibrating
-                    ? <span className="amp-mult" style={{ background: "oklch(0.46 0.012 250 / 0.16)", color: "var(--ink-3)" }}>calibrating</span>
+                    ? <span className="amp-mult" style={{ background: "oklch(0.46 0.012 250 / 0.16)", color: "var(--ink-3)" }}>{tH("hud.amp.calibrating", "calibrating")}</span>
                     : <span className="amp-mult" style={{ background: "oklch(0.70 0.175 12 / 0.16)", color: "var(--heart)" }}>×{fmt(bnMult)}</span>}
                 </div>
                 {calibrating ? (
                   <>
-                    <div className="amp-sub">rPPG needs ~30 s of skin-colour data before the first pulse estimate</div>
+                    <div className="amp-sub">{tH("hud.amp.calSub", "rPPG needs ~30 s of skin-colour data before the first pulse estimate")}</div>
                     <div className="amp-main">
                       <span className="amp-num" style={{ color: "var(--ink-4)" }}>—</span>
                       <span className="amp-unit" style={{ color: "var(--ink-4)" }}>BPM</span>
                     </div>
-                    <div className="rppg-cal-note">Collecting forehead ROI frames… multiplier locked at ×1.00 until ready</div>
+                    <div className="rppg-cal-note">{tH("hud.amp.calNote", "Collecting forehead ROI frames… multiplier locked at ×1.00 until ready")}</div>
                   </>
                 ) : (
                   <>
-                    <div className="amp-sub">{mode === "tech" ? "POS bpm · ×(1+0.5·bpm_norm)" : "rPPG (POS) · pulse read from skin colour"}</div>
+                    <div className="amp-sub">{mode === "tech" ? "POS bpm · ×(1+0.5·bpm_norm)" : tH("hud.amp.heartSub", "rPPG (POS) · pulse read from skin colour")}</div>
                     <div className="amp-main">
                       <span className="amp-num" style={{ color: "var(--heart)" }}>{Math.round(f.bpm)}</span>
                       <span className="amp-unit">BPM</span>
                       <span style={{ marginLeft: "auto", fontFamily: "var(--mono)", fontSize: 12, color: "var(--ink-3)" }}>
-                        rise {mode === "tech" ? "bpm_norm " : ""}{fmt(f.bpm_norm)}
+                        {tH("hud.amp.rise", "rise")} {mode === "tech" ? "bpm_norm " : ""}{fmt(f.bpm_norm)}
                       </span>
                     </div>
                     <div className="hr-strip">
                       <div className="hr-line" />
-                      <div className="hr-base" style={{ left: pct(Math.max(0.04, Math.min(0.96, (f.baseline - 50) / 80))) }}><span className="tag">rest {f.baseline}</span></div>
-                      <div className="hr-now" style={{ left: pct(Math.max(0.04, Math.min(0.96, (f.bpm - 50) / 80))) }}><span className="tag">now {Math.round(f.bpm)}</span></div>
+                      <div className="hr-base" style={{ left: pct(Math.max(0.04, Math.min(0.96, (f.baseline - 50) / 80))) }}><span className="tag">{tH("hud.amp.rest", "rest")} {f.baseline}</span></div>
+                      <div className="hr-now" style={{ left: pct(Math.max(0.04, Math.min(0.96, (f.bpm - 50) / 80))) }}><span className="tag">{tH("hud.amp.now", "now")} {Math.round(f.bpm)}</span></div>
                     </div>
                     <div className="algos">
                       {setShowAlgos && (
                         <label className="ctl-toggle algo-toggle">
                           <input type="checkbox" checked={showAlgos} onChange={(e) => setShowAlgos(e.target.checked)} />
                           <span className="track"><span className="knob" /></span>
-                          Other rPPG algorithms
+                          {tH("hud.amp.otherAlgos", "Other rPPG algorithms")}
                         </label>
                       )}
                       {showAlgos && (
@@ -378,27 +380,27 @@ function Amplifiers({ f, mode, showAlgos, setShowAlgos }) {
           <div className="chain-inline">
             <div className="chain">
               <div className="chain-node">
-                <div className="cn-cap">Base</div>
+                <div className="cn-cap">{tH("hud.chain.base", "Base")}</div>
                 <div className="cn-val">{fmt(f.base)}</div>
-                <div className="cn-form">fear + arousal</div>
+                <div className="cn-form">{tH("hud.chain.baseForm", "fear + arousal")}</div>
               </div>
               <div className="chain-op">
                 <span className="op" style={{ color: "var(--tension)" }}>× {fmt(f.mp_mult)}</span>
                 <span className="arr">→</span>
-                <span className="lift" style={{ background: "oklch(0.70 0.15 305 / 0.16)", color: "var(--tension)" }}>tension</span>
+                <span className="lift" style={{ background: "oklch(0.70 0.15 305 / 0.16)", color: "var(--tension)" }}>{tH("hud.chain.tension", "tension")}</span>
               </div>
               <div className="chain-node">
-                <div className="cn-cap">F12 · face only</div>
+                <div className="cn-cap">{tH("hud.chain.f12", "F12 · face only")}</div>
                 <div className="cn-val" style={{ color: "var(--ink)" }}>{fmt(f.F12)}</div>
                 <div className="cn-form">≥ {fmt(window.HUD.THRESH.F12)}?</div>
               </div>
               <div className="chain-op">
                 <span className="op" style={{ color: "var(--heart)" }}>× {fmt(f.rppg_mult)}</span>
                 <span className="arr">→</span>
-                <span className="lift" style={{ background: "oklch(0.70 0.175 12 / 0.16)", color: "var(--heart)" }}>heart</span>
+                <span className="lift" style={{ background: "oklch(0.70 0.175 12 / 0.16)", color: "var(--heart)" }}>{tH("hud.chain.heart", "heart")}</span>
               </div>
               <div className={`chain-node final ${fear ? "" : "clear-state"}`}>
-                <div className="cn-cap">F15 · production</div>
+                <div className="cn-cap">{tH("hud.chain.f15", "F15 · production")}</div>
                 <div className="cn-val">{fmt(f.F15)}</div>
                 <div className="cn-form">≥ {fmt(window.HUD.THRESH.F15)}?</div>
               </div>

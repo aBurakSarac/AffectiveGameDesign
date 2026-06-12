@@ -55,9 +55,14 @@ function SiteApp() {
   const [sel, setSel] = useState(window.SITE.SESSIONS[0].id);
   const [sessionReady, setSessionReady] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
   const [active, setActive] = useState("overview");
   const [custOpen, setCustOpen] = useState(false);
+  const [lang, setLangState] = useState(window.I18N.lang);
   const videoRef = useRef(null);
+
+  // ── language: update the runtime + React state together so all t() re-render ──
+  const setLang = useCallback((code) => { window.I18N.set(code); setLangState(window.I18N.lang); }, []);
   const sessionVer = useRef(0);
 
   // ── section view (order + hidden), persisted on this device ──
@@ -76,7 +81,7 @@ function SiteApp() {
   const resetView = useCallback(() => setView({ order: [...DEFAULT_ORDER], hidden: {} }), []);
 
   const visibleOrder = useMemo(() => view.order.filter((id) => !view.hidden[id]), [view]);
-  const navLinks = useMemo(() => visibleOrder.filter((id) => id !== "overview").map((id) => [id, NAV_LABELS[id] || id]), [visibleOrder]);
+  const navLinks = useMemo(() => visibleOrder.filter((id) => id !== "overview").map((id) => [id, window.I18N.t("nav." + id, NAV_LABELS[id] || id)]), [visibleOrder, lang]);
 
   // compact = stacked fluid HUD; wide = scaled fixed canvas. 920px crossover.
   const [compact, setCompact] = useState(() => window.innerWidth < 920);
@@ -184,6 +189,7 @@ function SiteApp() {
 
   // ── scroll-spy + reveal (scroll-listener based — robust in every context,
   //    incl. preview iframes where IntersectionObserver never fires) ──
+  const lastY = useRef(0);
   useEffect(() => {
     let ticking = false;
     const update = () => {
@@ -200,6 +206,14 @@ function SiteApp() {
         if (el && el.getBoundingClientRect().top - 72 <= 0) cur = id;
       }
       setActive(cur);
+      // auto-hide top bar: hide on scroll-down, reveal on ANY scroll-up.
+      // The reference point (lastY) only moves when we actually flip state, so a
+      // slow drag accumulates past the threshold instead of being eaten frame by
+      // frame — important on touch where per-frame deltas are tiny.
+      const y = Math.max(0, window.scrollY || document.documentElement.scrollTop || 0);
+      if (y < 80) { setNavHidden(false); lastY.current = y; }
+      else if (y > lastY.current + 4) { setNavHidden(true); lastY.current = y; }
+      else if (y < lastY.current - 4) { setNavHidden(false); lastY.current = y; }
     };
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -227,12 +241,14 @@ function SiteApp() {
     path: <DesignPathSection />,
     outlook: <OutlookSection />,
     glossary: <GlossarySection />,
-  }), [f, traces, playing, seek, toggle, sel, selectSession, mode, showAlgos, speed, compact, navTo]);
+  }), [f, traces, playing, seek, toggle, sel, selectSession, mode, showAlgos, speed, compact, navTo, lang]);
 
   return (
     <>
       <Nav active={active} open={navOpen} setOpen={setNavOpen} onNav={navTo}
-        links={navLinks} onCustomize={() => setCustOpen(true)} />
+        links={navLinks} onCustomize={() => setCustOpen(true)}
+        hidden={navHidden} lang={lang} setLang={setLang} />
+      <SideNav active={active} links={navLinks} onNav={navTo} />
       <main>
         {visibleOrder.map((id) => <React.Fragment key={id}>{nodes[id]}</React.Fragment>)}
       </main>
