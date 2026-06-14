@@ -157,7 +157,7 @@ window.I18N._register("tr", {
   "data.rppg.1.why": "Benzer F1, ancak recall için 10 puanlık precision'ı feda eder — oyun için kötü.",
   "data.rppg.2.why": "Sağlam, ancak 30 saniyelik pencereden daha düşük F1.",
 
-  // ── data: enemies (names La Bête / Le Veilleur + FSM states stay literal) ──
+  // ── data: enemies (names Le Rôdeur / Le Veilleur + FSM states stay literal) ──
   "data.enemies.wanderer.aka": "The Wanderer",
   "data.enemies.wanderer.cls": "Dev 8 bacaklı örümcek · görme ile değil korku ile avlanır",
   "data.enemies.wanderer.ch0.t": "Hareket konisi",

@@ -108,7 +108,7 @@
     // ── THE GAME (§5.8) ──
     const ENEMIES = [
       {
-        key: "wanderer", name: "La Bête", aka: t("data.enemies.wanderer.aka"), cls: t("data.enemies.wanderer.cls"),
+        key: "wanderer", name: "Le Rôdeur", aka: t("data.enemies.wanderer.aka"), cls: t("data.enemies.wanderer.cls"),
         fsm: ["WANDER", "ALERT", "CHASE", "POUNCE", "COOLDOWN"],
         channels: [
           { t: t("data.enemies.wanderer.ch0.t"), d: t("data.enemies.wanderer.ch0.d") },

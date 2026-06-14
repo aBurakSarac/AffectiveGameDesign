@@ -157,7 +157,7 @@ window.I18N._register("fr", {
   "data.rppg.1.why": "F1 comparable mais sacrifie 10 points de précision pour le rappel (recall) — mauvais pour un jeu.",
   "data.rppg.2.why": "Solide, mais un F1 inférieur à celui de la fenêtre de 30 s.",
 
-  // ── data: enemies (names La Bête / Le Veilleur + FSM states stay literal) ──
+  // ── data: enemies (names Le Rôdeur / Le Veilleur + FSM states stay literal) ──
   "data.enemies.wanderer.aka": "Le Rôdeur",
   "data.enemies.wanderer.cls": "Araignée géante à 8 pattes · chasse à la peur, pas à la vue",
   "data.enemies.wanderer.ch0.t": "Cône de mouvement",
