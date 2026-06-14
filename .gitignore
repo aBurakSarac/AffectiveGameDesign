@@ -5,13 +5,10 @@ __pycache__/
 *.egg-info/
 .eggs/
 
-# ── Pipeline: heavy runtime data (not source) ──
-Pipeline/logs/sessions/
-Pipeline/logs/archive_pre_velocity/
+# ── Pipeline: runtime caches and downloaded models ──
 Pipeline/logs/rppg_cache/
-Pipeline/logs/comparisons/
+Pipeline/logs/archive_pre_velocity/
 Pipeline/presentation/
-Pipeline/sessions/
 Pipeline/models/
 Pipeline/fer/models/
 Pipeline/archive_legacy/models/
@@ -28,5 +25,12 @@ Thumbs.db
 .vscode/
 .idea/
 
+# ── Website: removed artifacts ──
+Website/screenshots/
+Website/CLAUDE_CODE_BRIEF.md
+Website/HANDOFF.md
+
 # ── Misc ──
 *.zip
+
+projeyüklemerehberi.md
