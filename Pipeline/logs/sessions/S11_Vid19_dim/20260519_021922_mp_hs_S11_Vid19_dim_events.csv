@@ -1,0 +1,2 @@
+event_id,event_start_frame,event_end_frame,gate_a_frame,duration_frames,duration_seconds,peak_composite,mean_composite,onset_slope,peak_hs_fear,peak_hs_surprise,peak_mp_tension
+E01,2194,2294,2194,101,3.367,0.765,0.5748,0.015585,0.9285,0.9469,0.3115

@@ -1,0 +1,37 @@
+{
+  "CHROM": {
+    "mae": 28.16,
+    "rmse": 31.85,
+    "pearson_r": 0.019,
+    "bias": -27.72,
+    "n": 38
+  },
+  "GREEN": {
+    "mae": 20.17,
+    "rmse": 20.34,
+    "pearson_r": 0.983,
+    "bias": -20.17,
+    "n": 6
+  },
+  "WAVELET": {
+    "mae": 24.23,
+    "rmse": 25.16,
+    "pearson_r": 0.863,
+    "bias": -24.23,
+    "n": 8
+  },
+  "CONSENSUS": {
+    "mae": 16.56,
+    "rmse": 18.47,
+    "pearson_r": 0.421,
+    "bias": -16.56,
+    "n": 7
+  },
+  "ALL": {
+    "mae": 25.44,
+    "rmse": 28.66,
+    "pearson_r": 0.32,
+    "bias": -25.15,
+    "n": 59
+  }
+}

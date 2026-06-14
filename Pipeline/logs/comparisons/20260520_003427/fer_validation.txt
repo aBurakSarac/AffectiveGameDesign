@@ -1,0 +1,56 @@
+
+======================================================================
+  FER Statistical Validation Suite — 7 sessions
+======================================================================
+
+  Baseline f12 (locked params): F1=0.6358 (P=80.0%, R=52.7%, TP=48, FP=12, GT=48/91)
+
+  ============================================================
+  A9a. Permutation Test — f12 (n=10000)
+  ============================================================
+  Observed F1 = 0.6358
+  Permutations with F1 ≥ observed: 0/10000
+  Permutation p-value: 0.0001
+
+  ============================================================
+  A9b. Leave-k-out Cross-Validation — f12
+  ============================================================
+
+  Leave-1-out: 7 folds
+    Locked params:     F1 = 0.5467 ± 0.2540
+    Train-optimized:   F1 = 0.5443 ± 0.2969
+    Overfit gap:       -0.0025
+
+  Leave-2-out: 21 folds
+    Locked params:     F1 = 0.6190 ± 0.0710
+    Train-optimized:   F1 = 0.6078 ± 0.1155
+    Overfit gap:       -0.0112
+
+  Leave-3-out: 35 folds
+    Locked params:     F1 = 0.6278 ± 0.0448
+    Train-optimized:   F1 = 0.6242 ± 0.0656
+    Overfit gap:       -0.0036
+
+  ============================================================
+  A9c. Per-Session F1 Breakdown — f12
+  ============================================================
+  Session                                    n_GT   F1_locked  F1_optimal      Gap
+  20260503_153301_mp_hs_S02                    21      0.6857      0.7826  +0.0969
+  20260518_092016_mp_hs_S02                     3      0.0000      0.0000  +0.0000
+  20260503_155009_mp_hs_S08                    13      0.4706      0.6667  +0.1961
+  20260503_155724_mp_hs_S06                    16      0.6154      0.7692  +0.1538
+  20260517_154229_mp_hs_S04                    21      0.6829      0.7568  +0.0738
+  20260517_175428_mp_hs_S05                     8      0.6667      0.8750  +0.2083
+  20260517_200406_mp_hs_S10                     9      0.7059      0.8000  +0.0941
+
+  ============================================================
+  A9d. Per-Session vs Per-Event Weighting — f12
+  ============================================================
+
+  Per-event (micro) F1:    0.6358  (each event counts equally)
+  Event-weighted F1:       0.6197  (Σ session_F1 × n_events / total)
+  Per-session (macro) F1:  0.5467  (each session counts equally)
+
+  Per-session F1 values: ['0.6857', '0.0000', '0.4706', '0.6154', '0.6829', '0.6667', '0.7059']
+  Per-session GT counts: [21, 3, 13, 16, 21, 8, 9]
+  Session F1 std:          0.2540

@@ -1,0 +1,121 @@
+
+[v2 report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260502_001456_20260501_190613_mp_hs_S02_Vid04_dim_v2.txt
+
+[mp report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260502_001548_20260501_190613_mp_hs_S02_Vid04_dim_mp_sweep.txt
+
+[v2 report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260502_001706_20260501_194746_mp_hs_S08_Vid18_mixed_v2.txt
+
+[mp report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260502_001727_20260501_194746_mp_hs_S08_Vid18_mixed_mp_sweep.txt
+
+[v2 report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260502_001802_20260501_181433_mp_hs_S06_Vid16_bright_v2.txt
+
+[mp report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260502_001858_20260501_181433_mp_hs_S06_Vid16_bright_mp_sweep.txt
+
+======================================================================
+  evaluate_all.py — 3 session(s)
+  threshold=0.7  min_frames=10  window=15  fill=65%
+  pad_start=0.5s  pad_end=1.0s
+======================================================================
+
+--- Session: 20260501_190613_mp_hs_S02_Vid04_dim.csv ---
+    GT: S02_Vid04.csv
+  Formula     Label           TP    FP    FN      Prec       Rec        F1
+  hs_fear     raw_hs          18     6     3    75.00%    85.71%    0.8000
+  f0          f0               3     5    18    37.50%    14.29%    0.2069
+  f1          f1               0     0    21     0.00%     0.00%    0.0000
+  f2          f2               0     0    21     0.00%     0.00%    0.0000
+  f3          f3               3     0    18   100.00%    14.29%    0.2500
+  f4          f4               3     4    18    42.86%    14.29%    0.2143
+  f5          f5               0     0    21     0.00%     0.00%    0.0000
+  f6          f6               0     0    21     0.00%     0.00%    0.0000
+  f7          hs_only         18     6     3    75.00%    85.71%    0.8000
+  f8          mp_only          2     2    19    50.00%     9.52%    0.1600
+  f9          max_fusion      18     8     3    69.23%    85.71%    0.7660
+  f10         geo_mean         0     0    21     0.00%     0.00%    0.0000
+  f11         hs-anger        18     4     3    81.82%    85.71%    0.8372
+
+--- Session: 20260501_194746_mp_hs_S08_Vid18_mixed.csv ---
+    GT: S08_Vid18.csv
+  Formula     Label           TP    FP    FN      Prec       Rec        F1
+  hs_fear     raw_hs           4     0     9   100.00%    30.77%    0.4706
+  f0          f0               1     0    12   100.00%     7.69%    0.1429
+  f1          f1               0     0    13     0.00%     0.00%    0.0000
+  f2          f2               0     0    13     0.00%     0.00%    0.0000
+  f3          f3               1     0    12   100.00%     7.69%    0.1429
+  f4          f4               1     0    12   100.00%     7.69%    0.1429
+  f5          f5               0     0    13     0.00%     0.00%    0.0000
+  f6          f6               0     0    13     0.00%     0.00%    0.0000
+  f7          hs_only          4     0     9   100.00%    30.77%    0.4706
+  f8          mp_only          4     6     9    40.00%    30.77%    0.3478
+  f9          max_fusion       7     6     6    53.85%    53.85%    0.5385
+  f10         geo_mean         0     0    13     0.00%     0.00%    0.0000
+  f11         hs-anger         4     0     9   100.00%    30.77%    0.4706
+
+--- Session: 20260501_181433_mp_hs_S06_Vid16_bright.csv ---
+    GT: S06_Vid16.csv
+  Formula     Label           TP    FP    FN      Prec       Rec        F1
+  hs_fear     raw_hs           5     0    11   100.00%    31.25%    0.4762
+  f0          f0               5     4    11    55.56%    31.25%    0.4000
+  f1          f1               1     0    15   100.00%     6.25%    0.1176
+  f2          f2               0     0    16     0.00%     0.00%    0.0000
+  f3          f3               2     0    14   100.00%    12.50%    0.2222
+  f4          f4               5     3    11    62.50%    31.25%    0.4167
+  f5          f5               0     0    16     0.00%     0.00%    0.0000
+  f6          f6               1     0    15   100.00%     6.25%    0.1176
+  f7          hs_only          5     0    11   100.00%    31.25%    0.4762
+  f8          mp_only          2    19    14     9.52%    12.50%    0.1081
+  f9          max_fusion       6    19    10    24.00%    37.50%    0.2927
+  f10         geo_mean         1     0    15   100.00%     6.25%    0.1176
+  f11         hs-anger         5     0    11   100.00%    31.25%    0.4762
+
+
+======================================================================
+  --- Combined Aggregate (3 sessions) ---
+======================================================================
+  Formula     Label           TP    FP    FN      Prec       Rec        F1
+  hs_fear     raw_hs          27     6    23    81.82%    54.00%    0.6506
+  f0          f0               9     9    41    50.00%    18.00%    0.2647
+  f1          f1               1     0    49   100.00%     2.00%    0.0392
+  f2          f2               0     0    50     0.00%     0.00%    0.0000
+  f3          f3               6     0    44   100.00%    12.00%    0.2143
+  f4          f4               9     7    41    56.25%    18.00%    0.2727
+  f5          f5               0     0    50     0.00%     0.00%    0.0000
+  f6          f6               1     0    49   100.00%     2.00%    0.0392
+  f7          hs_only         27     6    23    81.82%    54.00%    0.6506
+  f8          mp_only          8    27    42    22.86%    16.00%    0.1882
+  f9          max_fusion      31    33    19    48.44%    62.00%    0.5439
+  f10         geo_mean         1     0    49   100.00%     2.00%    0.0392
+  f11         hs-anger        27     4    23    87.10%    54.00%    0.6667  <-- BEST
+
+
+
+======================================================================
+  --- Combined Parameter Sweep (3 sessions) ---
+======================================================================
+
+
+======================================================================
+  --- Best Config Per Formula (Combined - 3 sessions) ---
+======================================================================
+Formula     Label          Thresh   MinFr     Win      Prec       Rec        F1
+hs_fear     raw_hs           0.70       5      10    80.56%    58.00%    0.6744
+f0          f0               0.40       5      20    40.23%    70.00%    0.5109
+f1          f1               0.40      15  strict    75.68%    56.00%    0.6437
+f2          f2               0.40       5      10    35.00%    28.00%    0.3111
+f3          f3               0.50       5      10    82.93%    68.00%    0.7473  <-- BEST
+f4          f4               0.40      15  strict    68.42%    52.00%    0.5909
+f5          f5               0.40       5      10    82.05%    64.00%    0.7191
+f6          f6               0.40       5      20    81.08%    60.00%    0.6897
+f7          hs_only          0.70       5      10    80.56%    58.00%    0.6744
+f8          mp_only          0.40       5      20    18.56%    36.00%    0.2449
+f9          max_fusion       0.70       5      20    54.90%    56.00%    0.5545
+f10         geo_mean         0.40       5      10    60.00%    24.00%    0.3429
+f11         hs-anger         0.70       5      10    82.86%    58.00%    0.6824
+
+
+
+======================================================================
+  --- Combined MP Tension Sweep (3 sessions) ---
+  Using best v2 detection params: thresh=0.5  min_frames=5  window=10
+  (best v2 formula: f3  F1=0.7473)
+======================================================================

@@ -1,0 +1,784 @@
+
+  Loaded 6 session(s): 20260503_153301_mp_hs_S02_Vid04_dim.csv, 20260503_155009_mp_hs_S08_Vid18_mixed.csv, 20260503_155724_mp_hs_S06_Vid16_bright.csv, 20260517_154229_mp_hs_S04_Vid09_bright.csv, 20260517_175428_mp_hs_S05_Vid10_bright.csv, 20260517_200406_mp_hs_S10_Vid13_bright.csv
+
+
+======================================================================
+  --- Combined v2 Parameter Sweep (6 sessions) ---
+  pad_start=0.5s  pad_end=1.0s  fill_ratio=65%
+======================================================================
+
+
+======================================================================
+  --- Best v2 Detection Config Per Formula (Combined — 6 sessions) ---
+======================================================================
+Formula     Label          Thresh   MinFr     Win      Prec       Rec        F1
+hs_fear     raw_hs           0.50       5      20    63.00%    71.59%    0.6702
+composite_fear  F*(1+T)          0.60       5      15    62.00%    70.45%    0.6596
+smoothed_composite  smoothed         0.40       5  strict    90.00%    10.23%    0.1837
+f0          f0               0.40       5      20    39.64%    76.14%    0.5214
+f1          f1               0.40       5      15    65.12%    63.64%    0.6437
+f2          f2               0.40       5      10    78.79%    29.55%    0.4298
+f3          f3               0.50       5      10    73.68%    63.64%    0.6829
+f4          f4               0.40       5      20    53.85%    71.59%    0.6146
+f5          f5               0.40       5      10    77.42%    54.55%    0.6400
+f6          f6               0.40      15      10    66.27%    62.50%    0.6433
+f7          hs_only          0.50       5      20    63.00%    71.59%    0.6702
+f8          mp_only          0.40      12      10     7.58%     5.68%    0.0649
+f9          max_fusion       0.50       5      20    62.38%    71.59%    0.6667
+f10         geo_mean         0.40       5      10   100.00%    19.32%    0.3238
+f11         hs-anger         0.50       5      15    58.88%    71.59%    0.6462
+f12         hybrid_amp       0.70       5      10    70.11%    69.32%    0.6971  <-- BEST
+
+
+  → Best overall: f12 (hybrid_amp)  thresh=0.7  min_frames=5  window=10  F1=0.6971
+
+
+======================================================================
+  evaluate_all.py — 6 session(s)
+  threshold=0.7  min_frames=5  window=10  fill=65%  [best combined params]
+  pad_start=0.5s  pad_end=1.0s
+======================================================================
+
+--- Session: 20260503_153301_mp_hs_S02_Vid04_dim.csv ---
+    GT: S02_Vid04.csv
+  Formula     Label           TP    FP    FN      Prec       Rec        F1
+  hs_fear     raw_hs          15     3     6    83.33%    71.43%    0.7692
+  composite_fear  F*(1+T)         17     7     4    70.83%    80.95%    0.7556
+  smoothed_composite  smoothed         0     0    21     0.00%     0.00%    0.0000
+  f0          f0               4     6    17    40.00%    19.05%    0.2581
+  f1          f1               0     0    21     0.00%     0.00%    0.0000
+  f2          f2               0     0    21     0.00%     0.00%    0.0000
+  f3          f3               2     3    19    40.00%     9.52%    0.1538
+  f4          f4               4     5    17    44.44%    19.05%    0.2667
+  f5          f5               0     0    21     0.00%     0.00%    0.0000
+  f6          f6               0     0    21     0.00%     0.00%    0.0000
+  f7          hs_only         15     3     6    83.33%    71.43%    0.7692
+  f8          mp_only          0     0    21     0.00%     0.00%    0.0000
+  f9          max_fusion      15     3     6    83.33%    71.43%    0.7692
+  f10         geo_mean         0     0    21     0.00%     0.00%    0.0000
+  f11         hs-anger        14     2     7    87.50%    66.67%    0.7568
+  f12         hybrid_amp      17     6     4    73.91%    80.95%    0.7727
+
+--- Session: 20260503_155009_mp_hs_S08_Vid18_mixed.csv ---
+    GT: S08_Vid18.csv
+  Formula     Label           TP    FP    FN      Prec       Rec        F1
+  hs_fear     raw_hs           4     1     9    80.00%    30.77%    0.4444
+  composite_fear  F*(1+T)          7     2     6    77.78%    53.85%    0.6364
+  smoothed_composite  smoothed         0     0    13     0.00%     0.00%    0.0000
+  f0          f0               1     0    12   100.00%     7.69%    0.1429
+  f1          f1               0     0    13     0.00%     0.00%    0.0000
+  f2          f2               0     0    13     0.00%     0.00%    0.0000
+  f3          f3               1     0    12   100.00%     7.69%    0.1429
+  f4          f4               1     0    12   100.00%     7.69%    0.1429
+  f5          f5               0     0    13     0.00%     0.00%    0.0000
+  f6          f6               0     0    13     0.00%     0.00%    0.0000
+  f7          hs_only          4     1     9    80.00%    30.77%    0.4444
+  f8          mp_only          0     0    13     0.00%     0.00%    0.0000
+  f9          max_fusion       4     1     9    80.00%    30.77%    0.4444
+  f10         geo_mean         0     0    13     0.00%     0.00%    0.0000
+  f11         hs-anger         3     1    10    75.00%    23.08%    0.3529
+  f12         hybrid_amp       7     1     6    87.50%    53.85%    0.6667
+
+--- Session: 20260503_155724_mp_hs_S06_Vid16_bright.csv ---
+    GT: S06_Vid16.csv
+  Formula     Label           TP    FP    FN      Prec       Rec        F1
+  hs_fear     raw_hs           6     0    10   100.00%    37.50%    0.5455
+  composite_fear  F*(1+T)          8     0     8   100.00%    50.00%    0.6667
+  smoothed_composite  smoothed         0     0    16     0.00%     0.00%    0.0000
+  f0          f0               9     8     7    52.94%    56.25%    0.5455
+  f1          f1               0     0    16     0.00%     0.00%    0.0000
+  f2          f2               0     0    16     0.00%     0.00%    0.0000
+  f3          f3               4     0    12   100.00%    25.00%    0.4000
+  f4          f4               9     7     7    56.25%    56.25%    0.5625
+  f5          f5               0     0    16     0.00%     0.00%    0.0000
+  f6          f6               0     0    16     0.00%     0.00%    0.0000
+  f7          hs_only          6     0    10   100.00%    37.50%    0.5455
+  f8          mp_only          0     0    16     0.00%     0.00%    0.0000
+  f9          max_fusion       6     0    10   100.00%    37.50%    0.5455
+  f10         geo_mean         0     0    16     0.00%     0.00%    0.0000
+  f11         hs-anger         5     0    11   100.00%    31.25%    0.4762
+  f12         hybrid_amp      10     1     6    90.91%    62.50%    0.7407
+
+--- Session: 20260517_154229_mp_hs_S04_Vid09_bright.csv ---
+    GT: S04_Vid09.csv
+  Formula     Label           TP    FP    FN      Prec       Rec        F1
+  hs_fear     raw_hs          13    14     8    48.15%    61.90%    0.5417
+  composite_fear  F*(1+T)         14    20     7    41.18%    66.67%    0.5091
+  smoothed_composite  smoothed         0     0    21     0.00%     0.00%    0.0000
+  f0          f0               4     1    17    80.00%    19.05%    0.3077
+  f1          f1               0     0    21     0.00%     0.00%    0.0000
+  f2          f2               0     0    21     0.00%     0.00%    0.0000
+  f3          f3               0     0    21     0.00%     0.00%    0.0000
+  f4          f4               4     1    17    80.00%    19.05%    0.3077
+  f5          f5               0     0    21     0.00%     0.00%    0.0000
+  f6          f6               0     0    21     0.00%     0.00%    0.0000
+  f7          hs_only         13    14     8    48.15%    61.90%    0.5417
+  f8          mp_only          0     0    21     0.00%     0.00%    0.0000
+  f9          max_fusion      13    14     8    48.15%    61.90%    0.5417
+  f10         geo_mean         0     0    21     0.00%     0.00%    0.0000
+  f11         hs-anger        12    10     9    54.55%    57.14%    0.5581
+  f12         hybrid_amp      15    15     6    50.00%    71.43%    0.5882
+
+--- Session: 20260517_175428_mp_hs_S05_Vid10_bright.csv ---
+    GT: S05_Vid10.csv
+  Formula     Label           TP    FP    FN      Prec       Rec        F1
+  hs_fear     raw_hs           4     1     4    80.00%    50.00%    0.6154
+  composite_fear  F*(1+T)          5     1     3    83.33%    62.50%    0.7143
+  smoothed_composite  smoothed         0     0     8     0.00%     0.00%    0.0000
+  f0          f0               2     3     6    40.00%    25.00%    0.3077
+  f1          f1               0     0     8     0.00%     0.00%    0.0000
+  f2          f2               0     0     8     0.00%     0.00%    0.0000
+  f3          f3               2     0     6   100.00%    25.00%    0.4000
+  f4          f4               2     3     6    40.00%    25.00%    0.3077
+  f5          f5               0     0     8     0.00%     0.00%    0.0000
+  f6          f6               0     0     8     0.00%     0.00%    0.0000
+  f7          hs_only          4     1     4    80.00%    50.00%    0.6154
+  f8          mp_only          0     0     8     0.00%     0.00%    0.0000
+  f9          max_fusion       4     1     4    80.00%    50.00%    0.6154
+  f10         geo_mean         0     0     8     0.00%     0.00%    0.0000
+  f11         hs-anger         4     1     4    80.00%    50.00%    0.6154
+  f12         hybrid_amp       5     1     3    83.33%    62.50%    0.7143
+
+--- Session: 20260517_200406_mp_hs_S10_Vid13_bright.csv ---
+    GT: S10_Vid13.csv
+  Formula     Label           TP    FP    FN      Prec       Rec        F1
+  hs_fear     raw_hs           4     0     5   100.00%    44.44%    0.6154
+  composite_fear  F*(1+T)          5     0     4   100.00%    55.56%    0.7143
+  smoothed_composite  smoothed         0     0     9     0.00%     0.00%    0.0000
+  f0          f0               6     2     3    75.00%    66.67%    0.7059
+  f1          f1               0     0     9     0.00%     0.00%    0.0000
+  f2          f2               0     0     9     0.00%     0.00%    0.0000
+  f3          f3               0     0     9     0.00%     0.00%    0.0000
+  f4          f4               5     0     4   100.00%    55.56%    0.7143
+  f5          f5               0     0     9     0.00%     0.00%    0.0000
+  f6          f6               0     0     9     0.00%     0.00%    0.0000
+  f7          hs_only          4     0     5   100.00%    44.44%    0.6154
+  f8          mp_only          0     0     9     0.00%     0.00%    0.0000
+  f9          max_fusion       4     0     5   100.00%    44.44%    0.6154
+  f10         geo_mean         0     0     9     0.00%     0.00%    0.0000
+  f11         hs-anger         3     0     6   100.00%    33.33%    0.5000
+  f12         hybrid_amp       7     2     2    77.78%    77.78%    0.7778
+
+
+======================================================================
+  --- Combined Aggregate (6 sessions) ---
+======================================================================
+  Formula     Label           TP    FP    FN      Prec       Rec        F1
+  hs_fear     raw_hs          46    19    42    70.77%    52.27%    0.6013
+  composite_fear  F*(1+T)         56    30    32    65.12%    63.64%    0.6437
+  smoothed_composite  smoothed         0     0    88     0.00%     0.00%    0.0000
+  f0          f0              26    20    62    56.52%    29.55%    0.3881
+  f1          f1               0     0    88     0.00%     0.00%    0.0000
+  f2          f2               0     0    88     0.00%     0.00%    0.0000
+  f3          f3               9     3    79    75.00%    10.23%    0.1800
+  f4          f4              25    16    63    60.98%    28.41%    0.3876
+  f5          f5               0     0    88     0.00%     0.00%    0.0000
+  f6          f6               0     0    88     0.00%     0.00%    0.0000
+  f7          hs_only         46    19    42    70.77%    52.27%    0.6013
+  f8          mp_only          0     0    88     0.00%     0.00%    0.0000
+  f9          max_fusion      46    19    42    70.77%    52.27%    0.6013
+  f10         geo_mean         0     0    88     0.00%     0.00%    0.0000
+  f11         hs-anger        41    14    47    74.55%    46.59%    0.5734
+  f12         hybrid_amp      61    26    27    70.11%    69.32%    0.6971  <-- BEST
+
+
+  Generating per-session report logs...
+
+[v2 report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S02_Vid04_dim_v2.txt
+
+======================================================================
+  FALSE POSITIVES — Top 15 Unlabeled Peaks — composite_fear
+  (high composite regions NOT matching any GT event)
+======================================================================
+  #    Start      End    Dur    Peak    Mean    Fear    Tens
+  1    307.4    328.3   21.0   0.648   0.445   0.908   0.231
+  2    368.0    379.9   11.9   0.554   0.216   0.798   0.241
+  3    544.9    548.9    4.0   0.506   0.187   0.346   0.217
+  4    394.5    397.0    2.5   0.459   0.241   0.477   0.152
+  5     45.9     48.6    2.8   0.427   0.219   0.812   0.133
+  6    572.1    572.9    0.8   0.421   0.163   0.154   0.209
+  7    200.0    216.4   16.4   0.406   0.190   0.589   0.189
+  8    565.5    567.3    1.8   0.389   0.114   0.651   0.213
+  9    299.8    302.4    2.6   0.369   0.210   0.134   0.165
+ 10    384.8    389.4    4.6   0.333   0.134   0.423   0.281
+ 11    552.4    554.1    1.7   0.331   0.271   0.546   0.172
+ 12     18.2     20.6    2.5   0.316   0.146   0.563   0.170
+ 13    113.0    127.0   14.0   0.305   0.149   0.637   0.148
+ 14    527.1    530.3    3.2   0.298   0.091   0.684   0.256
+ 15    331.2    331.4    0.2   0.295   0.239   0.097   0.122
+
+  -> 15 unlabeled region(s) with signal >= 0.15
+     Review these timestamps — could be GT omissions or true FPs
+
+======================================================================
+  FALSE NEGATIVES — Missed GT Events — composite_fear
+  (GT events with no high-signal region overlapping)
+======================================================================
+  All 21 GT events have overlapping high-signal regions.
+
+======================================================================
+  FALSE POSITIVES — Top 15 Unlabeled Peaks — smoothed_composite
+  (high composite regions NOT matching any GT event)
+======================================================================
+  #    Start      End    Dur    Peak    Mean    Fear    Tens
+  1    316.2    329.4   13.2   0.402   0.367   0.908   0.153
+  2     90.3     92.3    2.0   0.279   0.233   0.844   0.110
+  3    368.9    372.4    3.5   0.279   0.234   0.778   0.166
+  4    553.3    555.0    1.7   0.259   0.209   0.546   0.201
+  5    247.3    249.2    1.9   0.240   0.207   0.681   0.105
+  6    172.1    175.0    2.8   0.227   0.192   0.576   0.128
+  7    208.5    210.7    2.2   0.227   0.194   0.589   0.097
+  8     55.7     57.3    1.7   0.217   0.183   0.490   0.117
+  9    508.1    510.6    2.6   0.217   0.193   0.550   0.140
+ 10    528.7    529.8    1.0   0.208   0.184   0.684   0.199
+ 11     48.6     50.2    1.6   0.204   0.185   0.812   0.126
+ 12    310.6    311.7    1.2   0.200   0.178   0.446   0.157
+ 13     52.0     53.5    1.5   0.186   0.166   0.451   0.216
+ 14     40.1     41.4    1.4   0.183   0.172   0.374   0.181
+ 15    439.6    444.8    5.2   0.180   0.166   0.671   0.190
+
+  -> 15 unlabeled region(s) with signal >= 0.15
+     Review these timestamps — could be GT omissions or true FPs
+
+======================================================================
+  FALSE NEGATIVES — Missed GT Events — smoothed_composite
+  (GT events with no high-signal region overlapping)
+======================================================================
+  All 21 GT events have overlapping high-signal regions.
+[v2 report] FP/FN analysis saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S02_Vid04_dim_peaks.txt
+
+  [timeline] Plot saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S02_Vid04_dim_timeline.png
+
+[mp report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S02_Vid04_dim_mp_sweep.txt
+
+[v2 report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S08_Vid18_mixed_v2.txt
+
+======================================================================
+  FALSE POSITIVES — Top 15 Unlabeled Peaks — composite_fear
+  (high composite regions NOT matching any GT event)
+======================================================================
+  #    Start      End    Dur    Peak    Mean    Fear    Tens
+  1    236.7    261.8   25.1   0.617   0.271   0.756   0.406
+  2    173.2    175.3    2.1   0.554   0.217   0.410   0.231
+  3    171.0    172.0    1.0   0.514   0.260   0.725   0.206
+  4    167.2    169.7    2.5   0.468   0.287   0.746   0.222
+  5    199.1    200.5    1.4   0.464   0.086   0.595   0.146
+  6    208.2    209.2    1.1   0.454   0.087   0.696   0.177
+  7    145.5    146.5    1.0   0.406   0.094   0.351   0.639
+  8    180.2    181.8    1.7   0.398   0.228   0.563   0.240
+  9    267.9    272.3    4.5   0.376   0.172   0.542   0.324
+ 10    183.8    186.3    2.6   0.345   0.159   0.525   0.242
+ 11    148.2    160.7   12.5   0.322   0.138   0.405   0.319
+ 12    100.0    100.8    0.8   0.281   0.204   0.191   0.141
+ 13     31.0     31.4    0.4   0.267   0.225   0.568   0.168
+ 14     97.5     98.5    1.0   0.248   0.208   0.271   0.173
+ 15    104.4    106.9    2.5   0.234   0.145   0.304   0.221
+
+  -> 15 unlabeled region(s) with signal >= 0.15
+     Review these timestamps — could be GT omissions or true FPs
+
+======================================================================
+  FALSE NEGATIVES — Missed GT Events — composite_fear
+  (GT events with no high-signal region overlapping)
+======================================================================
+  All 13 GT events have overlapping high-signal regions.
+
+======================================================================
+  FALSE POSITIVES — Top 15 Unlabeled Peaks — smoothed_composite
+  (high composite regions NOT matching any GT event)
+======================================================================
+  #    Start      End    Dur    Peak    Mean    Fear    Tens
+  1    168.1    170.5    2.3   0.292   0.243   0.746   0.222
+  2    184.1    187.2    3.1   0.261   0.211   0.676   0.242
+  3    259.2    262.3    3.1   0.250   0.216   0.700   0.226
+  4     94.9    102.6    7.7   0.242   0.184   0.471   0.270
+  5    181.1    182.6    1.5   0.238   0.189   0.563   0.211
+  6    245.3    253.4    8.1   0.236   0.186   0.756   0.227
+  7    213.9    217.1    3.1   0.185   0.163   0.757   0.249
+  8    104.5    105.9    1.5   0.183   0.169   0.194   0.221
+  9     85.3     86.4    1.1   0.175   0.164   0.142   0.204
+ 10    233.0    234.4    1.4   0.171   0.162   0.433   0.216
+ 11    257.0    257.9    0.9   0.170   0.159   0.403   0.160
+ 12    238.1    239.1    1.0   0.167   0.162   0.331   0.406
+ 13      2.4      3.0    0.5   0.155   0.153   0.083   0.095
+ 14    242.0    242.3    0.3   0.153   0.152   0.296   0.000
+ 15    272.3    272.3    0.0   0.153   0.152   0.431   0.062
+
+  -> 15 unlabeled region(s) with signal >= 0.15
+     Review these timestamps — could be GT omissions or true FPs
+
+======================================================================
+  FALSE NEGATIVES — Missed GT Events — smoothed_composite
+  (GT events with no high-signal region overlapping)
+======================================================================
+  #  GT_Start   GT_End  Label      PkComp   MnComp   PkFear   PkTens   Face%
+  1     162.0    165.0  fear        0.147    0.095    0.669    0.269     58%
+
+  -> 1/13 GT events missed
+     Low PkComp = detector legitimately low; low Face% = face not detected
+[v2 report] FP/FN analysis saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S08_Vid18_mixed_peaks.txt
+
+  [timeline] Plot saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S08_Vid18_mixed_timeline.png
+
+[mp report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S08_Vid18_mixed_mp_sweep.txt
+
+[v2 report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S06_Vid16_bright_v2.txt
+
+======================================================================
+  FALSE POSITIVES — Top 15 Unlabeled Peaks — composite_fear
+  (high composite regions NOT matching any GT event)
+======================================================================
+  #    Start      End    Dur    Peak    Mean    Fear    Tens
+  1    419.1    454.0   34.8   0.755   0.260   0.664   0.467
+  2     13.3     53.2   39.9   0.751   0.210   0.755   0.477
+  3    742.6    749.5    6.9   0.737   0.330   0.432   0.383
+  4    816.5    862.8   46.3   0.726   0.238   0.838   0.460
+  5    161.9    166.2    4.3   0.723   0.208   0.574   0.398
+  6    863.9    876.0   12.1   0.715   0.235   0.381   0.425
+  7     54.3     93.3   39.0   0.710   0.216   0.762   0.544
+  8    325.2    343.3   18.1   0.695   0.164   0.684   0.479
+  9    255.2    262.4    7.2   0.655   0.157   0.252   0.482
+ 10    201.2    204.0    2.8   0.651   0.202   0.361   0.412
+ 11    730.7    739.1    8.5   0.648   0.123   0.358   0.469
+ 12    153.5    160.7    7.1   0.646   0.191   0.291   0.386
+ 13    170.0    175.1    5.0   0.632   0.155   0.378   0.425
+ 14    759.6    761.1    1.5   0.603   0.278   0.097   0.307
+ 15    640.9    650.4    9.5   0.601   0.166   0.448   0.495
+
+  -> 15 unlabeled region(s) with signal >= 0.15
+     Review these timestamps — could be GT omissions or true FPs
+
+======================================================================
+  FALSE NEGATIVES — Missed GT Events — composite_fear
+  (GT events with no high-signal region overlapping)
+======================================================================
+  All 16 GT events have overlapping high-signal regions.
+
+======================================================================
+  FALSE POSITIVES — Top 15 Unlabeled Peaks — smoothed_composite
+  (high composite regions NOT matching any GT event)
+======================================================================
+  #    Start      End    Dur    Peak    Mean    Fear    Tens
+  1     81.6     84.1    2.5   0.312   0.243   0.068   0.410
+  2    154.9    159.6    4.7   0.303   0.201   0.205   0.386
+  3     47.0     53.4    6.4   0.284   0.213   0.313   0.458
+  4    744.2    750.2    6.0   0.273   0.208   0.432   0.380
+  5    841.0    847.1    6.1   0.257   0.185   0.838   0.433
+  6    754.6    757.7    3.1   0.245   0.207   0.449   0.368
+  7    443.8    447.4    3.6   0.243   0.196   0.664   0.377
+  8    574.5    576.4    2.0   0.238   0.199   0.098   0.391
+  9    419.7    421.4    1.8   0.231   0.199   0.200   0.403
+ 10    425.3    433.0    7.7   0.229   0.178   0.595   0.467
+ 11     14.0     17.2    3.2   0.220   0.185   0.755   0.430
+ 12     61.4     64.5    3.1   0.217   0.182   0.342   0.442
+ 13     55.3     57.8    2.5   0.209   0.180   0.140   0.430
+ 14     91.7     93.5    1.8   0.207   0.173   0.344   0.539
+ 15    345.9    350.4    4.5   0.206   0.167   0.116   0.403
+
+  -> 15 unlabeled region(s) with signal >= 0.15
+     Review these timestamps — could be GT omissions or true FPs
+
+======================================================================
+  FALSE NEGATIVES — Missed GT Events — smoothed_composite
+  (GT events with no high-signal region overlapping)
+======================================================================
+  #  GT_Start   GT_End  Label      PkComp   MnComp   PkFear   PkTens   Face%
+  1     374.0    381.0  fear        0.139    0.051    0.979    0.426     33%
+
+  -> 1/16 GT events missed
+     Low PkComp = detector legitimately low; low Face% = face not detected
+[v2 report] FP/FN analysis saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S06_Vid16_bright_peaks.txt
+
+  [timeline] Plot saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S06_Vid16_bright_timeline.png
+
+[mp report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S06_Vid16_bright_mp_sweep.txt
+
+[v2 report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S04_Vid09_bright_v2.txt
+
+======================================================================
+  FALSE POSITIVES — Top 15 Unlabeled Peaks — composite_fear
+  (high composite regions NOT matching any GT event)
+======================================================================
+  #    Start      End    Dur    Peak    Mean    Fear    Tens
+  1    255.1    258.2    3.1   0.686   0.360   0.218   0.359
+  2    147.0    147.8    0.7   0.599   0.363   0.149   0.174
+  3    486.1    489.4    3.3   0.590   0.347   0.391   0.409
+  4    243.4    250.1    6.7   0.564   0.250   0.237   0.353
+  5    501.9    503.4    1.5   0.551   0.273   0.259   0.186
+  6    409.2    410.6    1.3   0.541   0.329   0.745   0.136
+  7    159.6    163.0    3.4   0.513   0.285   0.610   0.300
+  8    417.9    422.6    4.8   0.513   0.230   0.796   0.153
+  9    154.8    159.0    4.2   0.500   0.258   0.747   0.205
+ 10    426.8    427.4    0.6   0.490   0.239   0.258   0.143
+ 11    349.1    355.4    6.3   0.488   0.259   0.619   0.167
+ 12    490.3    496.4    6.0   0.481   0.234   0.857   0.325
+ 13    345.1    348.6    3.5   0.480   0.273   0.755   0.149
+ 14    400.0    408.4    8.4   0.472   0.196   0.679   0.217
+ 15    443.4    445.5    2.1   0.467   0.185   0.421   0.143
+
+  -> 15 unlabeled region(s) with signal >= 0.15
+     Review these timestamps — could be GT omissions or true FPs
+
+======================================================================
+  FALSE NEGATIVES — Missed GT Events — composite_fear
+  (GT events with no high-signal region overlapping)
+======================================================================
+  All 21 GT events have overlapping high-signal regions.
+
+======================================================================
+  FALSE POSITIVES — Top 15 Unlabeled Peaks — smoothed_composite
+  (high composite regions NOT matching any GT event)
+======================================================================
+  #    Start      End    Dur    Peak    Mean    Fear    Tens
+  1    492.0    498.8    6.8   0.381   0.282   0.857   0.325
+  2    259.7    271.5   11.8   0.370   0.242   0.825   0.338
+  3    461.0    481.1   20.1   0.370   0.207   0.864   0.306
+  4    417.3    427.7   10.4   0.347   0.209   0.796   0.184
+  5    301.1    305.7    4.7   0.341   0.244   0.738   0.237
+  6    454.6    460.2    5.6   0.321   0.244   0.774   0.296
+  7    486.4    490.1    3.7   0.321   0.273   0.391   0.409
+  8    390.6    393.9    3.3   0.320   0.257   0.684   0.174
+  9    255.7    258.8    3.1   0.305   0.235   0.218   0.359
+ 10    409.5    411.2    1.7   0.301   0.243   0.745   0.210
+ 11     13.1     15.0    1.9   0.291   0.238   0.320   0.199
+ 12    400.4    408.9    8.6   0.288   0.211   0.679   0.217
+ 13    446.9    453.4    6.5   0.270   0.229   0.601   0.381
+ 14    433.4    437.8    4.4   0.267   0.215   0.728   0.211
+ 15    443.1    446.1    3.0   0.262   0.210   0.421   0.261
+
+  -> 15 unlabeled region(s) with signal >= 0.15
+     Review these timestamps — could be GT omissions or true FPs
+
+======================================================================
+  FALSE NEGATIVES — Missed GT Events — smoothed_composite
+  (GT events with no high-signal region overlapping)
+======================================================================
+  All 21 GT events have overlapping high-signal regions.
+[v2 report] FP/FN analysis saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S04_Vid09_bright_peaks.txt
+
+  [timeline] Plot saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S04_Vid09_bright_timeline.png
+
+[mp report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S04_Vid09_bright_mp_sweep.txt
+
+[v2 report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S05_Vid10_bright_v2.txt
+
+======================================================================
+  FALSE POSITIVES — Top 15 Unlabeled Peaks — composite_fear
+  (high composite regions NOT matching any GT event)
+======================================================================
+  #    Start      End    Dur    Peak    Mean    Fear    Tens
+  1    225.5    226.8    1.3   0.898   0.331   0.898   0.274
+  2    200.1    205.7    5.6   0.814   0.270   0.770   0.387
+  3    287.9    288.4    0.5   0.701   0.330   0.652   0.290
+  4    259.5    263.1    3.6   0.652   0.226   0.652   0.327
+  5    273.9    277.1    3.2   0.634   0.233   0.581   0.196
+  6    214.6    219.8    5.2   0.607   0.291   0.560   0.209
+  7    228.1    229.1    1.0   0.564   0.204   0.506   0.145
+  8    248.8    250.0    1.2   0.557   0.292   0.557   0.254
+  9    270.3    272.5    2.2   0.548   0.353   0.520   0.060
+ 10     41.7     42.2    0.6   0.537   0.244   0.466   0.183
+ 11    301.8    303.4    1.6   0.527   0.272   0.484   0.129
+ 12    220.4    224.5    4.0   0.499   0.210   0.442   0.180
+ 13      3.9      5.4    1.5   0.467   0.188   0.422   0.250
+ 14     21.9     21.9    0.1   0.446   0.286   0.403   0.122
+ 15    285.6    286.2    0.6   0.438   0.139   0.355   0.263
+
+  -> 15 unlabeled region(s) with signal >= 0.15
+     Review these timestamps — could be GT omissions or true FPs
+
+======================================================================
+  FALSE NEGATIVES — Missed GT Events — composite_fear
+  (GT events with no high-signal region overlapping)
+======================================================================
+  All 8 GT events have overlapping high-signal regions.
+
+======================================================================
+  FALSE POSITIVES — Top 15 Unlabeled Peaks — smoothed_composite
+  (high composite regions NOT matching any GT event)
+======================================================================
+  #    Start      End    Dur    Peak    Mean    Fear    Tens
+  1     19.7     20.7    0.9   0.292   0.223   0.242   0.206
+  2    220.8    224.8    4.0   0.291   0.250   0.442   0.180
+  3    225.7    226.8    1.0   0.278   0.230   0.898   0.274
+  4    228.8    232.5    3.6   0.246   0.200   0.335   0.141
+  5    278.6    279.3    0.7   0.238   0.200   0.254   0.187
+  6    249.3    250.4    1.1   0.234   0.199   0.557   0.254
+  7     97.3     99.4    2.1   0.228   0.196   0.184   0.180
+  8    216.1    218.6    2.5   0.218   0.180   0.560   0.209
+  9    331.7    332.9    1.2   0.216   0.192   0.282   0.192
+ 10    200.6    204.3    3.8   0.214   0.178   0.770   0.387
+ 11     41.9     42.7    0.8   0.208   0.188   0.466   0.318
+ 12    277.0    277.7    0.7   0.207   0.187   0.198   0.192
+ 13    306.9    307.6    0.7   0.205   0.182   0.168   0.190
+ 14     37.8     38.6    0.8   0.204   0.180   0.192   0.319
+ 15    241.8    242.3    0.6   0.201   0.178   0.214   0.233
+
+  -> 15 unlabeled region(s) with signal >= 0.15
+     Review these timestamps — could be GT omissions or true FPs
+
+======================================================================
+  FALSE NEGATIVES — Missed GT Events — smoothed_composite
+  (GT events with no high-signal region overlapping)
+======================================================================
+  All 8 GT events have overlapping high-signal regions.
+[v2 report] FP/FN analysis saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S05_Vid10_bright_peaks.txt
+
+  [timeline] Plot saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S05_Vid10_bright_timeline.png
+
+[mp report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S05_Vid10_bright_mp_sweep.txt
+
+[v2 report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S10_Vid13_bright_v2.txt
+
+======================================================================
+  FALSE POSITIVES — Top 15 Unlabeled Peaks — composite_fear
+  (high composite regions NOT matching any GT event)
+======================================================================
+  #    Start      End    Dur    Peak    Mean    Fear    Tens
+  1    117.7    121.8    4.0   0.786   0.261   0.701   0.325
+  2     38.8     39.6    0.9   0.757   0.450   0.691   0.139
+  3    282.8    284.2    1.4   0.744   0.389   0.615   0.247
+  4    169.7    170.4    0.8   0.693   0.517   0.575   0.252
+  5    107.5    109.0    1.5   0.615   0.357   0.539   0.148
+  6    424.9    425.0    0.1   0.599   0.490   0.526   0.156
+  7    248.0    250.7    2.7   0.592   0.191   0.535   0.155
+  8     56.2     57.9    1.7   0.501   0.365   0.452   0.157
+  9    143.4    145.4    2.0   0.471   0.224   0.389   0.251
+ 10    164.8    168.2    3.4   0.469   0.170   0.404   0.268
+ 11    410.7    411.4    0.7   0.437   0.147   0.368   0.288
+ 12    123.0    124.9    1.9   0.436   0.216   0.401   0.090
+ 13    414.2    416.9    2.7   0.424   0.202   0.371   0.256
+ 14     43.4     44.8    1.4   0.421   0.200   0.393   0.078
+ 15    302.4    302.6    0.2   0.372   0.291   0.323   0.202
+
+  -> 15 unlabeled region(s) with signal >= 0.15
+     Review these timestamps — could be GT omissions or true FPs
+
+======================================================================
+  FALSE NEGATIVES — Missed GT Events — composite_fear
+  (GT events with no high-signal region overlapping)
+======================================================================
+  All 9 GT events have overlapping high-signal regions.
+
+======================================================================
+  FALSE POSITIVES — Top 15 Unlabeled Peaks — smoothed_composite
+  (high composite regions NOT matching any GT event)
+======================================================================
+  #    Start      End    Dur    Peak    Mean    Fear    Tens
+  1    118.4    122.2    3.9   0.312   0.238   0.701   0.264
+  2    165.7    171.4    5.8   0.292   0.258   0.575   0.302
+  3    283.1    285.9    2.7   0.292   0.219   0.615   0.267
+  4    252.2    255.7    3.4   0.266   0.219   0.220   0.345
+  5    415.1    417.9    2.7   0.250   0.204   0.311   0.263
+  6     56.6     58.8    2.2   0.228   0.192   0.452   0.206
+  7    108.2    110.1    1.9   0.222   0.190   0.425   0.164
+  8    249.1    250.2    1.1   0.189   0.172   0.174   0.155
+  9     88.1     89.2    1.1   0.169   0.163   0.014   0.316
+ 10    387.6    388.2    0.7   0.162   0.156   0.299   0.124
+ 11     75.0     75.6    0.6   0.159   0.156   0.089   0.264
+ 12    150.2    150.7    0.5   0.158   0.154   0.038   0.141
+ 13    420.1    420.7    0.5   0.158   0.154   0.074   0.174
+ 14    124.9    125.1    0.2   0.155   0.153   0.381   0.085
+ 15    145.0    145.6    0.6   0.155   0.153   0.353   0.251
+
+  -> 15 unlabeled region(s) with signal >= 0.15
+     Review these timestamps — could be GT omissions or true FPs
+
+======================================================================
+  FALSE NEGATIVES — Missed GT Events — smoothed_composite
+  (GT events with no high-signal region overlapping)
+======================================================================
+  All 9 GT events have overlapping high-signal regions.
+[v2 report] FP/FN analysis saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S10_Vid13_bright_peaks.txt
+
+  [timeline] Plot saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S10_Vid13_bright_timeline.png
+
+[mp report] Log saved → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260517_210447/S10_Vid13_bright_mp_sweep.txt
+
+========================================================================
+  MP Tension Config Sweep — Combined 6 sessions  [thresh=0.7 mf=5 win=10]
+  81 tension configs × 12 formulas × 6 session(s)
+========================================================================
+  [  1/81] Computing tension config...   [  2/81] Computing tension config...   [  3/81] Computing tension config...   [  4/81] Computing tension config...   [  5/81] Computing tension config...   [  6/81] Computing tension config...   [  7/81] Computing tension config...   [  8/81] Computing tension config...   [  9/81] Computing tension config...   [ 10/81] Computing tension config...   [ 11/81] Computing tension config...   [ 12/81] Computing tension config...   [ 13/81] Computing tension config...   [ 14/81] Computing tension config...   [ 15/81] Computing tension config...   [ 16/81] Computing tension config...   [ 17/81] Computing tension config...   [ 18/81] Computing tension config...   [ 19/81] Computing tension config...   [ 20/81] Computing tension config...   [ 21/81] Computing tension config...   [ 22/81] Computing tension config...   [ 23/81] Computing tension config...   [ 24/81] Computing tension config...   [ 25/81] Computing tension config...   [ 26/81] Computing tension config...   [ 27/81] Computing tension config...   [ 28/81] Computing tension config...   [ 29/81] Computing tension config...   [ 30/81] Computing tension config...   [ 31/81] Computing tension config...   [ 32/81] Computing tension config...   [ 33/81] Computing tension config...   [ 34/81] Computing tension config...   [ 35/81] Computing tension config...   [ 36/81] Computing tension config...   [ 37/81] Computing tension config...   [ 38/81] Computing tension config...   [ 39/81] Computing tension config...   [ 40/81] Computing tension config...   [ 41/81] Computing tension config...   [ 42/81] Computing tension config...   [ 43/81] Computing tension config...   [ 44/81] Computing tension config...   [ 45/81] Computing tension config...   [ 46/81] Computing tension config...   [ 47/81] Computing tension config...   [ 48/81] Computing tension config...   [ 49/81] Computing tension config...   [ 50/81] Computing tension config...   [ 51/81] Computing tension config...   [ 52/81] Computing tension config...   [ 53/81] Computing tension config...   [ 54/81] Computing tension config...   [ 55/81] Computing tension config...   [ 56/81] Computing tension config...   [ 57/81] Computing tension config...   [ 58/81] Computing tension config...   [ 59/81] Computing tension config...   [ 60/81] Computing tension config...   [ 61/81] Computing tension config...   [ 62/81] Computing tension config...   [ 63/81] Computing tension config...   [ 64/81] Computing tension config...   [ 65/81] Computing tension config...   [ 66/81] Computing tension config...   [ 67/81] Computing tension config...   [ 68/81] Computing tension config...   [ 69/81] Computing tension config...   [ 70/81] Computing tension config...   [ 71/81] Computing tension config...   [ 72/81] Computing tension config...   [ 73/81] Computing tension config...   [ 74/81] Computing tension config...   [ 75/81] Computing tension config...   [ 76/81] Computing tension config...   [ 77/81] Computing tension config...   [ 78/81] Computing tension config...   [ 79/81] Computing tension config...   [ 80/81] Computing tension config...   [ 81/81] Computing tension config...   Done — 81 configs evaluated.                    
+
+TensionConfig                   Gain      BestFml     BestF1       f7       f8       f1       f9      f10
+  (BestFml ranks mp-sensitive formulas only; f7/f11 shown as spots)
+--------------------------------------------------------------------------------------------------------------------
+
+fear_only_seg                   noAGC     f3          0.6818   0.6013   0.2035   0.6131   0.2054   0.6095  <-- BEST
+
+v4(s=1.4,j=off)                 noAGC     f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.4,j=off)                 gain=0.40  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.4,j=off)                 gain=0.50  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.4,j=off)                 gain=0.60  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.4,j=0.20)                noAGC     f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.4,j=0.20)                gain=0.40  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.4,j=0.20)                gain=0.50  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.4,j=0.20)                gain=0.60  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.6,j=off)                 noAGC     f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.6,j=off)                 gain=0.40  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.6,j=off)                 gain=0.50  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.6,j=off)                 gain=0.60  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.6,j=0.20)                noAGC     f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.6,j=0.20)                gain=0.40  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.6,j=0.20)                gain=0.50  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.6,j=0.20)                gain=0.60  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.8,j=off)                 noAGC     f9          0.6013   0.6013   0.0000   0.0225   0.6013   0.0000
+v4(s=1.8,j=off)                 gain=0.40  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.8,j=off)                 gain=0.50  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.8,j=off)                 gain=0.60  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.8,j=0.20)                noAGC     f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.8,j=0.20)                gain=0.40  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.8,j=0.20)                gain=0.50  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=1.8,j=0.20)                gain=0.60  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=2.0,j=off)                 noAGC     f9          0.6013   0.6013   0.0000   0.0225   0.6013   0.0000
+v4(s=2.0,j=off)                 gain=0.40  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=2.0,j=off)                 gain=0.50  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=2.0,j=off)                 gain=0.60  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=2.0,j=0.20)                noAGC     f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=2.0,j=0.20)                gain=0.40  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=2.0,j=0.20)                gain=0.50  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=2.0,j=0.20)                gain=0.60  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=2.2,j=off)                 gain=0.40  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=2.2,j=off)                 gain=0.50  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=2.2,j=0.20)                gain=0.40  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v4(s=2.2,j=0.20)                gain=0.50  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+
+v5a(s=1.8)                      noAGC     f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v5a(s=1.8)                      gain=0.40  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v5a(s=1.8)                      gain=0.50  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v5a(s=1.8)                      gain=0.60  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+
+v5b(s=1.8)                      noAGC     f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v5b(s=1.8)                      gain=0.40  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v5b(s=1.8)                      gain=0.50  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v5b(s=1.8)                      gain=0.60  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+
+v5c(s=1.8)                      noAGC     f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+
+v5d(s=1.8)                      noAGC     f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v5d(s=1.8)                      gain=0.40  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v5d(s=1.8)                      gain=0.50  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+v5d(s=1.8)                      gain=0.60  f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+
+v5e(s=1.8)                      noAGC     f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+
+fear_only                       noAGC     f9          0.6013   0.6013   0.0000   0.0000   0.6013   0.0000
+
+v4(s=1.4,j=off)                 gain=0.70  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+v4(s=1.4,j=0.20)                gain=0.70  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+v4(s=1.6,j=off)                 gain=0.70  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+v4(s=1.6,j=0.20)                gain=0.70  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+v4(s=1.8,j=off)                 gain=0.70  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+v4(s=1.8,j=0.20)                gain=0.70  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+v4(s=2.0,j=off)                 gain=0.70  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+v4(s=2.0,j=0.20)                gain=0.70  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+v4(s=2.2,j=off)                 gain=0.60  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+v4(s=2.2,j=0.20)                gain=0.60  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+
+v5a(s=1.8)                      gain=0.70  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+
+v5b(s=1.8)                      gain=0.70  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+
+v5c(s=1.8)                      gain=0.40  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+v5c(s=1.8)                      gain=0.50  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+
+v5d(s=1.8)                      gain=0.70  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+
+v5e(s=1.8)                      gain=0.40  f9          0.5974   0.6013   0.0000   0.0000   0.5974   0.0000
+
+v4(s=2.2,j=off)                 gain=0.70  f9          0.5935   0.6013   0.0000   0.0000   0.5935   0.0000
+v4(s=2.2,j=0.20)                gain=0.70  f9          0.5935   0.6013   0.0000   0.0000   0.5935   0.0000
+
+v5c(s=1.8)                      gain=0.70  f9          0.5897   0.6013   0.0000   0.0000   0.5897   0.0000
+
+v5e(s=1.8)                      gain=0.50  f9          0.5897   0.6013   0.0000   0.0000   0.5897   0.0000
+
+fear_only                       gain=0.60  f9          0.5897   0.6013   0.0000   0.0000   0.5897   0.0000
+fear_only                       gain=0.70  f9          0.5897   0.6013   0.0000   0.0000   0.5897   0.0000
+
+v5c(s=1.8)                      gain=0.60  f9          0.5860   0.6013   0.0000   0.0000   0.5860   0.0000
+
+fear_only                       gain=0.40  f9          0.5860   0.6013   0.0000   0.0000   0.5860   0.0000
+fear_only                       gain=0.50  f9          0.5860   0.6013   0.0000   0.0000   0.5860   0.0000
+
+v5e(s=1.8)                      gain=0.70  f9          0.5823   0.6013   0.0000   0.0000   0.5823   0.0000
+v5e(s=1.8)                      gain=0.60  f9          0.5786   0.6013   0.0000   0.0000   0.5786   0.0000
+
+v4(s=2.2,j=off)                 noAGC     f9          0.5444   0.6013   0.0190   0.0225   0.5444   0.0225
+v4(s=2.2,j=0.20)                noAGC     f9          0.5444   0.6013   0.0190   0.0000   0.5444   0.0000
+
+
+========================================================================
+  === Top 5 Configurations — All Formulas ===
+========================================================================
+
+  #1: fear_only_seg  noAGC  →  best=f3 (F1=0.6818)
+    f0    (F0        ): 0.3861
+    f1    (F1        ): 0.6131
+    f2    (F2        ): 0.6027
+    f3    (F3        ): 0.6818  <--
+    f4    (F4        ): 0.5034
+    f5    (F5        ): 0.4103
+    f6    (F6        ): 0.6077
+    f7    (hs_only   ): 0.6013  [hs-only]
+    f8    (mp_only   ): 0.2035
+    f9    (max       ): 0.2054
+    f10   (geomean   ): 0.6095
+    f11   (hs-anger  ): 0.5734  [hs-only]
+
+  #2: v4(s=1.4,j=off)  noAGC  →  best=f9 (F1=0.6013)
+    f0    (F0        ): 0.3692
+    f1    (F1        ): 0.0000
+    f2    (F2        ): 0.0000
+    f3    (F3        ): 0.1458
+    f4    (F4        ): 0.3651
+    f5    (F5        ): 0.0000
+    f6    (F6        ): 0.0000
+    f7    (hs_only   ): 0.6013  [hs-only]
+    f8    (mp_only   ): 0.0000
+    f9    (max       ): 0.6013  <--
+    f10   (geomean   ): 0.0000
+    f11   (hs-anger  ): 0.5734  [hs-only]
+
+  #3: v4(s=1.4,j=off)  gain=0.40  →  best=f9 (F1=0.6013)
+    f0    (F0        ): 0.3036
+    f1    (F1        ): 0.0000
+    f2    (F2        ): 0.0000
+    f3    (F3        ): 0.0444
+    f4    (F4        ): 0.3063
+    f5    (F5        ): 0.0000
+    f6    (F6        ): 0.0000
+    f7    (hs_only   ): 0.6013  [hs-only]
+    f8    (mp_only   ): 0.0000
+    f9    (max       ): 0.6013  <--
+    f10   (geomean   ): 0.0000
+    f11   (hs-anger  ): 0.5734  [hs-only]
+
+  #4: v4(s=1.4,j=off)  gain=0.50  →  best=f9 (F1=0.6013)
+    f0    (F0        ): 0.3036
+    f1    (F1        ): 0.0000
+    f2    (F2        ): 0.0000
+    f3    (F3        ): 0.0444
+    f4    (F4        ): 0.3063
+    f5    (F5        ): 0.0000
+    f6    (F6        ): 0.0000
+    f7    (hs_only   ): 0.6013  [hs-only]
+    f8    (mp_only   ): 0.0000
+    f9    (max       ): 0.6013  <--
+    f10   (geomean   ): 0.0000
+    f11   (hs-anger  ): 0.5734  [hs-only]
+
+  #5: v4(s=1.4,j=off)  gain=0.60  →  best=f9 (F1=0.6013)
+    f0    (F0        ): 0.3036
+    f1    (F1        ): 0.0000
+    f2    (F2        ): 0.0000
+    f3    (F3        ): 0.0444
+    f4    (F4        ): 0.3063
+    f5    (F5        ): 0.0000
+    f6    (F6        ): 0.0000
+    f7    (hs_only   ): 0.6013  [hs-only]
+    f8    (mp_only   ): 0.0000
+    f9    (max       ): 0.6013  <--
+    f10   (geomean   ): 0.0000
+    f11   (hs-anger  ): 0.5734  [hs-only]
+

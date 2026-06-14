@@ -1,0 +1,10 @@
+
+========================================================================
+  MP Feature Sweep — 20260502_014203_mp_only_S02_Vid04_dim.csv
+  GT: S02_Vid04.csv
+  GT fear events: 21  |  excluded (not scored): 11
+  Fixed: threshold=0.5  min_frames=15  window_size=10  fill_ratio=65%
+  pad=(-0.5s / +1.0s)  anger_coeff=0.6
+  AGC: decay=0.999  init=0.12  burnin=60fr
+========================================================================
+  [  1/80] Evaluating tension config... 

@@ -1,0 +1,221 @@
+
+======================================================================
+  rPPG × FER Evaluation — GAMEPLAY (4 sessions)
+  Window: 15.0s  Step: 3.0s
+======================================================================
+
+
+--- S04_Vid09 (gameplay) ---
+[video_extractor] Using cached S04_Vid09_rppg_frames.csv
+  BPM windows: 164  plausible: 164 (100.0%)  SNR: 4.89  median BPM: 79.7
+  GT events: 21
+
+--- S05_Vid10 (gameplay) ---
+[video_extractor] Using cached S05_Vid10_rppg_frames.csv
+  BPM windows: 110  plausible: 110 (100.0%)  SNR: 5.16  median BPM: 76.7
+  GT events: 8
+
+--- S06_Vid16 (gameplay) ---
+[video_extractor] Using cached S06_Vid16_rppg_frames.csv
+  BPM windows: 290  plausible: 290 (100.0%)  SNR: 3.97  median BPM: 78.7
+  GT events: 16
+
+--- S10_Vid13 (gameplay) ---
+[video_extractor] Using cached S10_Vid13_rppg_frames.csv
+  BPM windows: 139  plausible: 139 (100.0%)  SNR: 3.73  median BPM: 80.7
+  GT events: 9
+
+
+======================================================================
+  Per-Session rPPG Quality & BPM Summary — GAMEPLAY
+======================================================================
+  Tag                 Type           BPM Win   Plaus%     SNR   Med BPM   GT Evts   Fear BPM   Pre BPM     ΔBPM
+  S04_Vid09           gameplay           164   100.0%    4.89      79.7        21       80.7      79.9     +0.9
+  S05_Vid10           gameplay           110   100.0%    5.16      76.7         8       76.9      78.1     -1.2
+  S06_Vid16           gameplay           290   100.0%    3.97      78.7        16       81.0      79.7     +1.3
+  S10_Vid13           gameplay           139   100.0%    3.73      80.7         9       81.2      80.7     +0.4
+
+
+======================================================================
+  Aggregate Statistics — GAMEPLAY (4 sessions)
+======================================================================
+
+  BPM Fear vs Non-Fear (Welch's t-test):
+    Fear events:    n=52, mean=80.3, std=5.3
+    Non-fear:       n=200, mean=80.0, std=6.4
+    t = 0.288,  p = 0.7739,  Cohen's d = 0.042
+
+  BPM Delta (one-sample t-test, H₀: δ=0):
+    n=51,  mean Δ=0.62,  std=6.27
+    t = 0.708,  p = 0.4823,  95% CI = (-1.1, 2.34)
+
+
+======================================================================
+  FER (f12) × BPM Correlation — GAMEPLAY
+======================================================================
+  Tag                  Pearson r         p   Spearman ρ         p       n
+  S04_Vid09              -0.0413    0.6005      -0.0246    0.7549     163
+  S05_Vid10               0.0192    0.8426      -0.0153    0.8749     109
+  S06_Vid16               0.1106    0.0613       0.1521    0.0099     287
+  S10_Vid13               0.0107    0.9015       0.0582    0.4990     137
+
+  MEAN                    0.0248                 0.0426
+
+
+======================================================================
+  rPPG-Augmented Formula Evaluation — GAMEPLAY
+======================================================================
+
+
+======================================================================
+  --- rPPG Formula Comparison — GAMEPLAY (4 sessions) ---
+======================================================================
+Formula     Label          Thresh   MinFr     Win      Prec       Rec        F1
+f0          aro+T            0.60      15  strict    74.19%    42.59%    0.5412
+f0_rppg     aro+T+rppg       0.60      15  strict    77.42%    44.44%    0.5647
+f1          fear+T           0.40      15  strict    63.04%    53.70%    0.5800
+f1_rppg     fear+T+rppg      0.40       5      10    51.43%    66.67%    0.5806
+f2          fear+surp+T      0.40       5  strict    89.47%    31.48%    0.4658
+f2_rppg     fear+surp+T+rppg     0.40       5  strict    86.36%    35.19%    0.5000
+f3          balanced         0.50       5  strict    72.00%    66.67%    0.6923
+f3_rppg     balanced+rppg     0.50       5  strict    72.00%    66.67%    0.6923
+f4          f0_gated         0.50      15  strict    73.81%    57.41%    0.6458
+f4_rppg     f0_gated+rppg     0.50      15  strict    73.81%    57.41%    0.6458
+f5          startle          0.40       5      10    71.79%    51.85%    0.6022
+f5_rppg     startle+rppg     0.40       5      10    71.43%    55.56%    0.6250
+f6          anger_supp       0.40       5      20    65.91%    53.70%    0.5918
+f6_rppg     anger_supp+rppg     0.40       5      20    65.91%    53.70%    0.5918
+f7          hs_only          0.50       5      20    57.58%    70.37%    0.6333
+f7_rppg     hs_only+rppg     0.50       5      20    55.88%    70.37%    0.6230
+f8          mp_only          0.40      15      10     5.77%     5.56%    0.0566
+f8_rppg     mp_only+rppg     0.40      15      10     5.00%     5.56%    0.0526
+f9          max_fusion       0.50       5      20    56.72%    70.37%    0.6281
+f9_rppg     max_fusion+rppg     0.50       5      20    54.29%    70.37%    0.6129
+f10         geo_mean         0.40       5      10   100.00%    24.07%    0.3881
+f10_rppg    geo_mean+rppg     0.40       5      10   100.00%    24.07%    0.3881
+f11         hs-anger         0.50      15  strict    61.54%    59.26%    0.6038
+f11_rppg    hs-anger+rppg     0.50      15  strict    60.38%    59.26%    0.5981
+f12         hybrid_amp       0.80       5  strict    91.43%    59.26%    0.7191  <-- BEST
+f12_rppg    hybrid_amp+rppg     0.80       5      10    82.50%    61.11%    0.7021
+f13         fear*(1+T)       0.60       5      20    62.26%    61.11%    0.6168
+f13_rppg    fear*(1+T)+rppg     0.60       5      20    61.11%    61.11%    0.6111
+
+
+======================================================================
+  rPPG Benefit per Formula — GAMEPLAY
+======================================================================
+  Formula      Base F1   + rPPG F1       ΔF1    Change
+  f0            0.5412      0.5647   +0.0235     +4.3%
+  f1            0.5800      0.5806   +0.0006     +0.1%
+  f2            0.4658      0.5000   +0.0342     +7.4%
+  f3            0.6923      0.6923   +0.0000     +0.0%
+  f4            0.6458      0.6458   +0.0000     +0.0%
+  f5            0.6022      0.6250   +0.0228     +3.8%
+  f6            0.5918      0.5918   +0.0000     +0.0%
+  f7            0.6333      0.6230   -0.0104     -1.6%
+  f8            0.0566      0.0526   -0.0040     -7.0%
+  f9            0.6281      0.6129   -0.0152     -2.4%
+  f10           0.3881      0.3881   +0.0000     +0.0%
+  f11           0.6038      0.5981   -0.0056     -0.9%
+  f12           0.7191      0.7021   -0.0170     -2.4%
+  f13           0.6168      0.6111   -0.0057     -0.9%
+
+  → Largest rPPG benefit: f2 (ΔF1 = +0.0342)
+
+
+  Generating plots...
+  [rppg-timeline] → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260519_224204/S04_Vid09_rppg_timeline.png
+  [rppg-timeline] → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260519_224204/S05_Vid10_rppg_timeline.png
+  [rppg-timeline] → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260519_224204/S06_Vid16_rppg_timeline.png
+  [rppg-timeline] → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260519_224204/S10_Vid13_rppg_timeline.png
+  [rppg-distribution] → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260519_224204/rppg_bpm_distribution_GAMEPLAY.png
+  [rppg-correlation] → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260519_224204/rppg_correlation_GAMEPLAY.png
+  [rppg-events] → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260519_224204/rppg_event_stats_GAMEPLAY.csv
+  [rppg-formulas] → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260519_224204/rppg_formula_comparison_GAMEPLAY.csv
+
+
+======================================================================
+  Phase 2 Extended Analysis — GAMEPLAY
+======================================================================
+
+
+======================================================================
+  --- 2j. Comprehensive Controlled Sweep ---
+======================================================================
+
+  Extracting BPM for 4 windows × 3 algorithms = 12 configs
+  Extracting window=30s step=5s ... done.
+  Extracting window=15s step=3s ... done.
+  Extracting window=10s step=2s ... done.
+  Extracting window=5s step=1s ... done.
+
+
+======================================================================
+  Table 1: Fear Correlation Matrix — 4 sessions
+  3 methods × 3 algos × 4 windows
+======================================================================
+  Config                      Method           n      Fear        NF         p        d
+  CONSENSUS@30s/5s            Mean BPM        47      78.5      77.7    0.4046    0.143
+  CONSENSUS@30s/5s            Z-score         47     0.186     0.019    0.3080    0.173
+  CONSENSUS@30s/5s            Variability      4      3.91      3.85    0.9432    0.039
+  POS+CHROM@30s/5s            Mean BPM        47      75.5      73.9    0.3401    0.161
+  POS+CHROM@30s/5s            Z-score         47     0.116    -0.056    0.3096    0.173
+  POS+CHROM@30s/5s            Variability      4      6.02      5.72    0.8860    0.078
+  POS@30s/5s                  Mean BPM        47      84.6      80.4    0.0791    0.311
+  POS@30s/5s                  Z-score         47     0.091    -0.212    0.0418    0.340
+  POS@30s/5s                  Variability      4      8.35      9.29    0.7887   -0.146
+  CONSENSUS@15s/3s            Mean BPM        52      80.3      80.0    0.7739    0.042
+  CONSENSUS@15s/3s            Z-score         52     0.064     0.075    0.9287   -0.013
+  CONSENSUS@15s/3s            Variability      4      4.85       5.3    0.1406   -0.995
+  POS+CHROM@15s/3s            Mean BPM        52      77.1      76.3    0.5774    0.090
+  POS+CHROM@15s/3s            Z-score         52     0.075     0.021    0.7288    0.056
+  POS+CHROM@15s/3s            Variability      4      7.19      7.44    0.7568   -0.170
+  POS@15s/3s                  Mean BPM        52      91.3      87.1    0.1014    0.274
+  POS@15s/3s                  Z-score         52     0.114    -0.102    0.1618    0.231
+  POS@15s/3s                  Variability      4     10.63     10.66    0.9878   -0.008
+  CONSENSUS@10s/2s            Mean BPM        53      81.4      81.0    0.6643    0.068
+  CONSENSUS@10s/2s            Z-score         53     0.005    -0.005    0.9330    0.013
+  CONSENSUS@10s/2s            Variability      4      5.53      6.85    0.0411   -1.722
+  POS+CHROM@10s/2s            Mean BPM        53      80.0      76.3    0.0453    0.338
+  POS+CHROM@10s/2s            Z-score         53     0.162    -0.105    0.0666    0.308
+  POS+CHROM@10s/2s            Variability      4     10.36      9.33    0.5076    0.375
+  POS@10s/2s                  Mean BPM        53      96.2      89.2    0.0062    0.433
+  POS@10s/2s                  Z-score         53     0.201    -0.156    0.0065    0.437
+  POS@10s/2s                  Variability      4     14.25     11.79    0.2009    0.817
+  CONSENSUS@5s/1s             Mean BPM        54      84.2      84.4    0.8499   -0.031
+  CONSENSUS@5s/1s             Z-score         54    -0.075    -0.029    0.6650   -0.072
+  CONSENSUS@5s/1s             Variability      4      8.11       8.8    0.0634   -1.441
+  POS+CHROM@5s/1s             Mean BPM        54      83.2      80.0    0.0662    0.302
+  POS+CHROM@5s/1s             Z-score         54     0.099    -0.087    0.0846    0.282
+  POS+CHROM@5s/1s             Variability      4     12.35     13.24    0.3524   -0.549
+  POS@5s/1s                   Mean BPM        54     101.5      98.0    0.1553    0.225
+  POS@5s/1s                   Z-score         54     0.097    -0.072    0.1311    0.240
+  POS@5s/1s                   Variability      4     14.05     14.08    0.9830   -0.012
+
+  → Best cell: POS@10s/2s / Mean BPM (p=0.0062, d=0.433) [**SIGNIFICANT**]
+
+
+======================================================================
+  Table 2: f12 Augmentation Sweep — 4 sessions
+  12 configs × 4 coefficients
+======================================================================
+  Config                      c=0.3   c=0.5   c=0.8   c=1.0 
+  (no rPPG)                   0.7191  0.7191  0.7191  0.7191  <-- BASE
+  CONSENSUS@30s/5s            +0.0000  +0.0121  +0.0121  +0.0121
+  POS+CHROM@30s/5s            +0.0043  +0.0043  +0.0177  +0.0309
+  POS@30s/5s                  +0.0043  +0.0025  +0.0156  +0.0209
+  CONSENSUS@15s/3s            -0.0170  -0.0094  -0.0033  -0.0108
+  POS+CHROM@15s/3s            +0.0043  -0.0094  -0.0120  -0.0048
+  POS@15s/3s                  -0.0033  -0.0033  -0.0252  -0.0260
+  CONSENSUS@10s/2s            -0.0017  -0.0094  +0.0025  -0.0120
+  POS+CHROM@10s/2s            -0.0170  +0.0156  +0.0136  +0.0260
+  POS@10s/2s                  +0.0121  +0.0177  +0.0360  +0.0456
+  CONSENSUS@5s/1s             +0.0062  +0.0121  +0.0101  +0.0025
+  POS+CHROM@5s/1s             +0.0062  +0.0121  +0.0284  +0.0260
+  POS@5s/1s                   +0.0256  +0.0388  +0.0360  +0.0177
+
+  → Best augmentation: POS@10s/2s c=1.0 (F1=0.7647, Δ=+0.0456, P=81.2%, R=72.2%)
+
+  Log → /home/burak/Desktop/Bitirme/Pipeline/logs/comparisons/20260519_224204/evaluate_rppg_GAMEPLAY.txt
+  Done — GAMEPLAY evaluation complete.
+

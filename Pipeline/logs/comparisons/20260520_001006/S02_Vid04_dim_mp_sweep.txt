@@ -1,0 +1,192 @@
+
+========================================================================
+  MP Feature Sweep — 20260503_153301_mp_hs_S02_Vid04_dim.csv
+  GT: S02_Vid04.csv
+  GT fear events: 21  |  excluded (not scored): 11
+  Fixed: threshold=0.7  min_frames=5  window_size=10  fill_ratio=65%
+  pad=(-0.5s / +1.0s)  anger_coeff=0.6
+  AGC: decay=0.999  init=0.12  burnin=60fr
+========================================================================
+  [  1/81] Evaluating tension config...   [  2/81] Evaluating tension config...   [  3/81] Evaluating tension config...   [  4/81] Evaluating tension config...   [  5/81] Evaluating tension config...   [  6/81] Evaluating tension config...   [  7/81] Evaluating tension config...   [  8/81] Evaluating tension config...   [  9/81] Evaluating tension config...   [ 10/81] Evaluating tension config...   [ 11/81] Evaluating tension config...   [ 12/81] Evaluating tension config...   [ 13/81] Evaluating tension config...   [ 14/81] Evaluating tension config...   [ 15/81] Evaluating tension config...   [ 16/81] Evaluating tension config...   [ 17/81] Evaluating tension config...   [ 18/81] Evaluating tension config...   [ 19/81] Evaluating tension config...   [ 20/81] Evaluating tension config...   [ 21/81] Evaluating tension config...   [ 22/81] Evaluating tension config...   [ 23/81] Evaluating tension config...   [ 24/81] Evaluating tension config...   [ 25/81] Evaluating tension config...   [ 26/81] Evaluating tension config...   [ 27/81] Evaluating tension config...   [ 28/81] Evaluating tension config...   [ 29/81] Evaluating tension config...   [ 30/81] Evaluating tension config...   [ 31/81] Evaluating tension config...   [ 32/81] Evaluating tension config...   [ 33/81] Evaluating tension config...   [ 34/81] Evaluating tension config...   [ 35/81] Evaluating tension config...   [ 36/81] Evaluating tension config...   [ 37/81] Evaluating tension config...   [ 38/81] Evaluating tension config...   [ 39/81] Evaluating tension config...   [ 40/81] Evaluating tension config...   [ 41/81] Evaluating tension config...   [ 42/81] Evaluating tension config...   [ 43/81] Evaluating tension config...   [ 44/81] Evaluating tension config...   [ 45/81] Evaluating tension config...   [ 46/81] Evaluating tension config...   [ 47/81] Evaluating tension config...   [ 48/81] Evaluating tension config...   [ 49/81] Evaluating tension config...   [ 50/81] Evaluating tension config...   [ 51/81] Evaluating tension config...   [ 52/81] Evaluating tension config...   [ 53/81] Evaluating tension config...   [ 54/81] Evaluating tension config...   [ 55/81] Evaluating tension config...   [ 56/81] Evaluating tension config...   [ 57/81] Evaluating tension config...   [ 58/81] Evaluating tension config...   [ 59/81] Evaluating tension config...   [ 60/81] Evaluating tension config...   [ 61/81] Evaluating tension config...   [ 62/81] Evaluating tension config...   [ 63/81] Evaluating tension config...   [ 64/81] Evaluating tension config...   [ 65/81] Evaluating tension config...   [ 66/81] Evaluating tension config...   [ 67/81] Evaluating tension config...   [ 68/81] Evaluating tension config...   [ 69/81] Evaluating tension config...   [ 70/81] Evaluating tension config...   [ 71/81] Evaluating tension config...   [ 72/81] Evaluating tension config...   [ 73/81] Evaluating tension config...   [ 74/81] Evaluating tension config...   [ 75/81] Evaluating tension config...   [ 76/81] Evaluating tension config...   [ 77/81] Evaluating tension config...   [ 78/81] Evaluating tension config...   [ 79/81] Evaluating tension config...   [ 80/81] Evaluating tension config...   [ 81/81] Evaluating tension config...   Done — 81 configs evaluated.                    
+
+========================================================================
+  MP Tension Sweep — 20260503_153301_mp_hs_S02_Vid04_dim.csv
+  (BestFml ranks mp-sensitive formulas only; f7/f11 shown as spots)
+========================================================================
+
+TensionConfig                   Gain      BestFml     BestF1       f7       f8       f1       f9      f10
+--------------------------------------------------------------------------------------------------------------------
+
+fear_only_seg                   noAGC     f3          0.7826   0.7692   0.2675   0.7037   0.2781   0.6909  <-- BEST
+
+v4(s=1.4,j=off)                 noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.4,j=off)                 gain=0.40  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.4,j=off)                 gain=0.50  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.4,j=off)                 gain=0.60  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.4,j=0.20)                noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.4,j=0.20)                gain=0.40  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.4,j=0.20)                gain=0.50  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.4,j=0.20)                gain=0.60  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.6,j=off)                 noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.6,j=off)                 gain=0.40  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.6,j=off)                 gain=0.50  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.6,j=off)                 gain=0.60  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.6,j=0.20)                noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.6,j=0.20)                gain=0.40  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.6,j=0.20)                gain=0.50  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.6,j=0.20)                gain=0.60  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.8,j=off)                 noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.8,j=off)                 gain=0.40  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.8,j=off)                 gain=0.50  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.8,j=off)                 gain=0.60  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.8,j=0.20)                noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.8,j=0.20)                gain=0.40  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.8,j=0.20)                gain=0.50  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=1.8,j=0.20)                gain=0.60  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.0,j=off)                 noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.0,j=off)                 gain=0.40  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.0,j=off)                 gain=0.50  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.0,j=off)                 gain=0.60  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.0,j=0.20)                noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.0,j=0.20)                gain=0.40  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.0,j=0.20)                gain=0.50  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.0,j=0.20)                gain=0.60  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.2,j=off)                 noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.2,j=off)                 gain=0.40  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.2,j=off)                 gain=0.50  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.2,j=off)                 gain=0.60  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.2,j=0.20)                noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.2,j=0.20)                gain=0.40  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.2,j=0.20)                gain=0.50  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v4(s=2.2,j=0.20)                gain=0.60  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+
+v5a(s=1.8)                      noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v5a(s=1.8)                      gain=0.40  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v5a(s=1.8)                      gain=0.50  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v5a(s=1.8)                      gain=0.60  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+
+v5b(s=1.8)                      noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v5b(s=1.8)                      gain=0.40  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v5b(s=1.8)                      gain=0.50  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v5b(s=1.8)                      gain=0.60  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+
+v5c(s=1.8)                      noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+
+v5d(s=1.8)                      noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v5d(s=1.8)                      gain=0.40  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v5d(s=1.8)                      gain=0.50  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+v5d(s=1.8)                      gain=0.60  f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+
+v5e(s=1.8)                      noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+
+fear_only                       noAGC     f9          0.7692   0.7692   0.0000   0.0000   0.7692   0.0000
+
+v4(s=1.4,j=off)                 gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+v4(s=1.4,j=0.20)                gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+v4(s=1.6,j=off)                 gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+v4(s=1.6,j=0.20)                gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+v4(s=1.8,j=off)                 gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+v4(s=1.8,j=0.20)                gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+v4(s=2.0,j=off)                 gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+v4(s=2.0,j=0.20)                gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+v4(s=2.2,j=off)                 gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+v4(s=2.2,j=0.20)                gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+
+v5a(s=1.8)                      gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+
+v5b(s=1.8)                      gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+
+v5c(s=1.8)                      gain=0.40  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+v5c(s=1.8)                      gain=0.50  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+v5c(s=1.8)                      gain=0.60  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+
+v5d(s=1.8)                      gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+
+v5e(s=1.8)                      gain=0.40  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+v5e(s=1.8)                      gain=0.50  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+v5e(s=1.8)                      gain=0.60  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+
+fear_only                       gain=0.40  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+fear_only                       gain=0.50  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+fear_only                       gain=0.60  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+fear_only                       gain=0.70  f9          0.7500   0.7692   0.0000   0.0000   0.7500   0.0000
+
+v5c(s=1.8)                      gain=0.70  f9          0.7317   0.7692   0.0000   0.0000   0.7317   0.0000
+
+v5e(s=1.8)                      gain=0.70  f9          0.7317   0.7692   0.0000   0.0000   0.7317   0.0000
+
+
+========================================================================
+  === Top 5 Configurations — All Formulas ===
+========================================================================
+
+  #1: fear_only_seg  noAGC  →  best=f3 (F1=0.7826)
+    f0    (F0        ): 0.6545
+    f1    (F1        ): 0.7037
+    f2    (F2        ): 0.7000
+    f3    (F3        ): 0.7826  <--
+    f4    (F4        ): 0.7660
+    f5    (F5        ): 0.5294
+    f6    (F6        ): 0.7234
+    f7    (hs_only   ): 0.7692
+    f8    (mp_only   ): 0.2675
+    f9    (max       ): 0.2781
+    f10   (geomean   ): 0.6909
+    f11   (hs-anger  ): 0.7568
+
+  #2: v4(s=1.4,j=off)  noAGC  →  best=f9 (F1=0.7692)
+    f0    (F0        ): 0.2581
+    f1    (F1        ): 0.0000
+    f2    (F2        ): 0.0000
+    f3    (F3        ): 0.1667
+    f4    (F4        ): 0.2667
+    f5    (F5        ): 0.0000
+    f6    (F6        ): 0.0000
+    f7    (hs_only   ): 0.7692
+    f8    (mp_only   ): 0.0000
+    f9    (max       ): 0.7692  <--
+    f10   (geomean   ): 0.0000
+    f11   (hs-anger  ): 0.7568
+
+  #3: v4(s=1.4,j=off)  gain=0.40  →  best=f9 (F1=0.7692)
+    f0    (F0        ): 0.2222
+    f1    (F1        ): 0.0000
+    f2    (F2        ): 0.0000
+    f3    (F3        ): 0.0000
+    f4    (F4        ): 0.2222
+    f5    (F5        ): 0.0000
+    f6    (F6        ): 0.0000
+    f7    (hs_only   ): 0.7692
+    f8    (mp_only   ): 0.0000
+    f9    (max       ): 0.7692  <--
+    f10   (geomean   ): 0.0000
+    f11   (hs-anger  ): 0.7568
+
+  #4: v4(s=1.4,j=off)  gain=0.50  →  best=f9 (F1=0.7692)
+    f0    (F0        ): 0.2222
+    f1    (F1        ): 0.0000
+    f2    (F2        ): 0.0000
+    f3    (F3        ): 0.0000
+    f4    (F4        ): 0.2222
+    f5    (F5        ): 0.0000
+    f6    (F6        ): 0.0000
+    f7    (hs_only   ): 0.7692
+    f8    (mp_only   ): 0.0000
+    f9    (max       ): 0.7692  <--
+    f10   (geomean   ): 0.0000
+    f11   (hs-anger  ): 0.7568
+
+  #5: v4(s=1.4,j=off)  gain=0.60  →  best=f9 (F1=0.7692)
+    f0    (F0        ): 0.2222
+    f1    (F1        ): 0.0000
+    f2    (F2        ): 0.0000
+    f3    (F3        ): 0.0000
+    f4    (F4        ): 0.2222
+    f5    (F5        ): 0.0000
+    f6    (F6        ): 0.0000
+    f7    (hs_only   ): 0.7692
+    f8    (mp_only   ): 0.0000
+    f9    (max       ): 0.7692  <--
+    f10   (geomean   ): 0.0000
+    f11   (hs-anger  ): 0.7568
+

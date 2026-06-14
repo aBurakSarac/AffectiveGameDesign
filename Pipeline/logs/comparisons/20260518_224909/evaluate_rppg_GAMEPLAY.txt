@@ -1,0 +1,62 @@
+
+======================================================================
+  rPPG × FER Evaluation — GAMEPLAY (4 sessions)
+  Window: 15.0s  Step: 3.0s
+======================================================================
+
+
+--- S04_Vid09 (gameplay) ---
+[video_extractor] Using cached S04_Vid09_rppg_frames.csv
+  BPM windows: 164  plausible: 164 (100.0%)  SNR: 4.89  median BPM: 79.7
+  GT events: 21
+
+--- S05_Vid10 (gameplay) ---
+[video_extractor] Using cached S05_Vid10_rppg_frames.csv
+  BPM windows: 110  plausible: 110 (100.0%)  SNR: 5.16  median BPM: 76.7
+  GT events: 8
+
+--- S06_Vid16 (gameplay) ---
+[video_extractor] Using cached S06_Vid16_rppg_frames.csv
+  BPM windows: 290  plausible: 290 (100.0%)  SNR: 3.97  median BPM: 78.7
+  GT events: 16
+
+--- S10_Vid13 (gameplay) ---
+[video_extractor] Using cached S10_Vid13_rppg_frames.csv
+  BPM windows: 139  plausible: 139 (100.0%)  SNR: 3.73  median BPM: 80.7
+  GT events: 9
+
+
+======================================================================
+  Per-Session rPPG Quality & BPM Summary — GAMEPLAY
+======================================================================
+  Tag                 Type           BPM Win   Plaus%     SNR   Med BPM   GT Evts   Fear BPM   Pre BPM     ΔBPM
+  S04_Vid09           gameplay           164   100.0%    4.89      79.7        21       80.7      79.9     +0.9
+  S05_Vid10           gameplay           110   100.0%    5.16      76.7         8       76.9      78.1     -1.2
+  S06_Vid16           gameplay           290   100.0%    3.97      78.7        16       81.0      79.7     +1.3
+  S10_Vid13           gameplay           139   100.0%    3.73      80.7         9       81.2      80.7     +0.4
+
+
+======================================================================
+  Aggregate Statistics — GAMEPLAY (4 sessions)
+======================================================================
+
+  BPM Fear vs Non-Fear (Welch's t-test):
+    Fear events:    n=52, mean=80.3, std=5.3
+    Non-fear:       n=200, mean=80.0, std=6.4
+    t = 0.288,  p = 0.7739,  Cohen's d = 0.042
+
+  BPM Delta (one-sample t-test, H₀: δ=0):
+    n=51,  mean Δ=0.62,  std=6.27
+    t = 0.708,  p = 0.4823,  95% CI = (-1.1, 2.34)
+
+
+======================================================================
+  FER (f12) × BPM Correlation — GAMEPLAY
+======================================================================
+  Tag                  Pearson r         p   Spearman ρ         p       n
+  S04_Vid09              -0.0413    0.6005      -0.0246    0.7549     163
+  S05_Vid10               0.0192    0.8426      -0.0153    0.8749     109
+  S06_Vid16               0.1106    0.0613       0.1521    0.0099     287
+  S10_Vid13               0.0107    0.9015       0.0582    0.4990     137
+
+  MEAN                    0.0248                 0.0426

@@ -1,0 +1,139 @@
+
+========================================================================
+  MP Feature Sweep — 20260502_021020_mp_only_S08_Vid18_mixed.csv
+  [MP-ONLY] No hs_* columns — sweeping stored tension variants only.
+  Stored variants: mp_tension_v3, mp_tension_v4, mp_tension_v5a, mp_tension_v5b, mp_tension_v5c, mp_tension_v5d, mp_tension_v5e, mp_tension_velocity
+  f7/f10/f11 will be zero; f8/f9 carry full signal; f0-f6 are attenuated.
+  GT: S08_Vid18.csv
+  GT fear events: 13  |  excluded (not scored): 5
+  Fixed: threshold=0.5  min_frames=15  window_size=30  fill_ratio=25%
+  pad=(-0.5s / +1.0s)  anger_coeff=0.6
+  AGC: decay=0.999  init=0.12  burnin=60fr
+========================================================================
+  [  1/35] Evaluating tension config...   [  2/35] Evaluating tension config...   [  3/35] Evaluating tension config...   [  4/35] Evaluating tension config...   [  5/35] Evaluating tension config...   [  6/35] Evaluating tension config...   [  7/35] Evaluating tension config...   [  8/35] Evaluating tension config...   [  9/35] Evaluating tension config...   [ 10/35] Evaluating tension config...   [ 11/35] Evaluating tension config...   [ 12/35] Evaluating tension config...   [ 13/35] Evaluating tension config...   [ 14/35] Evaluating tension config...   [ 15/35] Evaluating tension config...   [ 16/35] Evaluating tension config...   [ 17/35] Evaluating tension config...   [ 18/35] Evaluating tension config...   [ 19/35] Evaluating tension config...   [ 20/35] Evaluating tension config...   [ 21/35] Evaluating tension config...   [ 22/35] Evaluating tension config...   [ 23/35] Evaluating tension config...   [ 24/35] Evaluating tension config...   [ 25/35] Evaluating tension config...   [ 26/35] Evaluating tension config...   [ 27/35] Evaluating tension config...   [ 28/35] Evaluating tension config...   [ 29/35] Evaluating tension config...   [ 30/35] Evaluating tension config...   [ 31/35] Evaluating tension config...   [ 32/35] Evaluating tension config...   [ 33/35] Evaluating tension config...   [ 34/35] Evaluating tension config...   [ 35/35] Evaluating tension config...   Done — 35 configs evaluated.                    
+
+========================================================================
+  MP Tension Sweep — 20260502_021020_mp_only_S08_Vid18_mixed.csv
+  (BestFml ranks mp-sensitive formulas only; f7/f11 shown as spots)
+========================================================================
+
+TensionConfig                   Gain      BestFml     BestF1       f8       f9       f5       f1       f0
+--------------------------------------------------------------------------------------------------------------------
+
+stored_v3                       noAGC     f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v3                       gain=0.40  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v3                       gain=0.50  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v3                       gain=0.60  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v3                       gain=0.70  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+
+stored_v4                       noAGC     f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v4                       gain=0.40  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v4                       gain=0.50  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v4                       gain=0.60  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v4                       gain=0.70  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+
+stored_v5a                      noAGC     f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5a                      gain=0.40  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5a                      gain=0.50  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5a                      gain=0.60  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5a                      gain=0.70  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+
+stored_v5b                      noAGC     f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5b                      gain=0.40  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5b                      gain=0.50  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5b                      gain=0.60  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5b                      gain=0.70  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+
+stored_v5c                      noAGC     f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5c                      gain=0.40  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5c                      gain=0.50  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5c                      gain=0.60  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5c                      gain=0.70  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+
+stored_v5d                      noAGC     f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5d                      gain=0.40  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5d                      gain=0.50  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5d                      gain=0.60  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5d                      gain=0.70  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+
+stored_v5e                      noAGC     f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5e                      gain=0.40  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5e                      gain=0.50  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5e                      gain=0.60  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+stored_v5e                      gain=0.70  f0          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000  <-- BEST
+
+
+========================================================================
+  === Top 5 Configurations — All Formulas ===
+========================================================================
+
+  #1: stored_v3  noAGC  →  best=f0 (F1=0.0000)
+    f0    (F0        ): 0.0000  <--
+    f1    (F1        ): 0.0000
+    f2    (F2        ): 0.0000
+    f3    (F3        ): 0.0000
+    f4    (F4        ): 0.0000
+    f5    (F5        ): 0.0000
+    f6    (F6        ): 0.0000
+    f7    (hs_only   ): 0.0000
+    f8    (mp_only   ): 0.0000
+    f9    (max       ): 0.0000
+    f10   (geomean   ): 0.0000
+    f11   (hs-anger  ): 0.0000
+
+  #2: stored_v3  gain=0.40  →  best=f0 (F1=0.0000)
+    f0    (F0        ): 0.0000  <--
+    f1    (F1        ): 0.0000
+    f2    (F2        ): 0.0000
+    f3    (F3        ): 0.0000
+    f4    (F4        ): 0.0000
+    f5    (F5        ): 0.0000
+    f6    (F6        ): 0.0000
+    f7    (hs_only   ): 0.0000
+    f8    (mp_only   ): 0.0000
+    f9    (max       ): 0.0000
+    f10   (geomean   ): 0.0000
+    f11   (hs-anger  ): 0.0000
+
+  #3: stored_v3  gain=0.50  →  best=f0 (F1=0.0000)
+    f0    (F0        ): 0.0000  <--
+    f1    (F1        ): 0.0000
+    f2    (F2        ): 0.0000
+    f3    (F3        ): 0.0000
+    f4    (F4        ): 0.0000
+    f5    (F5        ): 0.0000
+    f6    (F6        ): 0.0000
+    f7    (hs_only   ): 0.0000
+    f8    (mp_only   ): 0.0000
+    f9    (max       ): 0.0000
+    f10   (geomean   ): 0.0000
+    f11   (hs-anger  ): 0.0000
+
+  #4: stored_v3  gain=0.60  →  best=f0 (F1=0.0000)
+    f0    (F0        ): 0.0000  <--
+    f1    (F1        ): 0.0000
+    f2    (F2        ): 0.0000
+    f3    (F3        ): 0.0000
+    f4    (F4        ): 0.0000
+    f5    (F5        ): 0.0000
+    f6    (F6        ): 0.0000
+    f7    (hs_only   ): 0.0000
+    f8    (mp_only   ): 0.0000
+    f9    (max       ): 0.0000
+    f10   (geomean   ): 0.0000
+    f11   (hs-anger  ): 0.0000
+
+  #5: stored_v3  gain=0.70  →  best=f0 (F1=0.0000)
+    f0    (F0        ): 0.0000  <--
+    f1    (F1        ): 0.0000
+    f2    (F2        ): 0.0000
+    f3    (F3        ): 0.0000
+    f4    (F4        ): 0.0000
+    f5    (F5        ): 0.0000
+    f6    (F6        ): 0.0000
+    f7    (hs_only   ): 0.0000
+    f8    (mp_only   ): 0.0000
+    f9    (max       ): 0.0000
+    f10   (geomean   ): 0.0000
+    f11   (hs-anger  ): 0.0000
+

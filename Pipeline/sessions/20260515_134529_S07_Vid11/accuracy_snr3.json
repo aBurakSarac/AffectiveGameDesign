@@ -1,0 +1,51 @@
+{
+  "CHROM": {
+    "mae": 9.83,
+    "rmse": 12.0,
+    "pearson_r": -0.256,
+    "bias": -9.77,
+    "n": 14
+  },
+  "POS": {
+    "mae": 8.58,
+    "rmse": 17.89,
+    "pearson_r": 0.825,
+    "bias": 6.48,
+    "n": 6
+  },
+  "GREEN": {
+    "mae": 3.47,
+    "rmse": 4.27,
+    "pearson_r": -0.932,
+    "bias": -2.07,
+    "n": 6
+  },
+  "ICA": {
+    "mae": 6.7,
+    "rmse": 6.72,
+    "pearson_r": NaN,
+    "bias": 6.7,
+    "n": 2
+  },
+  "WAVELET": {
+    "mae": 15.79,
+    "rmse": 16.76,
+    "pearson_r": 0.015,
+    "bias": 7.46,
+    "n": 8
+  },
+  "CONSENSUS": {
+    "mae": 4.89,
+    "rmse": 5.52,
+    "pearson_r": 0.422,
+    "bias": 0.01,
+    "n": 14
+  },
+  "ALL": {
+    "mae": 8.36,
+    "rmse": 11.67,
+    "pearson_r": 0.173,
+    "bias": -0.74,
+    "n": 50
+  }
+}
