@@ -1,0 +1,4 @@
+start_s,end_s,label,trigger_event,noise_flag,intensity
+00:20,00:49,Fear,,0,4
+01:15,01:17,Fear,,0,3
+01:27,01:41,Fear,,Face detection loss,5

@@ -1,0 +1,6 @@
+start_s,end_s,label,trigger_event,noise_flag,intensity
+02:10,02:15,fear,enemy spotted,0,3
+02:23,02:29,slight_fear,,0,2
+02:34,02:40,fear,death,hands cover face,4
+04:58,05:01,fear,,0,3
+08:16,08:22,fear,death,hands cover face,5

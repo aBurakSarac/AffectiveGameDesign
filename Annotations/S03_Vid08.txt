@@ -1,0 +1,1 @@
+Aborted because face detection failure

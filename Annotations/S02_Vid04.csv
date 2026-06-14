@@ -1,0 +1,33 @@
+start_s,end_s,label,trigger_event,noise_flag,intensity
+0:02,0:03,slight_fear,jumpscare_sound,0,1
+0:10,0:11,fear,trap_activated,0,3
+0:24,0:26,fear,jumpscare_sound,0,3
+0:42,0:44,disgust,bodyhorror,0,4
+0:58,1:04,fear,sudden ally death,0,4
+1:26,1:35,anger,fight event,0,4
+1:35,1:41,fear,enemy_sight,0,3
+2:44,2:46,fear,enemy_seen,0,2
+2:56,3:04,fear,chase sequence,0,4
+3:07,3:09,fear,cutscene,0,5
+3:41,3:43,fear,caught,0,4
+3:50,3:55,fear,caught,0,5
+4:05,4:09,slight_fear,escape,0,2
+4:10,4:13,fear,caught,0,5
+4:13,4:20,obscured,hand on face,1,0
+4:21,4:24,fear,jumpscare,0,5
+4:37,4:43,anger,mimicking enemy callout,0,3
+4:44 ,4:50,fear,hiding,0,3
+5:00,5:07,side_profile,death scene,1,0
+5:16,5:29,slight_fear,hiding,0,2
+5:32,5:34,obscured,hand_on_face,1,0
+5:36,5:46,fear,escaping,0,3
+5:57,6:03,fear,caught,0,4
+6:39,5:42,obscured,hand on face,1,0
+6:49,6:53,fear,caught,0,3
+6:57,7:01,fear,enemy_seen,0,3
+7:06,7:10,fear,caıght,0,4
+7:45,7:52,fear,caught,0,3
+8:21,8:25,fear,caught,0,5
+8:37,8:39,fear,fight,0,3
+8:41,8:42,fear,enemy_seen,0,2
+9:04,9:06,slight_fear,enemy_seen,0,2

@@ -1,0 +1,16 @@
+start_s,end_s,label,trigger_event,noise_flag,intensity
+00:20,00:24,NotFear,,0,5
+00:25,00:29 ,Fear,,0,3
+00:40,00:42,NotFear,,,2
+00:44,00:47,Fear,,0,5
+01:18,01:23,NotFear,,0,2
+01:23,01:27,Fear,,0,4
+01:29,01:32,Fear,,0,3
+01:48,02:13,Fear,,0,3
+02:14,02:21,Fear,,0,3
+02:27,02:51,Fear,,0,2
+03:04,03:08,NotFear,,Partially Occluded,4
+03:35,03:39,NotFear,,0,3
+04:36,04:38,NotFear,,0,4
+04:39,04:41,NotFear,,0,4
+04:50,04:53,Fear,,0,4
