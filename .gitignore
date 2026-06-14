@@ -14,6 +14,9 @@ Pipeline/fer/models/
 Pipeline/archive_legacy/models/
 Pipeline/rppg/huami-token/
 
+# ── Pipeline: local symlinks (absolute paths, break on GitHub) ──
+Pipeline/sessions/*/frames.csv
+
 # ── Pipeline: generated annotated videos ──
 Pipeline/**/*.mp4
 
